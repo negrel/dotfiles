@@ -37,7 +37,7 @@ while [ "$#" -gt "0" ]; do
 			;;
 
 		-m|--memory)
-			systemd_run_options+=( "-p MemoryMax=$2" )
+			systemd_run_options+=( "-p MemoryMax=$2 -p MemoryHigh=$2" )
 			shift 2
 			;;
 
@@ -58,4 +58,4 @@ while [ "$#" -gt "0" ]; do
 done
 
 # shellcheck disable=SC2068
-systemd-run --scope ${systemd_run_options[@]} --user "$@"
+exec systemd-run --scope ${systemd_run_options[@]} --user "$@"

@@ -48,7 +48,6 @@
         tree
         # DNS tools
         dig
-        bind
         # Map network
         nmap
         # Determine file type.
@@ -65,7 +64,6 @@
         amdgpu_top
         # Kernel specific
         linuxPackages_zen.cpupower
-        linuxPackages_zen.perf
         # Visualization for profiled code.
         flamegraph
         # TUI file manager
@@ -76,6 +74,8 @@
         rclone
         # SSH alternative for unstable connection
         mosh
+        # Linux performance analysis tool.
+        perf
       ];
     };
 }
