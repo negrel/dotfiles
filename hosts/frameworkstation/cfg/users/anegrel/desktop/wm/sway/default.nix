@@ -54,16 +54,6 @@ let
       ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
     '';
   };
-
-  kdeconnectd = pkgs.writeTextFile {
-    name = "kdeconnectd";
-    destination = "/bin/kdeconnectd";
-    executable = true;
-
-    text = ''
-      exec ${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd
-    '';
-  };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -71,9 +61,6 @@ in
     configure-gtk
     dbus-sway-environment
     polkit-gnome-authentication-agent
-
-    # Kde connect
-    kdeconnectd
   ];
 
   programs.sway = {
@@ -105,7 +92,7 @@ in
         include ${./config/sway/minimal}
 
         # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
-        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
+        exec "${pkgs.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
         bindsym Mod4+shift+e exec swaynag \
           -t warning \
           -m 'What do you want to do?' \
@@ -137,10 +124,6 @@ in
   # Enable polkit daemon
   # Gnome authentication agent is started in sway
   security.polkit.enable = true;
-
-  # Kde connect
-  programs.kdeconnect.enable = true;
-  programs.kdeconnect.package = kdeconnectd;
 
   home-manager.users.anegrel =
     { ... }:
