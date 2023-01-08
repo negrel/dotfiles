@@ -1,0 +1,10 @@
+@import '/home/anegrel/.cache/theme/colors';
+@import './widgets';
+@import './windows/all';
+
+* {
+	// Unsets everything so you can style everything from scratch
+	all: unset;
+	font-family: mono emoji;
+}
+

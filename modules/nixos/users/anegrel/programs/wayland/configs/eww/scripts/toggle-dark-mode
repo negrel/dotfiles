@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
+
+current=$(gsettings get org.gnome.desktop.interface color-scheme)
+
+if [ "$current" == "'default'" ]; then
+	gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+	eww -c "$SCRIPT_DIR/.." update dark-mode-enabled=true
+else
+	gsettings set org.gnome.desktop.interface color-scheme 'default'
+	eww -c "$SCRIPT_DIR/.." update dark-mode-enabled=false
+fi
+

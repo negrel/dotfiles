@@ -1,0 +1,21 @@
+$wallpaper = @@WALLPAPER@@
+
+$background = rgb(@@BACKGROUND@@)
+$foreground = rgb(@@FOREGROUND@@)
+
+$color0 = rgb(@@COLOR0@@)
+$color1 = rgb(@@COLOR1@@)
+$color2 = rgb(@@COLOR2@@)
+$color3 = rgb(@@COLOR3@@)
+$color4 = rgb(@@COLOR4@@)
+$color5 = rgb(@@COLOR5@@)
+$color6 = rgb(@@COLOR6@@)
+$color7 = rgb(@@COLOR7@@)
+$color8 = rgb(@@COLOR8@@)
+$color9 = rgb(@@COLOR9@@)
+$color10 = rgb(@@COLOR10@@)
+$color11 = rgb(@@COLOR11@@)
+$color12 = rgb(@@COLOR12@@)
+$color13 = rgb(@@COLOR13@@)
+$color14 = rgb(@@COLOR14@@)
+$color15 = rgb(@@COLOR15@@)

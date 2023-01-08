@@ -1,0 +1,34 @@
+font=monospace
+indicator-radius=100
+indicator-thickness=10
+#indicator-idle-visible
+#no-unlock-indicator
+
+inside-color=#@@BACKGROUND@@ee
+inside-clear-color=#@@BACKGROUND@@ee
+inside-ver-color=#@@BACKGROUND@@ee
+inside-wrong-color=#@@BACKGROUND@@ee
+line-uses-inside
+
+key-hl-color=#@@COLOR3@@ee
+layout-border-color=#@@COLOR3@@ee
+
+ring-color=#@@COLOR5@@ee
+ring-clear-color=#@@COLOR3@@ee
+ring-ver-color=#@@COLOR5@@ee
+ring-wrong-color=#@@COLOR1@@ee
+separator-color=#@@COLOR5@@ee
+
+text-color=#@@FOREGROUND@@
+text-clear-color=#@@FOREGROUND@@
+text-ver-color=#@@FOREGROUND@@
+text-wrong-color=#@@FOREGROUND@@
+
+image=@@WALLPAPER@@
+
+# Swaylock Effects options
+timestr=%H:%M
+datestr=%a %d %b
+fade-in=0.5
+indicator
+clock

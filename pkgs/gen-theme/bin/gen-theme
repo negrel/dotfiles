@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -e
+
+: "${TEMPLATE_DIR:=$HOME/.config/gen-theme/templates}"
+: "${OUT_DIR:=$HOME/.cache/theme}"
+: "${COLORS_SCHEMES_DIR:=$HOME/.config/gen-theme/colorschemes}"
+
+COLORS_SCHEME=${1:-""}
+
+if [ -z "$COLORS_SCHEME" ]; then
+	echo "missing COLORS_SCHEME option." >&2
+	exit 1
+fi
+
+if [ ! -e "$COLORS_SCHEMES_DIR/$COLORS_SCHEME" ]; then
+	echo "colorscheme $COLORS_SCHEME missing in $COLORS_SCHEMES_DIR/ directory" >&2
+	exit 1
+fi
+
+mkdir -p "$OUT_DIR"
+
+# Source colors scheme file
+# shellcheck source=/dev/null
+source "$COLORS_SCHEMES_DIR/$COLORS_SCHEME"
+
+for tpl in "$TEMPLATE_DIR"/*; do
+	test -e "$tpl" || continue;
+
+	out=$OUT_DIR/$(basename "$tpl")
+
+	sed \
+		-e "s|@@WALLPAPER@@|${wallpaper:-ff0000}|" \
+		-e "s|@@BACKGROUND@@|${background:-ff0000}|" \
+		-e "s|@@FOREGROUND@@|${foreground:-ff0000}|" \
+		-e "s|@@CURSOR@@|${cursor:-ff0000}|" \
+		-e "s|@@COLOR0@@|${color0:-ff0000}|" \
+		-e "s|@@COLOR1@@|${color1:-ff0000}|" \
+		-e "s|@@COLOR2@@|${color2:-ff0000}|" \
+		-e "s|@@COLOR3@@|${color3:-ff0000}|" \
+		-e "s|@@COLOR4@@|${color4:-ff0000}|" \
+		-e "s|@@COLOR5@@|${color5:-ff0000}|" \
+		-e "s|@@COLOR6@@|${color6:-ff0000}|" \
+		-e "s|@@COLOR7@@|${color7:-ff0000}|" \
+		-e "s|@@COLOR8@@|${color8:-ff0000}|" \
+		-e "s|@@COLOR9@@|${color9:-ff0000}|" \
+		-e "s|@@COLOR10@@|${color10:-ff0000}|" \
+		-e "s|@@COLOR11@@|${color11:-ff0000}|" \
+		-e "s|@@COLOR12@@|${color12:-ff0000}|" \
+		-e "s|@@COLOR13@@|${color13:-ff0000}|" \
+		-e "s|@@COLOR14@@|${color14:-ff0000}|" \
+		-e "s|@@COLOR15@@|${color15:-ff0000}|" \
+		"$tpl" > "$out"
+done

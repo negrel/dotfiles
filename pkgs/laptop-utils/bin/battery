@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s inherit_errexit
+
+print_help() {
+	  cat <<EOF
+battery - Show information about battery status.
+USAGE:
+  battery [OPTION...] SUBCOMMAND
+
+SUBCOMMAND:
+  help                          print help menu
+  level                         print battery level
+  percentage                    print battery percentage
+  status                        print battery status (Charging/Discharging)
+
+OPTIONS:
+  -b, --bat                     battery name (default: BAT0)
+  --debug                       enable debug logs
+  -h, --help                    print help menu
+EOF
+}
+
+bat="BAT0"
+
+while [ "$#" -gt "0" ]; do
+	case "$1" in
+		-b|--bat)
+			bat="$2"
+			shift 2
+			;;
+
+		--debug)
+			set -x
+			shift
+			;;
+
+		--help|-h)
+			print_help
+			exit 0
+			;;
+
+		--)
+			shift
+			break
+			;;
+
+		-*)
+			echo "unknown option: $1"
+			exit 1
+			;;
+
+		*)
+			break
+			;;
+	esac
+done
+
+case "${1:-""}" in
+	help)
+		print_help
+		exit 0
+		;;
+
+	percentage|"")
+		cat "/sys/class/power_supply/$bat/capacity"
+		;;
+
+	level)
+		cat "/sys/class/power_supply/$bat/level"
+		;;
+
+	status)
+		cat "/sys/class/power_supply/$bat/status"
+		;;
+
+	*)
+		echo "unknown command: $1"
+		exit 1
+		;;
+esac
+

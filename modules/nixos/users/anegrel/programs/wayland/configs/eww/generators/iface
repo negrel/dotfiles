@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+iface="$(lsjson /sys/class/net | jq -r '.[1]')"
+
+printf '(defvar iface "%s")\n' "$iface"

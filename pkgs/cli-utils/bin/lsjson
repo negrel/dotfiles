@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+ls "$@" | jq -R -s -c 'split("\n")[:-1]'
+

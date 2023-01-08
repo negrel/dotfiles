@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [ "$(find ~/.config/profile.d/ | wc -l)" = "0" ]; then
+  echo "no profile script to run in \"~/.config/profile.d/\"" >&2
+  return
+fi
+
+for f in ~/.config/profile.d/*; do
+	# shellcheck source=/dev/null
+  source "$f"
+done
+
+exec "$@"

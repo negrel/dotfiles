@@ -1,0 +1,21 @@
+set $wallpaper @@WALLPAPER@@
+
+set $background #@@BACKGROUND@@
+set $foreground #@@FOREGROUND@@
+
+set $color0 #@@COLOR0@@
+set $color1 #@@COLOR1@@
+set $color2 #@@COLOR2@@
+set $color3 #@@COLOR3@@
+set $color4 #@@COLOR4@@
+set $color5 #@@COLOR5@@
+set $color6 #@@COLOR6@@
+set $color7 #@@COLOR7@@
+set $color8 #@@COLOR8@@
+set $color9 #@@COLOR9@@
+set $color10 #@@COLOR10@@
+set $color11 #@@COLOR11@@
+set $color12 #@@COLOR12@@
+set $color13 #@@COLOR13@@
+set $color14 #@@COLOR14@@
+set $color15 #@@COLOR15@@

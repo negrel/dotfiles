@@ -1,0 +1,32 @@
+max-history=10
+
+default-timeout=2000
+
+font=monospace 8
+background-color=#@@BACKGROUND@@ee
+text-color=#@@FOREGROUND@@
+border-color=#@@FOREGROUND@@
+progress-color=source #@@FOREGROUND@@aa
+width=400
+
+on-notify=exec beep
+
+[category=system]
+on-notify=exec true
+default-timeout=1000
+
+[category=system-overlay]
+on-notify=exec true
+default-timeout=1000
+anchor=center
+
+[actionable=true]
+default-timeout=4000
+
+[urgency=critical]
+default-timeout=0
+border-color=#f7768e
+
+[mode=do-not-disturb]
+invisible=1
+
