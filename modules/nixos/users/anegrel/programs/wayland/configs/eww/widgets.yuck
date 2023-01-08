@@ -1,0 +1,62 @@
+;; Reusable widgets
+(defwidget large-icon-button [?class icon text onclick ?space-evenly]
+  (button :class "large-icon-button ${class}"
+          :onclick onclick
+    (box :halign "start"
+         :space-evenly space-evenly
+      (icon :icon icon)
+      (label :class "text" :text text))))
+
+(defwidget icon-button [?class icon ?tooltip onclick]
+  (button :class "icon-button ${class}"
+          :onclick onclick
+      (icon :icon icon tooltip "${tooltip}")))
+
+(defwidget icon [?class ?tooltip icon]
+  (label :class "icon ${class}" :tooltip tooltip :text icon))
+
+;; Todays calendar
+(defpoll today :interval "1h" `date +%d`)
+(defpoll thisyear :interval "3600h" `date +%Y`)
+(defwidget todaycalendar []
+  (calendar :class "calendar"
+        :day today
+        :year thisyear))
+
+(defpoll datetime :interval "1m" "date '+%a %d %b %H:%M'")
+
+(defwidget battery-indicator []
+  (box :class "indicator battery-indicator ${EWW_BATTERY.BAT0.status != "Discharging" ? "charging" : "discharging"} ${
+    EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity < 10 ? "critical" :
+    EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity < 20 ? "warning" : "good" }"
+       :tooltip "${EWW_BATTERY.BAT0.capacity}% remaining"
+       :valign "center"
+    "${EWW_BATTERY.BAT0.capacity}%"
+    (icon :icon { EWW_BATTERY.BAT0.status != "Discharging" ? "" :
+                  EWW_BATTERY.BAT0.capacity > 90 ? "" : 
+                  EWW_BATTERY.BAT0.capacity > 50 ? "" : 
+                  EWW_BATTERY.BAT0.capacity > 20 ? "" : 
+                  EWW_BATTERY.BAT0.capacity > 10 ? "" : ""
+                })))
+
+(defvar networking-enabled true)
+(defwidget wifi-indicator []
+  (icon :icon { networking-enabled ? "" : ""}
+        :tooltip { networking-enabled ? 
+          "↓ ${round(EWW_NET[iface].NET_DOWN / 1000000, 3)} MB/s | ↑ ${round(EWW_NET[iface].NET_UP / 1000000, 3)} MB/s" :
+          "airplane mode" }
+        :class "indicator wifi-indicator"))
+
+(defwidget volume-indicator []
+  (icon :icon { volume == 0 || volume-mute == "true" ? "" : "" }
+        :tooltip "volume" :class "indicator volume-indicator" ))
+
+(defwidget bluetooth-indicator []
+  (icon :icon "" :tooltip "bluetooth" :class "indicator bluetooth-indicator" ))
+
+(defvar dark-mode-enabled false)
+(defwidget dark-mode-indicator []
+  (icon :icon { dark-mode-enabled ? "⏾" : "" }
+        :tooltip "dark mode ${ dark-mode-enabled ? "enabled" : "disabled" }"
+        :class "indicator dark-mode-indicator"))
+

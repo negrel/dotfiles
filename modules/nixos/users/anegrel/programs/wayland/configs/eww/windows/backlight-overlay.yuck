@@ -1,0 +1,18 @@
+(defwindow backlight-overlay
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "20%"
+                      :anchor "bottom center")
+  :stacking "overlay"
+  (backlight-overlay))
+
+(deflisten backlight :initial "" "blightctl stream")
+(defwidget backlight-overlay []
+  (box :class "backlight-overlay scale-overlay"
+       :orientation "v"
+       :valign "center"
+       :space-evenly false
+    (icon :icon "" :class "backlight-icon") 
+    (scale :value backlight :min 1 :max 101 :onchange "blightctl set {}")))
+
+

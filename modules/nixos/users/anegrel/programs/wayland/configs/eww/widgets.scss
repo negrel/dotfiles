@@ -1,0 +1,34 @@
+.icon {
+	font-family: 'emoji';
+}
+
+button > .icon {
+	font-size: large;
+}
+
+scale {
+	min-width: 256px;
+
+	 trough, highlight {
+		border-radius: 999px;
+		border: 1px solid $color4;
+		background-color: darker($background);
+	}
+}
+
+.battery-indicator {
+	&.charging {
+		color: $color2;
+	}
+
+	&.discharging {
+		&.warning {
+			color: $color3;
+		}
+
+		&.critical {
+			color: $color1;
+		}
+	}
+}
+

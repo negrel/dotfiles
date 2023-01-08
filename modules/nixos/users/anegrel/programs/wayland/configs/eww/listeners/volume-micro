@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
+EWW_CONFIG_DIR="$SCRIPT_DIR/.."
+
+# Initial values
+eww -c "$EWW_CONFIG_DIR" update volume-mic="$(volumectl -i percentage)"
+eww -c "$EWW_CONFIG_DIR" update volume-mic-mute="$(volumectl -i is-mute && echo "true")"
+
+while read -r line; do 
+	kill $(jobs -p) &> /dev/null
+	eww -c "$EWW_CONFIG_DIR" open volume-mic-overlay &
+
+	if [ "$line" = "mute" ]; then
+		eww -c "$EWW_CONFIG_DIR" update volume-mic-mute=true
+	elif [ "$line" = "unmute" ]; then
+		eww -c "$EWW_CONFIG_DIR" update volume-mic-mute=false
+	else
+		eww -c "$EWW_CONFIG_DIR" update volume-mic="$line"
+	fi
+
+	(sleep 1s; eww -c "$EWW_CONFIG_DIR" close volume-mic-overlay) &
+done < <(volumectl -i stream)
+

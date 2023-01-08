@@ -1,0 +1,34 @@
+@import './bar';
+@import './volume-overlay';
+
+box.scale-overlay {
+	border-radius: 8px;
+	background-color: $background;
+
+	.icon {
+		font-size: 8em;
+		color: $foreground;
+	}
+
+	> * {
+		margin: .25em 0;
+	}
+
+	scale {
+		margin-left: 2em;
+		margin-right: 2em;
+		margin-bottom: 2em;
+
+		trough {
+			min-height: 1em;
+			background-color: lighter(lighter($background));
+			border: none;
+		}
+
+		highlight {
+			border: none;
+			background-color: $foreground;
+		}
+	}
+}
+

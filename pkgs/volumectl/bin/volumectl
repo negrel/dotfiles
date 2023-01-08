@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s inherit_errexit
+
+print_help() {
+	  cat <<EOF
+volumectl - Control sound system.
+USAGE:
+  volumectl [OPTION...] SUBCOMMAND
+
+SUBCOMMAND:
+  dec                           decrement volume percentage
+  help                          print help menu
+  inc                           increment volume percentage
+  percentage                    print volume percentage
+  set                           set volume percentage
+  toggle-mute                   toggle mute a volume
+  is-mute                       exit with 0 if mute
+  stream                        print a line to stdout every time volume change
+
+OPTIONS:
+  --debug                       enable debug logs
+  -h, --help                    print help menu
+  -i, --input                   target input device (default: false)
+  -o, --output                  target output device (default: true)
+EOF
+}
+
+mixer="Master"
+
+while [ "$#" -gt "0" ]; do
+	case "$1" in
+		--debug)
+			set -x
+			shift
+			;;
+
+		--help|-h)
+			print_help
+			exit 0
+			;;
+
+		--input|-i)
+			mixer="Capture"
+			shift
+			;;
+
+		--output|-o)
+			mixer="Master"
+			shift
+			;;
+
+		--)
+			shift
+			break
+			;;
+
+		-*)
+			echo "unknown option: $1"
+			exit 1
+			;;
+
+		*)
+			break
+			;;
+	esac
+done
+
+get_stream_file() {
+	local result="/tmp/volumectl-out"
+	if [ "$mixer" = "Capture" ]; then
+		result="/tmp/volumectl-in"
+	fi
+
+	echo "$result"
+}
+
+get_stream_file_or_null() {
+	local result
+	result="$(get_stream_file)"
+	if [ ! -f "$result" ]; then
+		result="/dev/null"
+	fi
+
+	echo "$result"
+}
+
+extract_volume() {
+	grep -Eo '[0-9]+%' | tr -d '%' | head -n 1
+}
+
+main() {
+	case "${1:-""}" in
+		help)
+			print_help
+			exit 0
+			;;
+
+		percentage|"")
+			amixer sget "$mixer" | extract_volume
+			;;
+
+		set|inc|dec)
+			if [ "$#" -eq 1 ]; then
+				echo "can't $1 volume: volume percentage missing." >&2
+				exit 1
+			fi
+			value="$2%"
+
+			case "$1" in
+				inc)
+					value="${value}+"
+					;;
+				dec)
+					value="${value}-"
+					;;
+			esac
+
+			amixer sset -M "$mixer" "$value" | extract_volume | tee "$(get_stream_file_or_null)"
+			if main is-mute; then
+				main toggle-mute
+			fi
+			;;
+
+		toggle-mute)
+			amixer sset -M "$mixer" toggle > /dev/null
+			stream_file="$(get_stream_file_or_null)"
+			if main is-mute; then
+				echo "mute" | tee -a "$stream_file"
+			else
+				echo "unmute" | tee -a "$stream_file"
+			fi
+			;;
+
+		is-mute)
+			sound="$(amixer sget -M "$mixer" | grep -Eo '\[(on|off)\]' | head -n 1)"
+			if [ "$sound" = "[on]" ]; then
+				return 1
+			else
+				return 0
+			fi
+			;;
+
+
+		stream)
+			stream_file="$(get_stream_file)"
+
+			true > "$stream_file"
+			tail -F "$stream_file" 2> /dev/null
+			;;
+
+		*)
+			echo "unknown command: $1"
+			exit 1
+			;;
+	esac
+}
+
+main "$@"

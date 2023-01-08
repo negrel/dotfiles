@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ "$(ls -1 ~/.config/zsh/rc.d/ | wc -l)" = "0" ]; then
+  echo "no rc hook to run in \"~/.config/zsh/rc.d/\"" >&2
+  return
+fi
+
+for f in ~/.config/zsh/rc.d/*; do
+  source $f
+done

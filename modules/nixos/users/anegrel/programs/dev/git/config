@@ -1,0 +1,8 @@
+[user]
+    name = Alexandre Negrel
+    email = negrel.dev@protonmail.com
+[credential]
+    helper = store
+
+[core]
+    autocrlf = input

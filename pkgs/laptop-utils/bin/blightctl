@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s inherit_errexit
+
+print_help() {
+	  cat <<EOF
+blightctl - Control your backlight.
+USAGE:
+  blightctl [OPTION...] SUBCOMMAND
+
+SUBCOMMAND:
+  dec                           decrement brightness percentage
+  help                          print help menu
+  inc                           increment brightness percentage
+  percentage                    print brightness percentage
+  set                           set brightness percentage
+  stream                        print a line to stdout every time brightness change
+
+OPTIONS:
+  --debug                       enable debug logs
+  -h, --help                    print help menu
+EOF
+}
+
+while [ "$#" -gt "0" ]; do
+	case "$1" in
+		--debug)
+			set -x
+			shift
+			;;
+
+		--help|-h)
+			print_help
+			exit 0
+			;;
+
+		--)
+			shift
+			break
+			;;
+
+		-*)
+			echo "unknown option: $1"
+			exit 1
+			;;
+
+		*)
+			break
+			;;
+	esac
+done
+
+brightness_get() {
+	light -G | cut -d '.' -f 1
+}
+
+# Set minimum value
+light -N 1
+
+case "${1:-}" in
+	help)
+		print_help
+		exit 0
+		;;
+
+	percentage|"")
+		brightness_get
+		exit 0
+		;;
+
+	set)
+		light -S "$2"
+		;;
+
+	inc)
+		light -A "$2"
+		;;
+
+	dec)
+		light -U "$2"
+		;;
+
+	stream)
+		true > /tmp/blightctl
+		tail -F /tmp/blightctl 2> /dev/null
+		;;
+
+	*)
+		echo "unknown command: $1"
+		exit 1
+		;;
+esac
+
+if [ -f /tmp/blightctl ]; then
+	brightness_get > /tmp/blightctl
+fi
+
