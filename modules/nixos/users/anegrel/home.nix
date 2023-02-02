@@ -7,6 +7,7 @@
 
     # Dev
     ./programs/dev
+    ./programs/direnv
 
     # GUI
     ../../../home-manager/gen-theme.nix
