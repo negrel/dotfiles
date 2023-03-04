@@ -69,6 +69,12 @@ require("packer").startup({function(use)
 	use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
 	use "L3MON4D3/LuaSnip" -- Snippets plugin
 
+	-- Collection of lua modules
+	use {
+		"echasnovski/mini.nvim",
+		config = [[require("plugins.mini")]]
+	}
+
 	-- LSP
 	-- Setup
 	use "williamboman/mason.nvim" -- LSP servers installer
@@ -104,7 +110,6 @@ require("packer").startup({function(use)
 		"akinsho/flutter-tools.nvim",
 		requires = "nvim-lua/plenary.nvim"
 	}
-
 
 	-- Bootstrap packer
 	if packer_bootstrap then

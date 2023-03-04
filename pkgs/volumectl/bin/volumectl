@@ -5,7 +5,7 @@ shopt -s inherit_errexit
 
 print_help() {
 	  cat <<EOF
-sounctl - Control sound system.
+volumectl - Control sound system.
 USAGE:
   volumectl [OPTION...] SUBCOMMAND
 

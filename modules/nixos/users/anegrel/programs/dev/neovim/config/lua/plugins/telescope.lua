@@ -6,8 +6,8 @@ require("telescope").setup {
 				["<Esc>"] = actions.close,
 				["<A-j>"] = actions.move_selection_next,
 				["<A-k>"] = actions.move_selection_previous,
-				["<A-f>"] = actions.preview_scrolling_down,
-				["<A-d>"] = actions.preview_scrolling_up
+				["<C-f>"] = actions.preview_scrolling_down,
+				["<C-d>"] = actions.preview_scrolling_up
 			},
 		},
 	}
@@ -39,6 +39,5 @@ map("n", "<Leader>ff", telescope("find_files"), opts)
 map("n", "<Leader>gg", telescope("live_grep"), opts)
 map("n", "<Leader>hc", telescope("command_history"), opts)
 map("n", "<Leader>hs", telescope("search_history"), opts)
-map("n", "<Leader>hn", "<Cmd>Telescope notify<CR>", opts)
 map("n", "<Leader>hh", telescope("help_tags"), opts)
 map("n", "<Leader>hk", telescope("keymaps"), opts)

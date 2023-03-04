@@ -9,6 +9,7 @@
     cargo-audit
     cargo-watch
     cargo-vet
+    cargo-bloat
     clippy
   ];
 

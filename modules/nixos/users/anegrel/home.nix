@@ -14,6 +14,7 @@
     ./programs/hyprland
     ./programs/alacritty
     ./programs/firefox
+    ./programs/settings
   ];
   programs.gen-theme.enable = true;
 

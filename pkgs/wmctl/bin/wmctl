@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s inherit_errexit
+
+print_help() {
+	  cat <<EOF
+wmctl - Window manager / compositor control.
+USAGE:
+  wmctl [OPTION...] SUBCOMMAND
+
+SUBCOMMAND:
+  help                          print help menu
+
+OPTIONS:
+  --debug                       enable debug logs
+  -h, --help                    print help menu
+EOF
+}
+
+while [ "$#" -gt "0" ]; do
+	case "$1" in
+		--debug)
+			set -x
+			shift
+			;;
+
+		--help|-h)
+			print_help
+			exit 0
+			;;
+
+		--)
+			shift
+			break
+			;;
+
+		-*)
+			echo "unknown option: $1"
+			exit 1
+			;;
+
+		*)
+			break
+			;;
+	esac
+done
+
+get_stream_file() {
+	echo "/tmp/wmctl"
+}
+
+get_stream_file_or_null() {
+	local result
+	result="$(get_stream_file)"
+	if [ ! -f "$result" ]; then
+		result="/dev/null"
+	fi
+
+	echo "$result"
+}
+
+extract_volume() {
+	grep -Eo '[0-9]+%' | tr -d '%' | head -n 1
+}
+
+main() {
+	case "${1:-""}" in
+		help)
+			print_help
+			exit 0
+			;;
+
+		focus)
+			shift
+			hyprctl dispatch workspace "$@"
+			;;
+
+		stream)
+			stream_file="$(get_stream_file)"
+
+			true > "$stream_file"
+			tail -F "$stream_file" 2> /dev/null
+			;;
+
+		*)
+			echo "unknown command: $1"
+			exit 1
+			;;
+	esac
+}
+
+main "$@"

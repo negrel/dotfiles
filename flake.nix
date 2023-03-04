@@ -69,6 +69,7 @@
         (pkgs.callPackage ./pkgs/laptop-utils { }) //
         (pkgs.callPackage ./pkgs/dot-profile { }) //
         (pkgs.callPackage ./pkgs/volumectl { }) //
+        (pkgs.callPackage ./pkgs/wmctl { }) //
         (pkgs.callPackage ./pkgs/wrapped-hyprland { })
       );
     };

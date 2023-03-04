@@ -26,9 +26,9 @@
 (defpoll datetime :interval "1m" "date '+%a %d %b %H:%M'")
 
 (defwidget battery-indicator []
-  (box :class "indicator battery-indicator ${EWW_BATTERY.BAT0.status != "Discharging" ? "charging" : "discharging" }"
-;              ${EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity < 10 ? "critical" :
-;                EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity < 20 ? "warning"  : "good" }"
+  (box :class "indicator battery-indicator ${EWW_BATTERY.BAT0.status != "Discharging" ? "charging" : "discharging"} ${
+    EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity < 10 ? "critical" :
+    EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity < 20 ? "warning" : "good" }"
        :tooltip "${EWW_BATTERY.BAT0.capacity}% remaining"
        :valign "center"
     "${EWW_BATTERY.BAT0.capacity}%"
