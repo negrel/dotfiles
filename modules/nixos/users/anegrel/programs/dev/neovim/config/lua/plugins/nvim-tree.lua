@@ -1,13 +1,13 @@
 require("nvim-tree").setup {
-	view = {
-		adaptive_size = true,
-	},
-	renderer = {
-		icons = {
-			git_placement = "signcolumn",
-			modified_placement = "signcolumn",
+		view = {
+				adaptive_size = true,
+		},
+		renderer = {
+				icons = {
+						git_placement = "signcolumn",
+						modified_placement = "signcolumn",
+				}
 		}
-	}
 }
 
 -- KEYMAPS

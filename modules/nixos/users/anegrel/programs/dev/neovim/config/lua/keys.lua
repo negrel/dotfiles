@@ -19,7 +19,7 @@ end
 -- NAVIGATION
 -- scrolling
 map({ "n", "v", "i" }, "<C-f>", scroll_by(4), opts)
-map({ "n", "v", "i" }, "<C-d>", scroll_by(-4), opts)
+map({ "n", "v", "i" }, "<C-d>", scroll_by( -4), opts)
 map({ "n", "v", "c", "i" }, "<PageDown>", win.scroll_by_page, opts)
 map({ "n", "v", "c", "i" }, "<PageUp>", scroll_by_page_up, opts)
 

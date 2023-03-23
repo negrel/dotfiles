@@ -1,27 +1,27 @@
 require("mason").setup()
 require("mason-lspconfig").setup {
-	ensure_installed = {
-		"lua_ls",
-		"rust_analyzer",
-		"clangd",
-		"gopls",
-		"denols",
-		"eslint",
-		"tsserver",
-		"yamlls",
-		"bashls",
-		"gopls",
-		"jsonls",
-		"clangd",
-		"serve_d",
-		"html",
-		"zk", -- Markdown
-		"pyright",
-		"sqlls",
-		"rnix",
-		"unocss"
-	},
-	automatic_installation = true
+		ensure_installed = {
+				-- "lua_ls",
+				"rust_analyzer",
+				"clangd",
+				"gopls",
+				"denols",
+				"eslint",
+				"tsserver",
+				"yamlls",
+				"bashls",
+				"gopls",
+				"jsonls",
+				"clangd",
+				"serve_d",
+				"html",
+				"zk", -- Markdown
+				"pyright",
+				"sqlls",
+				"rnix",
+				"unocss"
+		},
+		automatic_installation = false
 }
 
 local win = require("lib.win")
@@ -47,16 +47,16 @@ M.on_attach = function(client, bufnr)
 	map("n", "ca", vim.lsp.buf.code_action, opts)
 
 	local format = function()
-		vim.lsp.buf.format{
-			timeout_ms = 3000,
+		vim.lsp.buf.format {
+				timeout_ms = 3000,
 		}
 	end
 
 	if (client.server_capabilities.documentFormattingProvider ~= false) then
 		map({ "n", "i" }, "<A-F>", format, opts)
 		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = format
+				buffer = bufnr,
+				callback = format
 		})
 	end
 end

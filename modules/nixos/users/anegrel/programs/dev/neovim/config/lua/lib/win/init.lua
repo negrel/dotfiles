@@ -2,7 +2,7 @@ local api = vim.api
 local buf = require("lib.buf")
 
 local M = {
-	cursor = require("lib.win.cursor")
+		cursor = require("lib.win.cursor")
 }
 
 local get_winwidth = api.nvim_win_get_width
@@ -27,8 +27,11 @@ end
 M.get_buf = buf.of_win
 
 M.get_content_height = function(winnr)
-	if winnr == nil then return buf.line_count()
-	else return buf.line_count(M.get_buf(winnr)) end
+	if winnr == nil then
+		return buf.line_count()
+	else
+		return buf.line_count(M.get_buf(winnr))
+	end
 end
 
 M.scroll_by_page = function(winnr, count)

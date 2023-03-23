@@ -30,7 +30,7 @@ opt.shiftwidth = 2 -- num:   Size of an indent
 opt.tabstop = 2 -- num:   Size of a tab
 opt.list = true -- bool:  Show whitespaces
 opt.listchars = { -- table: Whitespace charactes
-	multispace = "·", lead = "·", trail = "·", tab = "➞ "
+		multispace = "·", lead = "·", trail = "·", tab = "➞ "
 }
 
 -- SPLITS

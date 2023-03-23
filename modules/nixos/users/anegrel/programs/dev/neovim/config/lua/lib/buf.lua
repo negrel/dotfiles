@@ -11,4 +11,3 @@ M.line_count = function(bufnr)
 end
 
 return M
-

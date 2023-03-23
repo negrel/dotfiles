@@ -1,16 +1,16 @@
 local actions = require("telescope.actions")
 require("telescope").setup {
-	defaults = {
-		mappings = {
-			i = {
-				["<Esc>"] = actions.close,
-				["<A-j>"] = actions.move_selection_next,
-				["<A-k>"] = actions.move_selection_previous,
-				["<C-f>"] = actions.preview_scrolling_down,
-				["<C-d>"] = actions.preview_scrolling_up
-			},
-		},
-	}
+		defaults = {
+				mappings = {
+						i = {
+								["<Esc>"] = actions.close,
+								["<A-j>"] = actions.move_selection_next,
+								["<A-k>"] = actions.move_selection_previous,
+								["<C-f>"] = actions.preview_scrolling_down,
+								["<C-d>"] = actions.preview_scrolling_up
+						},
+				},
+		}
 }
 
 local win = require("lib.win")

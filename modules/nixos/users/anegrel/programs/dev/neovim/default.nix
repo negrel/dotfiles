@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # Home manager install as neovim mason fail to install it
     rnix-lsp
+    sumneko-lua-language-server
   ];
 
   programs.neovim = {
