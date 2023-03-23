@@ -1,6 +1,6 @@
 export wallpaper=~/.config/gen-theme/wallpapers/moon.jpg
 export foreground="afc1d0"
-export background="0b1320"
+export background="000000"
 export color0="414868"
 export color1="f7768e"
 export color2="9ece6a"
