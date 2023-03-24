@@ -30,6 +30,7 @@
 
   fileSystems."/tmp" = {
     fsType = "tmpfs";
+    options = [ "size=6G" ];
   };
 
   swapDevices =
@@ -47,8 +48,6 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
 
   # Disable pulseaudio so there is no conflict with pipewire
   hardware.pulseaudio.enable = false;
