@@ -24,5 +24,4 @@
     unzip
     usbutils # lsusb, etc
   ];
-
 }
