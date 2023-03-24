@@ -4,6 +4,10 @@
   imports = [
     ../../wrapped-hyprland.nix
     ../../eww.nix
+
+    ./desktops/common
+    ./desktops/sway
+    ./desktops/hyprland
   ];
 
   users = {
@@ -14,10 +18,6 @@
       hashedPassword = import ./hashedPassword.nix { };
     };
   };
-
-  programs.sway.enable = true;
-  programs.wrapped-hyprland.enable = true;
-  programs.eww.enable = true;
 
   # Import home manager config
   home-manager.users.anegrel = import ./home.nix;

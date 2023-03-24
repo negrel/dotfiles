@@ -13,12 +13,9 @@ with lib;
     wmctl
   ];
 
-  # Configs
-  home.file.".config/gtk-3.0/settings.ini".source = ./configs/gtk/settings.ini;
-  home.file.".config/gtk-4.0/settings.ini".source = ./configs/gtk/settings.ini;
-  home.file.".config/eww".source = ./configs/eww;
-  home.file.".config/profile.d/90-gsettings".source = ./configs/profile.d/90-gsettings;
-  home.file.".config/rofi".source = ./configs/rofi;
+  # Configuration files
+  home.file.".config/eww".source = ./config/eww;
+  home.file.".config/rofi".source = ./config/rofi;
 
   # Templates
   home.file.".config/gen-theme/templates/colors.scss".source = ./templates/colors.scss;
