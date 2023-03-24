@@ -4,6 +4,7 @@ local buf = require("lib.buf")
 local M = {}
 
 if table.unpack == nil then
+	---@diagnostic disable-next-line: deprecated
 	table.unpack = unpack
 end
 

@@ -2,7 +2,7 @@ local api = vim.api
 local buf = require("lib.buf")
 
 local M = {
-		cursor = require("lib.win.cursor")
+	cursor = require("lib.win.cursor")
 }
 
 local get_winwidth = api.nvim_win_get_width

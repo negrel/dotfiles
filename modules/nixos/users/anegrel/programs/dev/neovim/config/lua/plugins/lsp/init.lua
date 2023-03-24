@@ -1,27 +1,27 @@
 require("mason").setup()
 require("mason-lspconfig").setup {
-		ensure_installed = {
-				-- "lua_ls",
-				"rust_analyzer",
-				"clangd",
-				"gopls",
-				"denols",
-				"eslint",
-				"tsserver",
-				"yamlls",
-				"bashls",
-				"gopls",
-				"jsonls",
-				"clangd",
-				"serve_d",
-				"html",
-				"zk", -- Markdown
-				"pyright",
-				"sqlls",
-				"rnix",
-				"unocss"
-		},
-		automatic_installation = false
+	ensure_installed = {
+		-- "lua_ls",
+		"rust_analyzer",
+		"clangd",
+		"gopls",
+		"denols",
+		"eslint",
+		"tsserver",
+		"yamlls",
+		"bashls",
+		"gopls",
+		"jsonls",
+		"clangd",
+		"serve_d",
+		"html",
+		"zk", -- Markdown
+		"pyright",
+		"sqlls",
+		"rnix",
+		"cssls"
+	},
+	automatic_installation = false
 }
 
 local win = require("lib.win")
@@ -30,6 +30,7 @@ local M = {}
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- KEYMAPS
@@ -48,15 +49,15 @@ M.on_attach = function(client, bufnr)
 
 	local format = function()
 		vim.lsp.buf.format {
-				timeout_ms = 3000,
+			timeout_ms = 3000,
 		}
 	end
 
 	if (client.server_capabilities.documentFormattingProvider ~= false) then
 		map({ "n", "i" }, "<A-F>", format, opts)
 		vim.api.nvim_create_autocmd("BufWritePre", {
-				buffer = bufnr,
-				callback = format
+			buffer = bufnr,
+			callback = format
 		})
 	end
 end

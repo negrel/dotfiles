@@ -1,8 +1,8 @@
 local lsp = require("plugins.lsp")
 
-require("lspconfig").unocss.setup {
-		capabilities = lsp.capabalities,
-		on_attach = lsp.on_attach,
+require("lspconfig").cssls.setup {
+	capabilities = lsp.capabalities,
+	on_attach = lsp.on_attach,
 
-		settings = {}
+	settings = {}
 }

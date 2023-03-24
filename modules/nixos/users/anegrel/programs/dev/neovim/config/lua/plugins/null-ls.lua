@@ -19,27 +19,27 @@ local hover = null_ls.builtins.hover
 local completion = null_ls.builtins.completion
 
 local sources = {
-		diagnostics.staticcheck,
+	diagnostics.staticcheck,
 
-		formatting.prettier.with {
-				"vue",
-				"css",
-				"scss",
-				"less",
-				"html",
-				"json",
-				"jsonc",
-				"yaml",
-				"markdown",
-				"markdown.mdx",
-				"graphql",
-				"handlebars"
-		},
-		formatting.standardjs,
-		formatting.standardts,
+	formatting.prettier.with {
+		"vue",
+		"css",
+		"scss",
+		"less",
+		"html",
+		"json",
+		"jsonc",
+		"yaml",
+		"markdown",
+		"markdown.mdx",
+		"graphql",
+		"handlebars"
+	},
+	formatting.standardjs,
+	formatting.standardts,
 }
 
 null_ls.setup {
-		on_attach = lsp.on_attach,
-		sources = sources
+	on_attach = lsp.on_attach,
+	sources = sources
 }

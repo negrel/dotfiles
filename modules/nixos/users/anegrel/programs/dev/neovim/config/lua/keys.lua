@@ -19,7 +19,7 @@ end
 -- NAVIGATION
 -- scrolling
 map({ "n", "v", "i" }, "<C-f>", scroll_by(4), opts)
-map({ "n", "v", "i" }, "<C-d>", scroll_by( -4), opts)
+map({ "n", "v", "i" }, "<C-d>", scroll_by(-4), opts)
 map({ "n", "v", "c", "i" }, "<PageDown>", win.scroll_by_page, opts)
 map({ "n", "v", "c", "i" }, "<PageUp>", scroll_by_page_up, opts)
 
@@ -38,7 +38,7 @@ map({ "n", "v", "c", "i" }, "<C-a>", "<Home>", opts)
 map({ "n", "v", "c", "i" }, "<C-e>", "<End>", opts)
 
 -- MODE
-map("t", "<Esc>", "<C-\\><C-n>", opts) -- exit terminal mode with escape
+map("t", "<Esc>", "<C-\\><C-n>", opts)                                            -- exit terminal mode with escape
 map({ "n", "v", "c", "i", "t" }, "<A-c>", "<Esc>", merge(opts, { remap = true })) -- exit terminal mode with escape
 
 -- WINDOWS
@@ -49,9 +49,9 @@ map("n", "<A-l>", "<C-w>l", opts) -- focus left window
 
 -- BUFFERS
 map("c", "w!!<CR>", "w ! sudo tee % > /dev/null<CR>", opts) -- write as sudo
-map({ "n", "v", "c", "i" }, "<C-s>", "<Cmd>w<CR>", opts) -- write shortcut
+map({ "n", "v", "c", "i" }, "<C-s>", "<Cmd>w<CR>", opts)    -- write shortcut
 
 -- DIAGNOSTICS
 map("n", "ds", vim.diagnostic.open_float, opts) -- open diagnostic window
-map("n", "dn", vim.diagnostic.goto_next, opts) -- goto next diagnostic
-map("n", "dp", vim.diagnostic.goto_prev, opts) -- goto prev diagnostic
+map("n", "dn", vim.diagnostic.goto_next, opts)  -- goto next diagnostic
+map("n", "dp", vim.diagnostic.goto_prev, opts)  -- goto prev diagnostic
