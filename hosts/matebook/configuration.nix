@@ -29,12 +29,10 @@
   networking.hostName = "matebook"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.networkmanager = {
-    enable = false; # Easiest to use and most distros use this by default.
-    wifi.backend = "iwd";
+    enable = true; # Easiest to use and most distros use this by default.
   };
   # Explicitly disabling it as it conflict with ISO module
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
-  networking.wireless.iwd.enable = true;
 
   # Hacking
   programs.wireshark = {
