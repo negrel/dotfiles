@@ -6,6 +6,7 @@
     ../../eww.nix
 
     ./desktops/common
+    ./desktops/gnome
     ./desktops/sway
     ./desktops/hyprland
   ];

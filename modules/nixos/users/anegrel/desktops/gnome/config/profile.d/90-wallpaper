@@ -1,0 +1,3 @@
+source ~/.cache/theme/shell
+gsettings set org.gnome.desktop.background picture-uri "$wallpaper"
+

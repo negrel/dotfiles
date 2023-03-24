@@ -17,7 +17,6 @@ opt.fileencoding = "utf8" -- str:  File encoding to use
 -- THEME
 opt.syntax = "ON" -- str:  Allow syntax highlighting
 opt.termguicolors = true -- bool: If term supports ui color then enable
-vim.cmd [[colorscheme dracula]] -- str:  Change colorscheme/theme
 
 -- SEARCH
 opt.ignorecase = true -- bool: Ignore case in search patterns
@@ -30,7 +29,7 @@ opt.shiftwidth = 2 -- num:   Size of an indent
 opt.tabstop = 2 -- num:   Size of a tab
 opt.list = true -- bool:  Show whitespaces
 opt.listchars = { -- table: Whitespace charactes
-		multispace = "·", lead = "·", trail = "·", tab = "➞ "
+    multispace = "·", lead = "·", trail = "·", tab = "➞ "
 }
 
 -- SPLITS
