@@ -7,8 +7,8 @@
 
     ./desktops/common
     ./desktops/gnome
-    ./desktops/sway
     ./desktops/hyprland
+    ./desktops/sway
   ];
 
   users = {

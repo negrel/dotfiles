@@ -1,11 +1,14 @@
-{ pkgs, ... }:
+{ home-manager, pkgs, lib, ... }:
 
 {
+  imports = [
+    ./wayland.nix
+  ];
+
   programs.wrapped-hyprland.enable = true;
   programs.eww.enable = true;
 
-  # Use lib from home-manager
-  home-manager.users.anegrel = { lib, ... }: import ../../programs/wayland { inherit pkgs lib; } // {
+  home-manager.users.anegrel = {
     home.packages = with pkgs; [
       swaybg
       swayidle
