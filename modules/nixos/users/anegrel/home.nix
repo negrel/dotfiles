@@ -13,6 +13,7 @@
     ../../../home-manager/gen-theme.nix
     ./programs/alacritty
     ./programs/firefox
+    ./programs/evolution
   ];
   programs.gen-theme.enable = true;
 
