@@ -23,5 +23,6 @@
     zip
     unzip
     usbutils # lsusb, etc
+    lsof
   ];
 }
