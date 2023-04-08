@@ -9,6 +9,7 @@
     ./rust
     ./flutter
     ./docker
+    ./vscode
   ];
 
   home.packages = with pkgs; [
