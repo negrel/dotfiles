@@ -117,11 +117,18 @@ require("packer").startup({
 			"earthly/earthly.vim"
 		}
 		-- Dart
+		-- use {
+		-- 	"dart-lang/dart-vim-plugin",
+		-- 	ft = { "dart" }
+		-- }
+		-- flutter
 		use {
-			"dart-lang/dart-vim-plugin",
-			ft = { "dart" }
+			'akinsho/flutter-tools.nvim',
+			requires = {
+				'nvim-lua/plenary.nvim',
+				'stevearc/dressing.nvim', -- optional for vim.ui.select
+			},
 		}
-
 		-- Bootstrap packer
 		if packer_bootstrap then
 			require("packer").sync()
