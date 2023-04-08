@@ -46,7 +46,7 @@
 
   # Keyring
   security.pam.services.gdm.enableGnomeKeyring = true;
-  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.swaylock.enableGnomeKeyring = true;
 
   # GUI stack
   services = {
