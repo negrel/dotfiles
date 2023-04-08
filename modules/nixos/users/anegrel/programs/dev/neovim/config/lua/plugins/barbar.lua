@@ -19,7 +19,12 @@ nvim_tree_events.subscribe("TreeClose", function()
 end)
 
 require("bufferline").setup {
-	closable = false
+	icons = {
+		button = '',
+		modified = {
+			button = ''
+		}
+	}
 }
 
 -- KEYMAPS
