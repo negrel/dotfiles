@@ -32,6 +32,14 @@
   };
   # Explicitly disabling it as it conflict with ISO module
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
+  networking.firewall = {
+    enable = true;
+    # Allow request on home network
+    extraCommands = ''
+      iptables -A INPUT -s 192.168.1.0/24 -d 192.168.1.30 -j ACCEPT
+      iptables -A OUTPUT -d 192.168.1.0/24 -j ACCEPT
+    '';
+  };
 
   # Hacking
   programs.wireshark = {
