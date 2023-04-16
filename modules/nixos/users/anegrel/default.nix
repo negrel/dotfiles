@@ -19,6 +19,8 @@
       hashedPassword = import ./hashedPassword.nix { };
     };
   };
+  programs.zsh.enable = true;
+
   services.udev.packages = [
     pkgs.android-udev-rules
   ];
