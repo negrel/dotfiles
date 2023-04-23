@@ -3,10 +3,10 @@
 {
   home.packages = with pkgs; [
     # under pkgs/
-    lsjson
-    aichat
+    cli-utils.lsjson
 
     # maintained by NixOS
+    aichat
     jq
     unzip
     exa

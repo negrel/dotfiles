@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     home-manager = {
       url = "github:nix-community/home-manager";
 
@@ -13,39 +15,18 @@
 
     # Nix User Repository (similar to Arch Linux AUR)
     nur.url = "github:nix-community/NUR";
-
-    # Hyprland compositor
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, hyprland, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, nur, ... }@inputs:
     let
-      # System types to support.
-      supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
-
-      # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-
-      lib = nixpkgs.lib.extend (self: super: {
-        my = import ./lib { inherit inputs; pkgs = nixpkgs; lib = self; };
-      });
-
-      mkPkgs = (system: import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
-        overlays = [ nur.overlay hyprland.overlays.default ];
-      });
-
       # Make system config helper function
-      mkConfig = nixpkgs: hostname: system:
-        let pkgs = (mkPkgs system) // self.packages."${system}";
+      mkConfig = system: hostname:
+        let pkgs = self.pkgs."${system}" // self.packages."${system}";
         in
         # nixosSystem is a nixpkgs function that build a configuration.nix
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            # Hyprland
-            hyprland.nixosModules.default
             # Hostname
             { networking.hostName = hostname; }
             # General configuration
@@ -56,27 +37,39 @@
           # Extra args to pass to modules
           specialArgs = inputs // { inherit pkgs; };
         };
-    in
-    {
-      nixosConfigurations = {
-        matebook = mkConfig nixpkgs "matebook" "x86_64-linux";
-      };
-      packages = forAllSystems (system:
-        let pkgs = mkPkgs system;
-        in
-        (pkgs.callPackage ./pkgs/aichat { }) //
-        (pkgs.callPackage ./pkgs/cli-utils { }) //
-        (pkgs.callPackage ./pkgs/gen-theme { }) //
-        (pkgs.callPackage ./pkgs/laptop-utils { }) //
-        (pkgs.callPackage ./pkgs/dot-profile { }) //
-        (pkgs.callPackage ./pkgs/volumectl { }) //
-        (pkgs.callPackage ./pkgs/wmctl { }) //
-        (pkgs.callPackage ./pkgs/wrapped-hyprland { })
-      );
-    };
 
-  nixConfig = {
-    extra-substituters = [ "https://hyprland.cachix.org" ];
-    extra-trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
+      outputsWithoutSystem = {
+        nixosConfigurations = {
+          matebook = mkConfig "x86_64-linux" "matebook";
+        };
+      };
+      outputsWithSystem =
+        flake-utils.lib.eachDefaultSystem
+          (system:
+            let
+              pkgs = import nixpkgs {
+                inherit system;
+                config = { allowUnfree = true; };
+                overlays = [
+                  nur.overlay
+
+                  # Add flake-utils.lib to pkgs.lib.flake-utils
+                  (self: super: {
+                    lib = super.lib // { flake-utils = flake-utils.lib; };
+                  })
+
+                  # Add ./lib to pkgs.lib.my
+                  (self: super: {
+                    lib = super.lib // { my = import ./lib { inherit (super) lib; }; };
+                  })
+                ];
+              };
+            in
+            {
+              pkgs = pkgs;
+              lib = pkgs.lib;
+              packages = pkgs.lib.my.callPackagesRecursively ./pkgs { inherit pkgs; };
+            });
+    in
+    outputsWithSystem // outputsWithoutSystem;
 }
