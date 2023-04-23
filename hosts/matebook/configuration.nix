@@ -59,12 +59,12 @@
   # GUI stack
   services = {
     xserver.enable = true;
-    xserver.dpi = 96;
     xserver.displayManager.gdm = {
       wayland = true;
       enable = true;
     };
   };
+
   programs.xwayland.enable = true;
 
   fonts = {
@@ -76,7 +76,7 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JetBrainsMono Nerd Font" ];
+        monospace = [ "JetBrainsMono" ];
         emoji = [ "FontAwesome" "Material Design Icons" "Noto Color Emoji" ];
       };
     };
