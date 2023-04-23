@@ -21,6 +21,6 @@ _git-rm-secret-files:
 
 .PHONY: switch/%
 switch/%: _git-add-secret-files
-	-nixos-rebuild switch --flake .#$*
+	-nixos-rebuild switch --flake .#$* --show-trace
 	$(MAKE) SECRET_FILES="$(SECRET_FILES)" _git-rm-secret-files
 
