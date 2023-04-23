@@ -7,15 +7,6 @@ let
       mkdir -p "$(dirname $target)"
       cp -f "$source" "$target"
     '';
-in
-rec {
-  # Script + colorschemes
-  gen-theme = pkgs.symlinkJoin rec {
-    name = "gen-theme";
-    themes = [ gen-theme-all-themes ];
-    paths = [ gen-theme-bin ] ++ themes;
-  };
-
   # gen-theme script
   gen-theme-bin = pkgs.writeShellApplication {
     name = "gen-theme";
@@ -78,4 +69,9 @@ rec {
     text = builtins.readFile ./colorschemes/wallhaven;
     destination = "/etc/gen-theme/colorschemes/wallhaven";
   };
+in
+pkgs.symlinkJoin rec {
+  name = "gen-theme";
+  themes = [ gen-theme-all-themes ];
+  paths = [ gen-theme-bin ] ++ themes;
 }

@@ -1,12 +1,6 @@
 { pkgs, ... }:
 
-rec {
-  laptop-utils = pkgs.symlinkJoin rec {
-    name = "laptop-utils";
-    utils = [ backlight-laptop-util battery-laptop-util ];
-    paths = utils;
-  };
-
+let
   backlight-laptop-util = pkgs.writeShellApplication {
     name = "blightctl";
     runtimeInputs = with pkgs; [ bash coreutils light ];
@@ -18,4 +12,9 @@ rec {
     runtimeInputs = with pkgs; [ bash coreutils ];
     text = builtins.readFile ./bin/battery;
   };
+in
+pkgs.symlinkJoin rec {
+  name = "laptop-utils";
+  utils = [ backlight-laptop-util battery-laptop-util ];
+  paths = utils;
 }
