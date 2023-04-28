@@ -1,5 +1,5 @@
 SHELL = bash
-SECRET_FILES := $(shell find . -name '*.secret')
+SECRET_FILES := $(shell find secrets -type f)
 
 .PHONY: build-iso/%
 build-iso/%:
@@ -8,19 +8,22 @@ build-iso/%:
 PHONY: _git-add-secret-files
 _git-add-secret-files:
 	@for f in $(SECRET_FILES); do \
-		mv $$f $${f%.secret}; \
-		git add $${f%.secret}; \
+		git add -f $${f}; \
 	done
 
 .PHONY: _git-rm-secret-files
 _git-rm-secret-files:
 	@for f in $(SECRET_FILES); do \
-		git rm --cached $${f%.secret}; \
-		mv $${f%.secret} $$f; \
+		git rm --cached $${f}; \
 	done
 
 .PHONY: switch/%
 switch/%: _git-add-secret-files
 	-nixos-rebuild switch --flake .#$* --show-trace
+	$(MAKE) SECRET_FILES="$(SECRET_FILES)" _git-rm-secret-files
+
+.PHONY: switch/%
+build/%: _git-add-secret-files
+	-nixos-rebuild build --flake .#$* --show-trace
 	$(MAKE) SECRET_FILES="$(SECRET_FILES)" _git-rm-secret-files
 

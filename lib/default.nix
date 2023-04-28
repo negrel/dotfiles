@@ -128,7 +128,7 @@ rec {
       in
       lib.fixedPoints.fix (self:
         let
-          # inputs of callPackage with fixed points so packages can depend 
+          # inputs of callPackage with fixed points so packages can depend
           # on each other.
           callInputs = lib.recursiveUpdate inputs { pkgs = self; };
           # Remove .nix extension
@@ -139,4 +139,16 @@ rec {
         in
         (recurse callInputs dir files))
     );
+
+  buildImportListFrom = (dir:
+    let files = listNixFiles dir;
+    in
+    builtins.map (value: dir + "/${value}")
+      (lib.collect
+        (value: builtins.isString value)
+        (lib.mapAttrsRecursive (path: value: lib.concatStringsSep "/" path) files))
+  );
+
+  readSecret = name:
+    builtins.replaceStrings [ "\n" ] [ "" ] (builtins.readFile (../secrets + "/${name}"));
 }

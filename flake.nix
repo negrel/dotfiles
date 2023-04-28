@@ -21,7 +21,9 @@
     let
       # Make system config helper function
       mkConfig = system: hostname:
-        let pkgs = self.pkgs."${system}" // self.packages."${system}";
+        let
+          pkgs = self.pkgs."${system}" // self.packages."${system}";
+          lib = self.lib."${system}";
         in
         # nixosSystem is a nixpkgs function that build a configuration.nix
         nixpkgs.lib.nixosSystem {
@@ -30,12 +32,12 @@
             # Hostname
             { networking.hostName = hostname; }
             # General configuration
-            ./modules/nixos/system/configuration.nix
+            ./hosts/.common/configuration.nix
             # Host specific config
             (./. + "/hosts/${hostname}/configuration.nix")
           ];
           # Extra args to pass to modules
-          specialArgs = inputs // { inherit pkgs; };
+          specialArgs = inputs // { inherit pkgs lib; };
         };
 
       outputsWithoutSystem = {

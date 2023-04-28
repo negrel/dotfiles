@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, home-manager, ... }:
+{ config, lib, pkgs, home-manager, ... }:
 
 {
   imports = [
@@ -12,14 +12,11 @@
         useUserPackages = true;
       };
     }
-
-    ../../modules/nixos/laptop.nix
-    ../../modules/nixos/volumectl.nix
-
-    # Define users
-    ../../modules/nixos/users
-    ../../modules/nixos/users/anegrel
-  ];
+  ]
+  # Import files under cfg/ except home/ files
+  ++ builtins.filter (filepath: ! lib.hasInfix "home-manager" (builtins.toString filepath)) (lib.my.buildImportListFrom ./cfg)
+  # Custom modules
+  ++ lib.my.buildImportListFrom ../../modules/nixos;
 
   system.laptop.isLaptop = true;
 
@@ -32,14 +29,6 @@
   };
   # Explicitly disabling it as it conflict with ISO module
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
-  networking.firewall = {
-    enable = true;
-    # Allow request on home network
-    extraCommands = ''
-      iptables -A INPUT -s 192.168.1.0/24 -d 192.168.1.30 -j ACCEPT
-      iptables -A OUTPUT -d 192.168.1.0/24 -j ACCEPT
-    '';
-  };
 
   # Hacking
   programs.wireshark = {
@@ -85,12 +74,7 @@
   # Docker
   virtualisation.docker.enable = true;
 
-  # Sound
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
+  environment.systemPackages = with pkgs; [
+    home-manager
+  ];
 }

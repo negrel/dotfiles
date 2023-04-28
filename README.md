@@ -32,7 +32,6 @@ mv etc/nixos/hardware-configuration.nix "hosts/$host/"
 # NOTE: NixOS place bootloader configuration in configuration.nix by default.
 nano "hosts/$host/hardware-configuration.nix"
 
-
 # Install
 nixos-install --flake ".#$host"
 ...
