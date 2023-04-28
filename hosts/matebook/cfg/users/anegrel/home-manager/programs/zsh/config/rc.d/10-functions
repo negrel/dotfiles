@@ -1,4 +1,0 @@
-rwhich() {
-	readlink -f $(which $@)
-}
-

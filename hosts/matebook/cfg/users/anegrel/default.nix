@@ -1,20 +1,30 @@
 { pkgs, lib, ... }:
-
 {
   users = {
     users.anegrel = {
       shell = pkgs.zsh;
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "video" "docker" "wireshark" "adbusers" ];
+      extraGroups = [ "wheel" "networkmanager" "video" "wireshark" ];
       hashedPassword = lib.my.readSecret "anegrel.hashedPassword";
     };
   };
   programs.zsh.enable = true;
 
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
+  home-manager.users.anegrel = { ... }@inputs:
+    {
+      # home-manager modules
+      # imports recursively file under modules/home-manager while
+      # inheriting pkgs and lib
+      imports = builtins.map (el: (import el (lib.recursiveUpdate { inherit pkgs lib; } inputs)))
+        (lib.my.buildImportListFrom ../../../../../modules/home-manager);
 
-  # Import home manager config
-  home-manager.users.anegrel = import ./home-manager { inherit pkgs lib; };
+      gen-theme.enable = true;
+
+      dot-profile.enable = true;
+      dot-profile.scripts.".config/profile.d/00-local-bin".text = ''
+        export PATH="$PATH:$HOME/.local/bin"
+      '';
+
+      home.stateVersion = "22.11";
+    };
 }

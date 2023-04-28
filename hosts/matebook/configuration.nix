@@ -18,6 +18,7 @@
   # Custom modules
   ++ lib.my.buildImportListFrom ../../modules/nixos;
 
+  # Laptop specific module
   system.laptop.isLaptop = true;
 
   # Enable fstrimming
@@ -53,7 +54,6 @@
       enable = true;
     };
   };
-
   programs.xwayland.enable = true;
 
   fonts = {
@@ -70,9 +70,6 @@
       };
     };
   };
-
-  # Docker
-  virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
     home-manager

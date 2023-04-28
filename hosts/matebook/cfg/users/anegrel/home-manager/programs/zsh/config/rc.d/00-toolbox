@@ -1,5 +1,0 @@
-if command -v toolbox; then
-	if [ -n "$TOOLBOX" ]; then
-		exec toolbox enter $TOOLBOX
-	fi
-fi
