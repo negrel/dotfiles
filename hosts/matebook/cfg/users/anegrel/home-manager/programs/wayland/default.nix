@@ -4,7 +4,6 @@ with lib;
 {
   home.packages = with pkgs; [
     wl-clipboard
-    eww-wayland
     mako
     libnotify
     rofi-wayland

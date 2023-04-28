@@ -3,17 +3,17 @@
 with lib;
 
 let
-  cfg = config.programs.wrapped-hyprland;
+  cfg = config.programs.hyprland-wrapped;
 
 in
 {
-  options.programs.wrapped-hyprland = {
+  options.programs.hyprland-wrapped = {
     enable = mkEnableOption { };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      wrapped-hyprland
+      hyprland-wrapped
       (hyprland.overrideAttrs (prevAttrs: rec {
         postInstall =
           let
@@ -21,7 +21,7 @@ in
               [Desktop Entry]
               Name=Hyprland
               Comment=An intelligent dynamic tiling Wayland compositor
-              Exec=wrapped-hyprland
+              Exec=hyprland-wrapped
               Type=Application
             ''; in
           ''
@@ -41,7 +41,7 @@ in
               [Desktop Entry]
               Name=Hyprland
               Comment=An intelligent dynamic tiling Wayland compositor
-              Exec=wrapped-hyprland
+              Exec=hyprland-wrapped
               Type=Application
             ''; in
           ''

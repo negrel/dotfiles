@@ -1,11 +1,11 @@
 { pkgs, ... }:
 
 pkgs.writeShellApplication {
-  name = "wrapped-hyprland";
+  name = "hyprland-wrapped";
   runtimeInputs = with pkgs; [
     bash
     hyprland
     dot-profile
   ];
-  text = builtins.readFile ./bin/wrapped-hyprland;
+  text = builtins.readFile ./bin/hyprland-wrapped;
 }

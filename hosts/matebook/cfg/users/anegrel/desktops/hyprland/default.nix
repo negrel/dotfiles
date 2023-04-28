@@ -1,7 +1,7 @@
 { home-manager, pkgs, lib, ... }:
 
 {
-  programs.wrapped-hyprland.enable = true;
+  programs.hyprland-wrapped.enable = true;
   programs.eww.enable = true;
 
   home-manager.users.anegrel = {
