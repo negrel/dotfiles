@@ -22,8 +22,12 @@ switch/%: _git-add-secret-files
 	-nixos-rebuild switch --flake .#$* --show-trace
 	$(MAKE) SECRET_FILES="$(SECRET_FILES)" _git-rm-secret-files
 
-.PHONY: switch/%
+.PHONY: build/%
 build/%: _git-add-secret-files
 	-nixos-rebuild build --flake .#$* --show-trace
 	$(MAKE) SECRET_FILES="$(SECRET_FILES)" _git-rm-secret-files
 
+.PHONY: dry-build/%
+dry-build/%: _git-add-secret-files
+	-nixos-rebuild dry-build --flake .#$* --show-trace
+	$(MAKE) SECRET_FILES="$(SECRET_FILES)" _git-rm-secret-files
