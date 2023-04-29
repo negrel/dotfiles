@@ -22,8 +22,9 @@
     };
 
     zshrc.scripts = {
-      "oh-my-zsh".text = ''
+      "00-oh-my-zsh".text = ''
         ZSH_THEME="pmcgee"
+        plugins=(git colored-man-pages)
       '';
 
       "fzf".text = ''
