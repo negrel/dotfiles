@@ -2,7 +2,6 @@
 
 {
   programs.hyprland-wrapped.enable = true;
-  programs.dconf.enable = true;
 
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
@@ -16,6 +15,9 @@
 
     # Templates
     gen-theme.templates."hyprland".source = ./templates/hyprland;
-    gen-theme.templates."swaylock".source = ./templates/swaylock;
+    gen-theme.templates."swaylock" = {
+      source = ./templates/swaylock;
+      destination = ".config/swaylock/config";
+    };
   };
 }
