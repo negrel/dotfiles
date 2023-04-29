@@ -2,6 +2,13 @@
 
 set -euo pipefail
 
+: "${SAFE_MODE:="false"}"
+
+if [ "$SAFE_MODE" != "false" ]; then
+  set +eu
+  exec &> ~/.hypr.start.log
+fi
+
 if [ "$(ls -1 ~/.config/hypr/start.d/ | wc -l)" = "0" ]; then
   echo "no start hook to run in \"~/.config/hypr/start.d/\"" >&2
   return
