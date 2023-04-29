@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  system.laptop.isLaptop = true;
+}

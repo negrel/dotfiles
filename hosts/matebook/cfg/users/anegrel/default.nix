@@ -1,12 +1,10 @@
 { pkgs, lib, ... }:
 {
-  users = {
-    users.anegrel = {
-      shell = pkgs.zsh;
-      isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "video" "wireshark" ];
-      hashedPassword = lib.my.readSecret "anegrel.hashedPassword";
-    };
+  users.users.anegrel = {
+    shell = pkgs.zsh;
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "video" "wireshark" ];
+    hashedPassword = lib.my.readSecret "anegrel.hashedPassword";
   };
   programs.zsh.enable = true;
 

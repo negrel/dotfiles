@@ -1,12 +1,46 @@
 { pkgs, ... }:
 
 {
+  # Wayland
+  services = {
+    xserver.enable = true;
+    xserver.displayManager.gdm = {
+      wayland = true;
+      enable = true;
+    };
+  };
+  programs.xwayland.enable = true;
+
+  # Keyring
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.swaylock.enableGnomeKeyring = true;
+
   environment.systemPackages = with pkgs; [
+    # Wayland utils
     wl-clipboard
-    glib.bin
+
+    # Gnome
     gnome.gnome-settings-daemon
+    gnome.gnome-keyring
+
+    # gsettings
+    glib.bin
     gsettings-desktop-schemas
+
+    # Theming
+    gnome.adwaita-icon-theme
+    adwaita-qt
+    adwaita-qt6
   ];
+  # gsettings
+  programs.dconf.enable = true;
+
+  # QT apps theming
+  qt = {
+    enable = true;
+    style = "adwaita";
+    platformTheme = "gnome";
+  };
 
   home-manager.users.anegrel = {
     # Configuration files

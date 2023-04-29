@@ -51,4 +51,7 @@
 
   # Disable pulseaudio so there is no conflict with pipewire
   hardware.pulseaudio.enable = false;
+
+  # Enable fstrimming
+  services.fstrim.enable = true;
 }
