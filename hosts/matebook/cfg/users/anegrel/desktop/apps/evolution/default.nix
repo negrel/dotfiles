@@ -5,10 +5,7 @@
     home.packages = with pkgs; [
       evolution
       protonmail-bridge
+      evolution-with-protonmail-bridge
     ];
-
-    dot-profile.scripts."protonmail-bridge".text = ''
-      ${pkgs.protonmail-bridge}/bin/protonmail-bridge -n & 2>/dev/null
-    '';
   };
 }
