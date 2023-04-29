@@ -16,8 +16,12 @@
     };
 
     home.file.".config/nvim/".source = ./config;
-    dot-profile.scripts."00-nvim".text = ''
-      export EDITOR=nvim
+    zshrc.scripts."00-nvim".text = ''
+      if [ -n "$NVIM" ]; then
+        export EDITOR=nano
+      else
+        export EDITOR=nvim
+      fi
     '';
   };
 }
