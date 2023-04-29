@@ -7,8 +7,8 @@
       protonmail-bridge
     ];
 
-    dot-profile.scripts."99-protonmail-bridge".text = ''
-      ${pkgs.protonmail-bridge}/bin/bridge -n & 2>/dev/null
+    dot-profile.scripts."protonmail-bridge".text = ''
+      ${pkgs.protonmail-bridge}/bin/protonmail-bridge -n & 2>/dev/null
     '';
   };
 }
