@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+: "${SAFE_MODE:="false"}"
+
+if [ "$SAFE_MODE" != "false" ]; then
+  set +eu
+  exec &> ~/.dot-profile.log
+fi
+
 if [ "$(find ~/.config/profile.d/ | wc -l)" = "0" ]; then
   echo "no profile script to run in \"~/.config/profile.d/\"" >&2
   return
