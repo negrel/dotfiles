@@ -7,8 +7,8 @@ SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 state=$(nmcli networking)
 if [ "$state" = "enabled" ]; then
 	nohup nmcli networking off &>/dev/null &
-	eww -c "$SCRIPT_DIR" update networking-enabled=false
+	eww -c "$SCRIPT_DIR/.." update networking-enabled=false
 else
 	nohup nmcli networking on &>/dev/null &
-	eww -c "$SCRIPT_DIR" update networking-enabled=true
+	eww -c "$SCRIPT_DIR/.." update networking-enabled=true
 fi
