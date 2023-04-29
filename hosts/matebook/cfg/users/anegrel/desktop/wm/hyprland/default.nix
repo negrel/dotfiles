@@ -4,7 +4,7 @@
   programs.hyprland-wrapped.enable = true;
   programs.dconf.enable = true;
 
-  home-manager.users.anegrel = {
+  home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
       swaybg
       swaylock
