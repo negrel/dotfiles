@@ -33,16 +33,16 @@
        :valign "center"
     "${EWW_BATTERY.BAT0.capacity}%"
     (icon :icon { EWW_BATTERY.BAT0.status != "Discharging" ? "" :
-                  EWW_BATTERY.BAT0.capacity > 90 ? "" : 
-                  EWW_BATTERY.BAT0.capacity > 50 ? "" : 
-                  EWW_BATTERY.BAT0.capacity > 20 ? "" : 
+                  EWW_BATTERY.BAT0.capacity > 90 ? "" :
+                  EWW_BATTERY.BAT0.capacity > 50 ? "" :
+                  EWW_BATTERY.BAT0.capacity > 20 ? "" :
                   EWW_BATTERY.BAT0.capacity > 10 ? "" : ""
                 })))
 
 (defvar networking-enabled true)
 (defwidget wifi-indicator []
   (icon :icon { networking-enabled ? "" : ""}
-        :tooltip { networking-enabled ? 
+        :tooltip { networking-enabled ?
           "↓ ${round(EWW_NET[iface].NET_DOWN / 1000000, 3)} MB/s | ↑ ${round(EWW_NET[iface].NET_UP / 1000000, 3)} MB/s" :
           "airplane mode" }
         :class "indicator wifi-indicator"))
