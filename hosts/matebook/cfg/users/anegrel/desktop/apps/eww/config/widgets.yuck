@@ -34,8 +34,8 @@
     "${EWW_BATTERY.BAT0.capacity}%"
     (icon :icon { EWW_BATTERY.BAT0.status != "Discharging" ? "" :
                   EWW_BATTERY.BAT0.capacity > 90 ? "" :
-                  EWW_BATTERY.BAT0.capacity > 50 ? "" :
-                  EWW_BATTERY.BAT0.capacity > 20 ? "" :
+                  EWW_BATTERY.BAT0.capacity > 60 ? "" :
+                  EWW_BATTERY.BAT0.capacity > 40 ? "" :
                   EWW_BATTERY.BAT0.capacity > 10 ? "" : ""
                 })))
 
