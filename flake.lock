@@ -74,7 +74,31 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nur": "nur"
+        "nur": "nur",
+        "scratch": "scratch"
+      }
+    },
+    "scratch": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1683143934,
+        "narHash": "sha256-ifsx5xqJq5ZVJfG2qjArcW1cC6UHbXqlIMHlQFcG2Io=",
+        "owner": "negrel",
+        "repo": "scratch",
+        "rev": "a9569924a186ec313ad82945a653ee48fbe68297",
+        "type": "github"
+      },
+      "original": {
+        "owner": "negrel",
+        "repo": "scratch",
+        "type": "github"
       }
     },
     "systems": {

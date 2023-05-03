@@ -15,6 +15,13 @@
 
     # Nix User Repository (similar to Arch Linux AUR)
     nur.url = "github:nix-community/NUR";
+
+    # External packages
+    scratch = {
+      url = "github:negrel/scratch";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, nur, ... }@inputs:
@@ -22,7 +29,9 @@
       # Make system config helper function
       mkConfig = system: hostname:
         let
-          pkgs = self.pkgs."${system}" // self.packages."${system}";
+          pkgs = self.pkgs."${system}"
+            // self.packages."${system}"
+            // { scratch = inputs.scratch.packages."${system}".default; };
           lib = self.lib."${system}";
         in
         # nixosSystem is a nixpkgs function that build a configuration.nix
