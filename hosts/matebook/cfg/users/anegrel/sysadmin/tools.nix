@@ -24,6 +24,7 @@
       unzip
       usbutils # lsusb, etc
       lsof
+      pstree
     ];
   };
 }
