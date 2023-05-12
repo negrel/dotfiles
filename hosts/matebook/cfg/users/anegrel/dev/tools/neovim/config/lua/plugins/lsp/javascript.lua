@@ -24,6 +24,7 @@ nvim_lsp.eslint.setup {
 			command = "EslintFixAll",
 		})
 	end,
+	root_dir = nvim_lsp.util.root_pattern(".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.mjs"),
 	settings = {}
 }
 
@@ -33,5 +34,6 @@ nvim_lsp.tsserver.setup {
 		client.server_capabilities.documentFormattingProvider = false
 		lsp.on_attach(client, bufnr)
 	end,
+	root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
 	settings = {}
 }
