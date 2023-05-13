@@ -4,10 +4,10 @@ require("mason-lspconfig").setup {
     -- LSP installed using nix
     -- "lua_ls",
     -- "rnix",
+    -- "clangd",
     -- Installed through nix flake with toolchain so macro can be expanded
     -- "rust_analyzer",
 
-    "clangd",
     "gopls",
     "denols",
     "eslint",
