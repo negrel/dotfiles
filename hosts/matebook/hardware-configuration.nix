@@ -18,6 +18,11 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.kernel.sysctl = {
+    # Swap when 85% is used.
+    "vm.swappiness" = 15;
+  };
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/256089cb-3938-4565-85ca-729a70c773a5";
     fsType = "btrfs";
