@@ -7,7 +7,15 @@ require("mini.move").setup {
 	}
 }
 
-require("mini.jump2d").setup {}
+require("mini.jump2d").setup {
+	allowed_lines = {
+		blank = false,
+	},
+	allowed_windows = {
+		current = true,
+		not_current = false
+	}
+}
 require("mini.pairs").setup {}
 require("mini.trailspace").setup {}
 require("mini.comment").setup {}
