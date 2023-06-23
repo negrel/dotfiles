@@ -25,6 +25,7 @@
       usbutils # lsusb, etc
       lsof
       pstree
+      pciutils
     ];
   };
 }
