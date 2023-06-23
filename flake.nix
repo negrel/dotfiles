@@ -22,16 +22,25 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    devenv = {
+      url = "github:cachix/devenv/latest";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nur, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, nur, devenv, ... }@inputs:
     let
       # Make system config helper function
       mkConfig = system: hostname:
         let
           pkgs = self.pkgs."${system}"
             // self.packages."${system}"
-            // { scratch = inputs.scratch.packages."${system}".default; };
+            // {
+            scratch = inputs.scratch.packages."${system}".default;
+            devenv = devenv.packages."${system}".devenv;
+          };
           lib = self.lib."${system}";
         in
         # nixosSystem is a nixpkgs function that build a configuration.nix
