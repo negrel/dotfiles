@@ -8,6 +8,10 @@
       swaybg
       swaylock
       swayidle
+
+      # CLI utils
+      screenshot
+      wmctl
     ];
 
     # Configuration files
