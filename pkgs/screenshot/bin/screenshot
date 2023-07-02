@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cmdname=screenshot
+
+print_help() {
+	cat <<EOF
+$cmdname - Capture your screen or a region of it.
+USAGE:
+  $cmdname [OPTIONS...] [SCREENSHOT_DESTINATION]
+  $cmdname --select-region
+
+OPTIONS
+  --debug                                 enable debug logs
+  -s, --select-region                     select the region of the screen you want to capture
+  -r, --region <x>,<y> <width>x<height>   the regions of the screen you want to capture
+  -a, --all                               capture all screens
+EOF
+}
+
+opts=""
+focused_screen=true
+
+while test $# -gt 0; do
+	case "$1" in
+		--debug)
+			set -x
+			shift
+			;;
+
+		-h|--help)
+			print_help
+			exit 0
+			;;
+
+		-s|--select-region)
+			shift
+			opts="-g \"$(slurp)\" $opts"
+			focused_screen=false
+			;;
+
+		-r|--region)
+			shift
+			opts="-g ${1:-""} $opts"
+			focused_screen=false
+			;;
+
+		-a|--all)
+			shift
+			focused_screen=false
+			;;
+
+		*)
+			if [ "${1:0:1}" = "-" ]; then
+				echo "error: unknown option \"$1\""
+				print_help
+				exit 1
+			fi
+			break
+			;;
+	esac
+done
+
+name=$(date +%Y%m%d_%Hh%Mm%Ss_screenshot.png)
+
+dst="${1:-""}"
+if [ -d "$dst" ]; then
+	dst="$(realpath "$dst/$name")"
+else
+	dst="$PWD/$name"
+fi
+
+if [ "$focused_screen" = "true" ]; then
+	opts="-o $(wmctl monitor focused) $opts"
+fi
+
+
+
+if sh -c "grim $opts $dst"; then
+	notify-send -i "$dst" "$name" "Screenshot captured successfully"
+else
+	notify-send "$name" "Screenshot failed"
+fi
+
