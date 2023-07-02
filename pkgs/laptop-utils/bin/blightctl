@@ -4,7 +4,7 @@ set -euo pipefail
 shopt -s inherit_errexit
 
 print_help() {
-	  cat <<EOF
+	cat <<EOF
 blightctl - Control your backlight.
 USAGE:
   blightctl [OPTION...] SUBCOMMAND
@@ -58,7 +58,7 @@ brightness_get() {
 # Set minimum value
 light -N 1
 
-case "${1:-}" in
+case "${1:=}" in
 	help)
 		print_help
 		exit 0
@@ -88,6 +88,7 @@ case "${1:-}" in
 
 	*)
 		echo "unknown command: $1"
+		print_help
 		exit 1
 		;;
 esac

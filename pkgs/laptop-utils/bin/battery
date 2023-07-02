@@ -4,7 +4,7 @@ set -euo pipefail
 shopt -s inherit_errexit
 
 print_help() {
-	  cat <<EOF
+	cat <<EOF
 battery - Show information about battery status.
 USAGE:
   battery [OPTION...] SUBCOMMAND
@@ -57,7 +57,8 @@ while [ "$#" -gt "0" ]; do
 	esac
 done
 
-case "${1:-""}" in
+cmd="${1:-""}"
+case "$cmd" in
 	help)
 		print_help
 		exit 0
@@ -76,7 +77,8 @@ case "${1:-""}" in
 		;;
 
 	*)
-		echo "unknown command: $1"
+		echo "unknown command: $cmd"
+		print_help
 		exit 1
 		;;
 esac

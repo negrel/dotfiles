@@ -4,7 +4,7 @@ set -euo pipefail
 shopt -s inherit_errexit
 
 print_help() {
-	  cat <<EOF
+	cat <<EOF
 volumectl - Control sound system.
 USAGE:
   volumectl [OPTION...] SUBCOMMAND
@@ -91,7 +91,8 @@ extract_volume() {
 }
 
 main() {
-	case "${1:-""}" in
+	local cmd="${1:-""}"
+	case "$cmd" in
 		help)
 			print_help
 			exit 0
@@ -152,6 +153,7 @@ main() {
 
 		*)
 			echo "unknown command: $1"
+			print_help
 			exit 1
 			;;
 	esac
