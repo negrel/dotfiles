@@ -4,13 +4,15 @@ set -euo pipefail
 shopt -s inherit_errexit
 
 print_help() {
-	  cat <<EOF
+	cat <<EOF
 wmctl - Window manager / compositor control.
 USAGE:
   wmctl [OPTION...] SUBCOMMAND
 
 SUBCOMMAND:
   help                          print help menu
+  monitor                       monitors specific commands
+  workspace                     workspaces specific commands
 
 OPTIONS:
   --debug                       enable debug logs
@@ -60,20 +62,22 @@ get_stream_file_or_null() {
 	echo "$result"
 }
 
-extract_volume() {
-	grep -Eo '[0-9]+%' | tr -d '%' | head -n 1
-}
-
 main() {
-	case "${1:-""}" in
+	local cmd="${1:-""}"
+	case "$cmd" in
 		help)
 			print_help
 			exit 0
 			;;
 
-		focus)
+		monitor)
 			shift
-			hyprctl dispatch workspace "$@"
+			monitor "$@"
+			;;
+
+		workspace)
+			shift
+			workspace "$@"
 			;;
 
 		stream)
@@ -84,7 +88,90 @@ main() {
 			;;
 
 		*)
-			echo "unknown command: $1"
+			echo "unknown command: $cmd"
+			print_help
+			exit 1
+			;;
+	esac
+}
+
+print_workspace_help() {
+	cat <<EOF
+wmctl workspace - Workspace manipulation.
+USAGE:
+  wmctl workspace [OPTION...]
+
+SUBCOMMAND:
+  help                          print help menu
+  focus                         focus a workspace
+  focused                       print focused workspace to stdout
+  stream                        print a line to stdout every time focused workspace change
+EOF
+}
+
+workspace() {
+	local cmd="${1:-""}"
+	case "$cmd" in
+		help)
+			shift
+			print_workspace_help
+			;;
+
+		focused)
+			shift
+			hyprctl activeworkspace -j
+			;;
+
+		focus)
+			shift
+			hyprctl dispatch workspace "$1"
+			stream_file="$(get_stream_file_or_null)"
+			echo "workspace $1" >> "$stream_file"
+			;;
+
+		stream)
+			stream_file="$(get_stream_file)"
+
+			true > "$stream_file"
+			tail -F "$stream_file" | grep "workspace" 2> /dev/null
+			;;
+
+		*)
+			echo "unknown command: $cmd"
+			print_workspace_help
+			exit 1
+			;;
+	esac
+}
+
+print_monitor_help() {
+	cat <<EOF
+wmctl monitor - Workspace manipulation.
+USAGE:
+  wmctl monitor [OPTION...]
+
+SUBCOMMAND:
+  help                          print help menu
+  focused                       print focused monitor to stdout
+EOF
+}
+
+monitor() {
+	local cmd="${1:-""}"
+	case "$cmd" in
+		help)
+			shift
+			print_monitor_help
+			;;
+
+		focused)
+			hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name'
+			shift
+			;;
+
+		*)
+			echo "unknown command: $cmd"
+			print_monitor_help
 			exit 1
 			;;
 	esac
