@@ -14,6 +14,10 @@
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       initExtraBeforeCompInit = "source ~/.config/zsh/rc";
+      initExtra = ''
+        # Remove oh-my-zsh alias
+        unalias gcd
+      '';
       history.size = 10000;
 
       oh-my-zsh = {
@@ -30,6 +34,16 @@
       "fzf".text = ''
         plugins+="fzf"
         export FZF_DEFAULT_OPTS="--layout reverse"
+
+        # cd like function using fzf
+        fcd() {
+          dir="$(find \
+            -L ''${1:-"."} -mindepth 1 \
+            \( -path '*/\.*' -o -fstype sysfs -o -fstype devs -o -fstype devtmpfs -o -fstype proc \) \
+            -prune -o -type d -print \
+            | fzf +m)"
+          cd "$dir"
+        }
       '';
 
       "aliases".text = ''
@@ -61,6 +75,17 @@
       "functions".text = ''
         rwhich() {
           readlink -f $(which $@)
+        }
+
+        gcd() {
+          local git_repo_root="$PWD"
+
+          while [ ! -d "$git_repo_root/.git" ]; do
+            git_repo_root="$(dirname "$git_repo_root")"
+            if [ "$git_repo_root" = "/" ]; then return 1; fi
+          done
+
+          cd "$git_repo_root"
         }
       '';
 
