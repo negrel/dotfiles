@@ -17,7 +17,6 @@
   };
   services.xserver.layout = "fr";
 
-
   # Do not touch (see `man configuration.nix`).
   system.stateVersion = "22.11";
 }

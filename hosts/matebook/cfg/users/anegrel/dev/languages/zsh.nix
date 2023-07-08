@@ -12,7 +12,7 @@
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       initExtraBeforeCompInit = "source ~/.config/zsh/rc";
       initExtra = ''
         # Remove oh-my-zsh alias
