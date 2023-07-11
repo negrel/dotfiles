@@ -26,6 +26,7 @@
       lsof
       pstree
       pciutils
+      tree
     ];
   };
 }
