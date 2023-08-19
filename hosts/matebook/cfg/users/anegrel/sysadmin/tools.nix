@@ -5,6 +5,7 @@
     home.packages = with pkgs; [
       # under pkgs/
       cli-utils.lsjson
+      cli-utils.uuid
 
       # maintained by NixOS
       jq
