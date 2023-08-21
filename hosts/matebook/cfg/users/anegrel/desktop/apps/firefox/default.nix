@@ -2,6 +2,12 @@
 
 {
   home-manager.users.anegrel = { ... }: {
+    home.packages = with pkgs; [
+      # Required for SpeechSynthesis API
+      # https://support.mozilla.org/en-US/kb/speechd-setup?as=u&utm_source=inproduct
+      speechd
+    ];
+
     programs.firefox = {
       enable = true;
       profiles.anegrel = {
