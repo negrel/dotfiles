@@ -5,6 +5,7 @@
     home.packages = with pkgs; [
       git
       tig
+      gh
     ];
 
     home.file.".gitconfig".source = ./config;
