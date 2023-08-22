@@ -28,6 +28,8 @@
       pstree
       pciutils
       tree
+      dig
+      bind
     ];
   };
 }
