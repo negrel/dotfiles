@@ -6,6 +6,7 @@
       # under pkgs/
       cli-utils.lsjson
       cli-utils.uuid
+      run-with-quotas
 
       # maintained by NixOS
       jq
