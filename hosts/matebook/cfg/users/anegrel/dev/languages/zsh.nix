@@ -63,8 +63,9 @@
         alias :q="exit"
         alias :q!="exit"
         alias :qa="exit"
-        alias :q!="exit"
+        alias :qa!="exit"
         alias c="clear"
+        alias ssh="TERM=xterm-256color ssh"
 
         # Process handling
         alias psg="ps aux | grep"
