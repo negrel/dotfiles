@@ -31,6 +31,8 @@
       tree
       dig
       bind
+
+      nmap
     ];
   };
 }
