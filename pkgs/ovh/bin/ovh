@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s inherit_errexit
+
+print_help() {
+	cat <<EOF
+ovh - ovh CLI.
+USAGE:
+  ovh [OPTION...] COMMAND
+
+COMMANDS:
+  help                          print help menu
+  list                          list application keys
+  get                           retrieve application information
+  delete                        delete application
+
+OPTIONS:
+  -c, --config                  configuration file path
+  --debug                       enable debug logs
+  -h, --help                    print help menu
+EOF
+}
+
+while [ "$#" -gt "0" ]; do
+	case "$1" in
+		-c|--config)
+			config="$2"
+			shift 2
+			;;
+
+		--debug)
+			set -x
+			shift
+			;;
+
+		--help|-h)
+			print_help
+			exit 0
+			;;
+
+		--)
+			shift
+			break
+			;;
+
+		-*)
+			echo "unknown option: $1"
+			exit 1
+			;;
+
+		*)
+			break
+			;;
+	esac
+done
+
+check_ovh_credentials() {
+	if [ "${application_secret=""}" = "" ] || [ "${application_key=""}" = "" ] || [ "${consumer_key=""}" = "" ]; then
+		# shellcheck source=/dev/null
+		source "$config"
+	fi
+}
+
+ovhcurl() {
+	local TSTAMP
+	TSTAMP="$(date +%s)"
+
+	local SHA
+	SHA="$(echo -n "$application_secret"+"$consumer_key"+$METHOD+"$QUERY"+"$BODY"+"$TSTAMP" | shasum | cut -d ' ' -f 1)"
+
+	local SIGNATURE
+	SIGNATURE="\$1\$$SHA"
+
+	curl -X $METHOD \
+		-H "Content-type: application/json" \
+		-H "X-Ovh-Application: $application_key" \
+		-H "X-Ovh-Consumer: $consumer_key" \
+		-H "X-Ovh-Signature: $SIGNATURE" \
+		-H "X-Ovh-Timestamp: $TSTAMP" \
+		"$QUERY"
+}
+
+main() {
+	check_ovh_credentials
+
+	local cmd="${1:-""}"
+	case "$cmd" in
+		help)
+			print_help
+			exit 0
+			;;
+
+		list)
+			shift
+
+			METHOD=GET
+			QUERY="https://eu.api.ovh.com/1.0/me/api/application"
+			BODY=""
+
+			ovhcurl
+			;;
+
+		get)
+			shift
+
+			METHOD=GET
+			ID=$1; shift
+			QUERY="https://eu.api.ovh.com/1.0/me/api/application/$ID"
+			BODY=""
+
+			ovhcurl
+			;;
+
+		delete)
+			shift
+
+			METHOD=DELETE
+			ID=$1; shift
+			QUERY="https://eu.api.ovh.com/1.0/me/api/application/$ID"
+			BODY=""
+
+			ovhcurl
+			;;
+
+		*)
+			echo "unknown command: $1"
+			print_help
+			exit 1
+			;;
+	esac
+}
+
+main "$@"

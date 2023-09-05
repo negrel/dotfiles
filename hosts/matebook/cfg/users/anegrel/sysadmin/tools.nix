@@ -7,6 +7,7 @@
       cli-utils.lsjson
       cli-utils.uuid
       run-with-quotas
+      ovh
 
       # maintained by NixOS
       jq

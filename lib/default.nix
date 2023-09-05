@@ -150,5 +150,8 @@ rec {
   );
 
   readSecret = name:
-    builtins.replaceStrings [ "\n" ] [ "" ] (builtins.readFile (../secrets + "/${name}"));
+    builtins.replaceStrings [ "\n" ] [ "" ] (readSecretFile name);
+
+  readSecretFile = name:
+    builtins.readFile (../secrets + "/${name}");
 }
