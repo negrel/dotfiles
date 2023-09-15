@@ -66,6 +66,7 @@
         alias :qa!="exit"
         alias c="clear"
         alias ssh="TERM=xterm-256color ssh"
+        alias cdtmp="cd $(mktemp -d)"
 
         # Process handling
         alias psg="ps aux | grep"
