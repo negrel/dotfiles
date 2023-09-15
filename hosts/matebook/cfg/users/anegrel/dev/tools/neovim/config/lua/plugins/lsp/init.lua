@@ -7,10 +7,10 @@ require("mason-lspconfig").setup {
 		-- "clangd",
 		-- Installed through nix flake with toolchain so macro can be expanded
 		-- "rust_analyzer",
+		-- "denols",
 
 		"texlab",
 		"gopls",
-		"denols",
 		"eslint",
 		"tsserver",
 		"yamlls",
