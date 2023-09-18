@@ -59,6 +59,9 @@ bindsym $mod+Shift+c reload
 # File manager
 bindsym $mod+Shift+f exec nautilus $HOME
 
+# Lock
+bindsym $mod+Mod1+l exec swaylock
+
 #
 # Fn keys:
 #
