@@ -1,0 +1,160 @@
+{
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "custom/media-player",
+    "idle_inhibitor",
+    "network",
+    "backlight",
+    "pulseaudio#vol",
+    "pulseaudio#mic",
+    "battery",
+    "tray",
+    "custom/power"
+  ],
+  "custom/media-player": {
+    "format": "{icon}{}",
+    "return-type": "json",
+    "format-icons": {
+      "Playing": " ",
+      "Paused": " "
+    },
+    "max-length": 30,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl play-pause",
+    "on-click-middle": "playerctl previous",
+    "on-click-right": "playerctl next"
+  },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent}% {icon}",
+    "format-icons": [
+      ""
+    ],
+    "on-scroll-up": "blightctl inc 1",
+    "on-scroll-down": "blightctl dec 1"
+  },
+  "network": {
+    "interface": "wlp60s0",
+    "format-wifi": " ({bandwidthDownOctets})",
+    "tooltip-format": "{essid} {frequency}MHz (↓ {bandwidthDownOctets} | ↑ {bandwidthUpOctets}) ",
+    "format-disconnected": "{ifname}",
+    "format-disabled": " {ifname}",
+    "max-length": 50,
+    "interval": 10,
+    "on-click": "menu-wifi"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "tray": {
+    "icon-size": 15,
+    "spacing": 10
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click-right": "evolution"
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "{}% "
+  },
+  "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+    "critical-threshold": 82,
+    "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": [
+      ""
+    ]
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-full": "",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pulseaudio#vol": {
+    "scroll-step": 1,
+    "on-scroll-up": "volumectl inc 1",
+    "on-scroll-down": "volumectl dec 1",
+    "on-click": "volumectl toggle-mute",
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": " {icon}",
+    "format-muted": "0% {icon}",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "pulseaudio#mic": {
+    "scroll-step": 0,
+    "on-scroll-up": "volumectl -i inc 1",
+    "on-scroll-down": "volumectl -i dec 1",
+    "on-click": "volumectl -i toggle-mute",
+    "format": "{format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "0% ",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "tooltip": false
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 14,
+    "tooltip-format": "{title}",
+    "icon-theme": "hicolor",
+    "on-click": "activate",
+    "on-click-middle": "close"
+  }
+}
