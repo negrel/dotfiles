@@ -12,7 +12,7 @@
       # maintained by NixOS
       jq
       unzip
-      exa
+      eza
       ripgrep
       fd
       bat
@@ -32,8 +32,8 @@
       tree
       dig
       bind
-
       nmap
+      file
     ];
   };
 }
