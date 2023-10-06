@@ -35,7 +35,7 @@ nvim_lsp.tsserver.setup {
 		client.server_capabilities.documentFormattingProvider = false
 		lsp.on_attach(client, bufnr)
 	end,
-	root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
+	root_dir = nvim_lsp.util.root_pattern("tsconfig.json", "package.json"),
 	single_file_support = false,
 	settings = {}
 }
