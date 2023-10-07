@@ -17,9 +17,8 @@ require("packer").startup({
 
 		-- theme
 		use { "Mofiqul/dracula.nvim", as = "dracula" }
-		use { 'navarasu/onedark.nvim',
-			config = [[require("onedark").load()]],
-		}
+		use { 'navarasu/onedark.nvim' }
+
 		-- IDE
 		-- syntax highlight
 		use {
