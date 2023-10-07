@@ -25,7 +25,7 @@ nvim_lsp.eslint.setup {
 			command = "EslintFixAll",
 		})
 	end,
-	root_dir = nvim_lsp.util.root_pattern(".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.mjs"),
+	root_dir = nvim_lsp.util.root_pattern(".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.mjs"),
 	settings = {}
 }
 
