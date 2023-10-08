@@ -10,12 +10,10 @@ require("mason-lspconfig").setup {
 		-- "denols",
 
 		"texlab",
-		"gopls",
 		"eslint",
 		"tsserver",
 		"yamlls",
 		"bashls",
-		"gopls",
 		"jsonls",
 		"clangd",
 		"serve_d",
@@ -57,7 +55,7 @@ M.on_attach = function(client, bufnr)
 		}
 	end
 
-	if (client.server_capabilities.documentFormattingProvider ~= false) then
+	if (client.server_capabilities.documentFormattingProvider == true) then
 		map({ "n", "i" }, "<A-F>", format, opts)
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,

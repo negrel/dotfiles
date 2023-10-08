@@ -15,35 +15,12 @@ require("packer").startup({
 		-- packer manages itself
 		use "wbthomason/packer.nvim"
 
-		-- theme
-		use { "Mofiqul/dracula.nvim", as = "dracula" }
-		use { 'navarasu/onedark.nvim',
-			-- config = [[require("onedark").load()]],
-		}
-
 		-- IDE
 		-- syntax highlight
 		use {
 			"nvim-treesitter/nvim-treesitter",
 			config = [[require("plugins.nvim-treesitter")]],
 			run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
-		}
-
-		-- File explorer
-		use {
-			"kyazdani42/nvim-tree.lua",
-			requires = {
-				"kyazdani42/nvim-web-devicons", -- for file icons
-			},
-			config = [[require("plugins.nvim-tree")]],
-			tag = "nightly"
-		}
-
-		-- Tabs
-		use {
-			"romgrk/barbar.nvim",
-			config = [[require("plugins.barbar")]],
-			requires = { "kyazdani42/nvim-web-devicons" }
 		}
 
 		-- Bar
@@ -87,10 +64,6 @@ require("packer").startup({
 		use {                                 -- LSP config
 			"neovim/nvim-lspconfig",
 			config = [[require("plugins.lsp")]]
-		}
-		use { -- Support for CLI that provides LSP likes features (lint, format, etc)
-			"jose-elias-alvarez/null-ls.nvim",
-			-- config = [[require("plugins.null-ls")]]
 		}
 
 		-- Rust
