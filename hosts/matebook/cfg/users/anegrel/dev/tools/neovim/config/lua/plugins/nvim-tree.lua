@@ -3,6 +3,8 @@ require("nvim-tree").setup {
 		adaptive_size = true,
 		mappings = {
 			list = {
+				{ key = "d",     action = "trash" },
+				{ key = "D",     action = "remove" },
 				{ key = "h",     action = "prev_sibling" },
 				{ key = "l",     action = "next_sibling" },
 				{ key = "c",     action = "collapse_all" },
