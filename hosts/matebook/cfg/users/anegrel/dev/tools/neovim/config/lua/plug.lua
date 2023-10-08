@@ -17,7 +17,9 @@ require("packer").startup({
 
 		-- theme
 		use { "Mofiqul/dracula.nvim", as = "dracula" }
-		use { 'navarasu/onedark.nvim' }
+		use { 'navarasu/onedark.nvim',
+			-- config = [[require("onedark").load()]],
+		}
 
 		-- IDE
 		-- syntax highlight
@@ -71,18 +73,11 @@ require("packer").startup({
 		use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
 		use "L3MON4D3/LuaSnip"       -- Snippets plugin
 
-		-- Collection of lua modules
-		use {
-			"echasnovski/mini.nvim",
-			config = [[require("plugins.mini")]]
-		}
-
 		-- Git integration
 		use {
 			"lewis6991/gitsigns.nvim",
 			config = [[require("gitsigns").setup()]]
 		}
-
 
 		-- LSP
 		-- Setup
@@ -128,6 +123,13 @@ require("packer").startup({
 				'stevearc/dressing.nvim', -- optional for vim.ui.select
 			},
 		}
+
+		-- Collection of lua modules
+		use {
+			"echasnovski/mini.nvim",
+			config = [[require("plugins.mini")]]
+		}
+
 		-- Bootstrap packer
 		if packer_bootstrap then
 			require("packer").sync()
