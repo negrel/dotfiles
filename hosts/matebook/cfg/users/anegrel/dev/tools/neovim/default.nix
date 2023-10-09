@@ -18,7 +18,7 @@
       export EDITOR=nvim
       if [ -n "$NVIM" ]; then
         nvim() {
-          ${pkgs.neovim}/bin/nvim --server $NVIM --remote "$@"
+          ${pkgs.neovim}/bin/nvim --server $NVIM --remote "$(realpath "$1")"
         }
       fi
 
