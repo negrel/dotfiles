@@ -47,6 +47,24 @@ map("n", "<A-j>", "<C-w>j", opts) -- focus left window
 map("n", "<A-k>", "<C-w>k", opts) -- focus left window
 map("n", "<A-l>", "<C-w>l", opts) -- focus left window
 
+-- TABS
+map("n", "<A-e>", "<Cmd>tabnext<CR>", opts)
+map("n", "<A-E>", "<Cmd>+tabmove<CR>", opts)
+map("n", "<A-a>", "<Cmd>tabprevious<CR>", opts)
+map("n", "<A-A>", "<Cmd>-tabmove<CR>", opts)
+map("n", "<A-q>", "<Cmd>tabclose<CR>", opts)
+map("n", "<A-t>", "<Cmd>tab split<CR>", opts)
+map("n", "<A-&>", "<Cmd>1tabnext<CR>", opts)
+map("n", "é", "<Cmd>2tabnext<CR>", opts)
+map("n", "<A-\">", "<Cmd>3tabnext<CR>", opts)
+map("n", "<A-'>", "<Cmd>4tabnext<CR>", opts)
+map("n", "<A-(>", "<Cmd>5tabnext<CR>", opts)
+map("n", "<A-->", "<Cmd>6tabnext<CR>", opts)
+map("n", "è", "<Cmd>7tabnext<CR>", opts)
+map("n", "<A-_>", "<Cmd>8tabnext<CR>", opts)
+map("n", "<A-ç>", "<Cmd>9tabnext<CR>", opts)
+map("n", "à", "<Cmd>$tabnext<CR>", opts)
+
 -- BUFFERS
 map("c", "w!!<CR>", "w ! sudo tee % > /dev/null<CR>", opts) -- write as sudo
 map({ "n", "v", "c", "i" }, "<C-s>", "<Cmd>w<CR>", opts)    -- write shortcut
