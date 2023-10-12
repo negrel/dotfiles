@@ -15,7 +15,6 @@ require("mason-lspconfig").setup {
 		"yamlls",
 		"bashls",
 		"jsonls",
-		"clangd",
 		"serve_d",
 		"html",
 		"zk", -- Markdown
