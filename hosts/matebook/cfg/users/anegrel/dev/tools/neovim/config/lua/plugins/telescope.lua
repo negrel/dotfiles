@@ -10,6 +10,14 @@ require("telescope").setup {
 				["<A-d>"] = actions.preview_scrolling_up
 			},
 		},
+	},
+	pickers = {
+		find_files = {
+			hidden = true
+		},
+		grep_string = {
+			hidden = true
+		}
 	}
 }
 

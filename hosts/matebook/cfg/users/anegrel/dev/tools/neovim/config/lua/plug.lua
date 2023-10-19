@@ -34,10 +34,12 @@ require("packer").startup({
 		use {
 			"nvim-telescope/telescope.nvim", tag = "0.1.0",
 			config = [[require("plugins.telescope")]],
-			requires = {
-				{ "nvim-lua/plenary.nvim" },
-				{ "nvim-treesitter/nvim-treesitter" }
-			}
+			requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
+		}
+		-- File browser
+		use {
+			"nvim-telescope/telescope-file-browser.nvim",
+			requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
 		}
 
 		-- Autocompletion
