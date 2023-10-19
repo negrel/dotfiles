@@ -6,6 +6,9 @@
       # LSP that mason fails to install.
       rnix-lsp
       sumneko-lua-language-server
+
+      # terminal image viewer for telescope preview
+      catimg
     ];
 
     programs.neovim = {
