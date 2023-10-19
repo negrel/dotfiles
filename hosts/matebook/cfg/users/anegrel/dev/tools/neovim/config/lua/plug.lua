@@ -32,7 +32,7 @@ require("packer").startup({
 
 		-- Quick finder
 		use {
-			"nvim-telescope/telescope.nvim", tag = "0.1.0",
+			"nvim-telescope/telescope.nvim",
 			config = [[require("plugins.telescope")]],
 			requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
 		}
