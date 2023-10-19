@@ -119,12 +119,12 @@ workspace() {
 
 		focused)
 			shift
-			hyprctl activeworkspace -j
+			swaymsg -t get_workspaces | jq -r '.[] | select(.focused) | .name'
 			;;
 
 		focus)
 			shift
-			hyprctl dispatch workspace "$1"
+			swaymsg workspace "$1"
 			stream_file="$(get_stream_file_or_null)"
 			echo "workspace $1" >> "$stream_file"
 			;;
@@ -165,7 +165,7 @@ monitor() {
 			;;
 
 		focused)
-			hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name'
+			swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name'
 			shift
 			;;
 
