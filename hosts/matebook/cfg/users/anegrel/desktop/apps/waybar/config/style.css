@@ -97,6 +97,11 @@ window#waybar {
     color: @color3;
 }
 
+#battery.critical:not(.charging) {
+    color: @color1;
+}
+
+
 #temperature.critical {
     color: @color1;
 }
