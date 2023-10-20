@@ -16,6 +16,7 @@ OPTIONS
   -s, --select-region                     select the region of the screen you want to capture
   -r, --region <x>,<y> <width>x<height>   the regions of the screen you want to capture
   -a, --all                               capture all screens
+  -c, --cursor                            include cursor in screenshot
 EOF
 }
 
@@ -49,6 +50,11 @@ while test $# -gt 0; do
 		-a|--all)
 			shift
 			focused_screen=false
+			;;
+
+		-c|--cursor)
+			shift
+			opts="-c $opts"
 			;;
 
 		*)
