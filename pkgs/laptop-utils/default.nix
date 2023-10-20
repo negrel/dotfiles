@@ -12,9 +12,15 @@ let
     runtimeInputs = with pkgs; [ bash coreutils ];
     text = builtins.readFile ./bin/battery;
   };
+
+  battery-notification = pkgs.writeShellApplication {
+    name = "battery_notification";
+    runtimeInputs = with pkgs; [ bash coreutils libnotify battery-laptop-util ];
+    text = builtins.readFile ./bin/battery_notification;
+  };
 in
 pkgs.symlinkJoin rec {
   name = "laptop-utils";
-  utils = [ backlight-laptop-util battery-laptop-util ];
+  utils = [ backlight-laptop-util battery-laptop-util battery-notification ];
   paths = utils;
 }
