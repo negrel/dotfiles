@@ -68,8 +68,8 @@ bindsym $mod+Mod1+l exec swaylock
 # Fn keys:
 #
 # Screenshots
-bindsym Print exec screenshot
-bindsym Shift+Print exec screenshot -s
+bindsym Print exec screenshot -c
+bindsym Shift+Print exec screenshot -c -s
 
 # Brightness
 bindsym XF86MonBrightnessUp exec blightctl inc 5
