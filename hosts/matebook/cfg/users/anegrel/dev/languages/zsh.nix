@@ -87,7 +87,7 @@
             if [ "$git_repo_root" = "/" ]; then return 1; fi
           done
 
-          cd "$git_repo_root"
+          cd "$git_repo_root/$@"
         }
       '';
 
