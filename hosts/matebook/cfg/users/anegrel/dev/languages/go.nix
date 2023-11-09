@@ -6,7 +6,7 @@
       go
     ];
 
-    dot-profile.scripts."00-go".text = ''
+    zshrc.scripts."00-go".text = ''
       export GOPATH="$HOME/.go"
       export PATH="$PATH:$GOPATH/bin"
     '';
