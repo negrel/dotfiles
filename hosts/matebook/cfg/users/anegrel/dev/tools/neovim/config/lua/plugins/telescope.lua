@@ -1,5 +1,4 @@
 local actions = require("telescope.actions")
-local fb_actions = require("telescope").extensions.file_browser.actions
 require("telescope").setup {
 	defaults = {
 		mappings = {
@@ -20,30 +19,13 @@ require("telescope").setup {
 			hidden = true
 		}
 	},
-	extensions = {
-		file_browser = {
-			mappings = {
-				["i"] = {
-					["<A-n>"] = fb_actions.create,
-					["<A-r>"] = fb_actions.rename,
-					["<A-y>"] = fb_actions.copy,
-					["<A-d>"] = fb_actions.remove,
-					["<A-w>"] = fb_actions.goto_cwd,
-					["<A-h>"] = fb_actions.goto_parent_dir,
-					["<A-l>"] = actions.select_default
-				}
-			}
-		}
-	}
 }
-require("telescope").load_extension "file_browser"
 
 local builtin = require("telescope.builtin")
-builtin.file_browser = require("telescope").extensions.file_browser.file_browser
 
 local win = require("lib.win")
-local telescope = function(cmd)
-	args = args or {}
+local telescope = function(cmd, args)
+	local args = args or {}
 	args.width = args.width or 0.75
 	args.height = args.height or 0.85
 	cmd = builtin[cmd]
@@ -70,4 +52,3 @@ map("n", "<Leader>hs", telescope("search_history"), opts)
 map("n", "<Leader>hh", telescope("help_tags"), opts)
 map("n", "<Leader>hk", telescope("keymaps"), opts)
 map("n", "<Leader>b", telescope("buffers"), opts)
-map("n", "<Leader>fb", telescope("file_browser"), opts)
