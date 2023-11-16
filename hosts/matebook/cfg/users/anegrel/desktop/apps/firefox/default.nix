@@ -26,7 +26,6 @@
           temporary-containers
           decentraleyes
           terms-of-service-didnt-read
-          skip-redirect
         ];
       };
     };
