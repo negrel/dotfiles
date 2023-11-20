@@ -37,15 +37,6 @@ require("packer").startup({
 			requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
 		}
 
-		-- File tree
-		use {
-			'nvim-tree/nvim-tree.lua',
-			requires = {
-				'nvim-tree/nvim-web-devicons',
-			},
-			config = [[require("plugins.nvim-tree")]],
-		}
-
 		-- Autocompletion
 		use { -- Autocompletion plugin
 			"hrsh7th/nvim-cmp",

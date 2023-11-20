@@ -24,6 +24,23 @@ require("mini.surround").setup {}
 require("mini.indentscope").setup {}
 require("mini.cursorword").setup {}
 
+local minifiles = require("mini.files")
+minifiles.setup {}
+
+-- KEYMAPS
+local map = vim.keymap.set
+local opts = { silent = true }
+-- Toggle file explorer
+map({ "n", "v", "c", "i" }, "<C-b>", function()
+	local bufname = vim.api.nvim_buf_get_name(0)
+	local isTerm = bufname:find("term", 1, true) == 1
+	if isTerm then
+		minifiles.open(nil, false)
+	else
+		minifiles.open(bufname)
+	end
+end, opts)
+
 -- Random colorscheme.
 local MiniHues = require("mini.hues")
 local randomhue = MiniHues.gen_random_base_colors()
