@@ -13,46 +13,57 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  boot.kernel.sysctl = {
-    # Swap when 85% is used.
-    "vm.swappiness" = 15;
-  };
+  fileSystems."/" =
+    {
+      device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "subvol=root" ];
+    };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/256089cb-3938-4565-85ca-729a70c773a5";
-    fsType = "btrfs";
-  };
+  fileSystems."/nix" =
+    {
+      device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "subvol=nix" "noatime" ];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/E719-2A26";
-    fsType = "vfat";
-  };
+  fileSystems."/home" =
+    {
+      device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "subvol=home" ];
+    };
 
-  fileSystems."/tmp" = {
-    fsType = "tmpfs";
-    options = [ "size=6G" ];
-  };
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-uuid/28F5-1F06";
+      fsType = "vfat";
+    };
 
-  swapDevices =
-    [{
-      device = "/dev/disk/by-uuid/88c1e833-f265-4572-83a9-0f22ad0999c0";
-    }];
+  fileSystems."/var/lib/docker/btrfs" =
+    {
+      device = "/home/root/var/lib/docker/btrfs";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp60s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Disable pulseaudio so there is no conflict with pipewire
   hardware.pulseaudio.enable = false;

@@ -59,7 +59,7 @@
 
       outputsWithoutSystem = {
         nixosConfigurations = {
-          matebook = mkConfig "x86_64-linux" "matebook";
+          frameworkstation = mkConfig "x86_64-linux" "frameworkstation";
         };
       };
       outputsWithSystem =

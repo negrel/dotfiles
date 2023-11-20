@@ -8,7 +8,11 @@ set $term alacritty
 # Notifications daemons
 exec mako
 
+# System bar
 exec waybar
+
+# Fractional scaling
+output eDP-1 scale 1.5
 
 # Polkit authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -206,7 +210,7 @@ bindsym $mod+r mode "resize"
 seat seat0 xcursor_theme Adwaita 24
 
 # Font configuration
-#font monospace 10
+font monospace 10
 
 smart_borders on
 smart_gaps on

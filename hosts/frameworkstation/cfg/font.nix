@@ -10,7 +10,7 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JetBrainsMono" ];
+        monospace = [ "JetBrainsMono Nerd Font Mono" ];
         emoji = [ "FontAwesome" "Material Design Icons" "Noto Color Emoji" ];
       };
     };
