@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -29,7 +30,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nur, devenv, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur, devenv, ... }@inputs:
     let
       # Make system config helper function
       mkConfig = system: hostname:
