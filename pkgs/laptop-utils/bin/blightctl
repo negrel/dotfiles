@@ -52,11 +52,8 @@ while [ "$#" -gt "0" ]; do
 done
 
 brightness_get() {
-	light -G | cut -d '.' -f 1
+  brightnessctl get
 }
-
-# Set minimum value
-light -N 1
 
 case "${1:=}" in
 	help)
@@ -70,15 +67,15 @@ case "${1:=}" in
 		;;
 
 	set)
-		light -S "$2"
+		brightnessctl set "$2%" > /dev/null
 		;;
 
 	inc)
-		light -A "$2"
+		brightnessctl set "+$2%" > /dev/null
 		;;
 
 	dec)
-		light -U "$2"
+		brightnessctl set "$2%-" > /dev/null
 		;;
 
 	stream)
