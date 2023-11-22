@@ -3,5 +3,6 @@
 for bus_addr in /run/user/*/bus; do
   export DBUS_SESSION_BUS_ADDRESS="unix:path=$bus_addr"
   uid="$(basename "$(dirname "$bus_addr")")"
-  sudo -u "$(id -un "$uid")" notify-send -u critical 'Low battery' "Please charge now, $(battery percentage)% remaining."
+  sudo -u "$(id -un "$uid")" --preserve-env=DBUS_SESSION_BUS_ADDRESS \
+    notify-send -u critical 'Low battery' "Please charge now, $(battery percentage)% remaining."
 done
