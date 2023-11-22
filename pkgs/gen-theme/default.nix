@@ -14,6 +14,13 @@ let
     text = builtins.readFile ./bin/gen-theme;
   };
 
+  # toggle-dark-mode script
+  toggle-dark-mode = pkgs.writeShellApplication {
+    name = "toggle-dark-mode";
+    runtimeInputs = with pkgs; [ bash coreutils glib.bin ];
+    text = builtins.readFile ./bin/toggle-dark-mode;
+  };
+
   gen-theme-all-themes = pkgs.symlinkJoin {
     name = "gen-theme-all-themes";
     paths = [ gen-theme-theme-moon gen-theme-theme-space gen-theme-theme-wallhaven ];
@@ -73,5 +80,5 @@ in
 pkgs.symlinkJoin rec {
   name = "gen-theme";
   themes = [ gen-theme-all-themes ];
-  paths = [ gen-theme-bin ] ++ themes;
+  paths = [ gen-theme-bin toggle-dark-mode ] ++ themes;
 }
