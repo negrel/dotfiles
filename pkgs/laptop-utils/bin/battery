@@ -16,13 +16,13 @@ SUBCOMMAND:
   status                        print battery status (Charging/Discharging)
 
 OPTIONS:
-  -b, --bat                     battery name (default: BAT0)
+  -b, --bat                     battery name (default: BAT1)
   --debug                       enable debug logs
   -h, --help                    print help menu
 EOF
 }
 
-bat="BAT0"
+bat="BAT1"
 
 while [ "$#" -gt "0" ]; do
 	case "$1" in
