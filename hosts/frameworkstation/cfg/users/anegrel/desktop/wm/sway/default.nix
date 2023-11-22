@@ -41,8 +41,25 @@ let
       '';
   };
 
+  polkit-gnome-authentication-agent = pkgs.writeTextFile {
+    name = "polkit-gnome-authentication-agent";
+    destination = "/bin/polkit-gnome-authentication-agent";
+    executable = true;
+
+    text = ''
+      # Start gnome polkit authentication agent.
+      ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
+    '';
+  };
 in
 {
+  environment.systemPackages = with pkgs; [
+    # https://nixos.wiki/wiki/Sway#Using_NixOS
+    configure-gtk
+    dbus-sway-environment
+    polkit-gnome-authentication-agent
+  ];
+
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -67,8 +84,7 @@ in
   services.greetd.settings =
     let
       swayConfig = pkgs.writeText "greetd-sway-config" ''
-        exec "${dbus-sway-environment}/bin/dbus-sway-environment"
-        exec "${configure-gtk}/bin/configure-gtk"
+        include ${./config/sway/minimal}
 
         # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
         exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
@@ -77,12 +93,6 @@ in
           -m 'What do you want to do?' \
           -b 'Poweroff' 'systemctl poweroff' \
           -b 'Reboot' 'systemctl reboot'
-
-        # Keyboard
-        input type:keyboard {
-          xkb_layout fr
-          repeat_delay 125
-        }
       '';
     in
     {
@@ -95,12 +105,20 @@ in
     sway
     bash
   '';
+  # Disable fingerprint support for greetd.
+  security.pam.services.greetd.fprintAuth = false;
 
   # Lock screen
   security.pam.services.gtklock = {
+    # Fingerprint support
+    fprintAuth = true;
     # Keyring
     enableGnomeKeyring = true;
   };
+
+  # Enable polkit daemon
+  # Gnome authentication agent is started in s
+  security.polkit.enable = true;
 
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
@@ -113,9 +131,6 @@ in
       screenshot
       wmctl
 
-      # https://nixos.wiki/wiki/Sway#Using_NixOS
-      configure-gtk
-      dbus-sway-environment
       glib
       gnome3.adwaita-icon-theme
       wdisplays
@@ -128,3 +143,4 @@ in
     gen-theme.templates."sway".source = ./templates/sway;
   };
 }
+

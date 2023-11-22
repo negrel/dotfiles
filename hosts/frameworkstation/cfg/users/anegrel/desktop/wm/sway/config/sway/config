@@ -1,7 +1,6 @@
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
+include ~/.config/sway/minimal
+
+set $mod mod4
 
 set $term alacritty
 
@@ -11,22 +10,14 @@ exec mako
 # System bar
 exec waybar
 
-# Fractional scaling
-output eDP-1 scale 1.5
-
-# Polkit authentication agent
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-exec dbus-sway-environment
-exec configure-gtk
-
 # Allow X11 applications to run
 xwayland force
 
 exec swayidle -w \
-	timeout 300 'lock' \
+	timeout 300 'loginctl lock-session $XDG_SESSION_ID' \
 	timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-	before-sleep 'lock'
+	before-sleep 'loginctl lock-session $XDG_SESSION_ID' \
+	lock 'gtklock -d'
 
 input type:touchpad {
 	tap enabled
@@ -35,12 +26,6 @@ input type:touchpad {
 }
 
 focus_follows_mouse no
-
-# Keyboard
-input type:keyboard {
-	xkb_layout fr
-	repeat_delay 125
-}
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -66,7 +51,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+f exec nautilus $HOME
 
 # Lock
-bindsym $mod+Mod1+l exec gtklock
+bindsym $mod+Mod1+l exec loginctl lock-session $XDG_SESSION_ID
 
 #
 # Fn keys:
