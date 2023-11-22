@@ -1,19 +1,12 @@
 { pkgs, ... }:
 
 {
-  # Wayland
   services = {
+    # Wayland
     xserver.enable = true;
-    xserver.displayManager.gdm = {
-      wayland = true;
-      enable = true;
-    };
   };
   programs.xwayland.enable = true;
 
-  # Keyring
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  security.pam.services.swaylock.enableGnomeKeyring = true;
 
   environment.systemPackages = with pkgs; [
     # Wayland utils

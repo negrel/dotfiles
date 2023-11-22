@@ -37,7 +37,7 @@ let
       ''
         export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
         gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme 'Dracula'
+        gsettings set $gnome_schema gtk-theme 'Adwaita'
       '';
   };
 
@@ -59,14 +59,53 @@ in
     enable = true;
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
-    # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  # Login manager
+  services.greetd.enable = true;
+  services.greetd.settings =
+    let
+      swayConfig = pkgs.writeText "greetd-sway-config" ''
+        exec "${dbus-sway-environment}/bin/dbus-sway-environment"
+        exec "${configure-gtk}/bin/configure-gtk"
+
+        # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
+        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
+        bindsym Mod4+shift+e exec swaynag \
+          -t warning \
+          -m 'What do you want to do?' \
+          -b 'Poweroff' 'systemctl poweroff' \
+          -b 'Reboot' 'systemctl reboot'
+
+        # Keyboard
+        input type:keyboard {
+          xkb_layout fr
+          repeat_delay 125
+        }
+      '';
+    in
+    {
+      default_session = {
+        user = "greeter";
+        command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
+      };
+    };
+  environment.etc."greetd/environments".text = ''
+    sway
+    bash
+  '';
+
+  # Lock screen
+  security.pam.services.gtklock = {
+    # Keyring
+    enableGnomeKeyring = true;
+  };
 
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
       swaybg
-      swaylock
+      gtklock
       swayidle
       mako
 
@@ -87,9 +126,5 @@ in
 
     # Templates
     gen-theme.templates."sway".source = ./templates/sway;
-    gen-theme.templates."swaylock" = {
-      source = ./templates/swaylock;
-      destination = ".config/swaylock/config";
-    };
   };
 }
