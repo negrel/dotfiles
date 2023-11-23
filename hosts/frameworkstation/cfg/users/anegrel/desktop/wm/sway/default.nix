@@ -141,6 +141,10 @@ in
 
     # Templates
     gen-theme.templates."sway".source = ./templates/sway;
+    gen-theme.templates."gtklock.css" = {
+      source = ./templates/gtklock.css;
+      destination = ".config/gtklock/style.css";
+    };
   };
 }
 
