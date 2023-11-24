@@ -1,8 +1,17 @@
 { config, pkgs, modulesPath, ... }:
 
 {
-  # Enable nix flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    # Enable nix flakes
+    settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # Set system wide nix channel.
+    nixPath = [ "nixpkgs=/etc/nixpath" ];
+  };
+  systemd.tmpfiles.rules = [
+    "L+ /etc/nixpath - - - - ${pkgs.path}"
+  ];
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
