@@ -35,6 +35,9 @@
       nmap
       file
       cachix
+
+      # Kernel specific
+      linuxKernel.packages.linux_zen.cpupower
     ];
   };
 }

@@ -17,7 +17,11 @@
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+
+  # Use latest zen kernel.
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelParams = [ ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ ];
 
   fileSystems."/" =
     {
@@ -46,13 +50,6 @@
       fsType = "vfat";
     };
 
-  fileSystems."/var/lib/docker/btrfs" =
-    {
-      device = "/home/root/var/lib/docker/btrfs";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -73,5 +70,6 @@
 
   # Bluetooth
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
   services.blueman.enable = true;
 }
