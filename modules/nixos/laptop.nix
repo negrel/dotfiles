@@ -10,15 +10,15 @@ in
   options.system.laptop = {
     isLaptop = mkEnableOption { };
     devPath = mkOption {
-      default = "/sys/class/backlight/intel_backlight";
+      default = "/sys/class/backlight/amdgpu_bl0";
     };
   };
 
   config = mkIf cfg.isLaptop {
     environment.systemPackages = with pkgs; [
-      tlp
       laptop-utils
       lm_sensors
+      powertop
     ];
 
     # Users in group video can change backlight
