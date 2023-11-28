@@ -3,7 +3,7 @@
 let
   backlight-laptop-util = pkgs.writeShellApplication {
     name = "blightctl";
-    runtimeInputs = with pkgs; [ bash coreutils brightnessctl ];
+    runtimeInputs = with pkgs; [ bash coreutils light ];
     text = builtins.readFile ./bin/blightctl;
   };
 
