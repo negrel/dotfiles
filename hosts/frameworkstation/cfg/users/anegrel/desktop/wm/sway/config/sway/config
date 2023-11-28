@@ -192,6 +192,10 @@ bindsym $mod+r mode "resize"
 # Styling :
 #
 
+seat seat0 xcursor_theme Adwaita 24
+
+# Font configuration
+font monospace 10
 
 smart_borders on
 smart_gaps on

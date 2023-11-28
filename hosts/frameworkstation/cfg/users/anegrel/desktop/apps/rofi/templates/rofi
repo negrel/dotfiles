@@ -31,7 +31,6 @@
     background-color: #@@BACKGROUND@@;
     border: 8px;
     padding: 2.5ch;
-    font: "JetBrainsMono Nerd Font Mono 16";
 }
 
 #mainbox {

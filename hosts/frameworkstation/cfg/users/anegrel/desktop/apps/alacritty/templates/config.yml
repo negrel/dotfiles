@@ -11,7 +11,7 @@
 # check the local terminfo database and use 'alacritty' if it is
 # available, otherwise 'xterm-256color' is used.
 #TERM: xterm-256color
-
+ 
 window:
   # Background opacity
   opacity: 0.96
@@ -96,7 +96,7 @@ font:
   #  style: Italic
 
   # Point size
-  size: 16
+  size: 10
   antialias: true
   autohint: true
 
