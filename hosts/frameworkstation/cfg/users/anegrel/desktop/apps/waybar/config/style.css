@@ -4,7 +4,7 @@
     border-radius: 0px;
     border: none;
     font-family: Font Awesome, monospace, sans-serif;
-    font-size: 11px;
+    font-size: 16px;
     color: @foreground;
 }
 
@@ -27,8 +27,8 @@ window#waybar {
 
 /*-----modules indv----*/
 #workspaces button {
-    padding: 0px 5px;
-    border-top: 2px solid transparent;
+    padding: 0px .5em;
+    border-top: .25px solid transparent;
 }
 
 #workspaces button:hover {
@@ -36,13 +36,13 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    border-top: 2px solid @color3;
+    border-top: .25em solid @color3;
     background-color: @color0;
 }
 
 #taskbar button {
-    padding: 0px 7px;
-    border-top: 2px solid transparent;
+    padding: 0px .5em;
+    border-top: .25em solid transparent;
 }
 
 #taskbar button:hover {
@@ -50,7 +50,7 @@ window#waybar {
 }
 
 #taskbar button.active {
-    border-top: 2px solid @color3;
+    border-top: .25em solid @color3;
     background-color: @color0;
 }
 
@@ -67,17 +67,12 @@ window#waybar {
 #custom-power,
 #backlight,
 #idle_inhibitor {
-    padding: 0 10px;
+    padding: 0 .5em;
 }
 
 #mode {
     color: #cc3436;
     font-weight: bold;
-}
-
-#custom-power {
-    margin: 5px 5px;
-    padding: 1px 3px;
 }
 
 /*-----Indicators----*/
