@@ -130,12 +130,12 @@
 
     #CPU_SCALING_MIN_FREQ_ON_AC=0
     #CPU_SCALING_MAX_FREQ_ON_AC=0
-    #CPU_SCALING_MIN_FREQ_ON_AC=400000
-    #CPU_SCALING_MAX_FREQ_ON_AC=5132000
+    CPU_SCALING_MIN_FREQ_ON_AC = 400000;
+    CPU_SCALING_MAX_FREQ_ON_AC = 5132000;
     #CPU_SCALING_MIN_FREQ_ON_BAT=0
     #CPU_SCALING_MAX_FREQ_ON_BAT=0
-    #CPU_SCALING_MIN_FREQ_ON_BAT=400000
-    #CPU_SCALING_MAX_FREQ_ON_BAT=2000000
+    CPU_SCALING_MIN_FREQ_ON_BAT = 400000;
+    CPU_SCALING_MAX_FREQ_ON_BAT = 4000000;
 
     # Set CPU energy/performance policies EPP and EPB:
     #   performance, balance_performance, default, balance_power, power.
@@ -175,8 +175,8 @@
     # Note: a value of 1 does *not* activate boosting, it just allows it.
     # Default: <none>
 
-    #CPU_BOOST_ON_AC=1
-    #CPU_BOOST_ON_BAT=0
+    CPU_BOOST_ON_AC = 1;
+    CPU_BOOST_ON_BAT = 0;
 
     # Set Intel/AMD CPU dynamic boost feature:
     #   0=disable, 1=enable.
@@ -348,28 +348,28 @@
     #RADEON_DPM_PERF_LEVEL_ON_AC=auto
     #RADEON_DPM_PERF_LEVEL_ON_BAT=auto
     RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
-    RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
+    RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
 
     # Dynamic power management method (DPM): balanced, battery, performance.
     # Note: radeon driver only.
     # Default: <none>
 
-    #RADEON_DPM_STATE_ON_AC=performance
-    #RADEON_DPM_STATE_ON_BAT=battery
+    RADEON_DPM_STATE_ON_AC = "performance";
+    RADEON_DPM_STATE_ON_BAT = "battery";
 
     # Graphics clock speed (profile method): low, mid, high, auto, default;
     # auto = mid on BAT, high on AC.
     # Note: radeon driver on legacy ATI hardware only (where DPM is not available).
     # Default: default
 
-    #RADEON_POWER_PROFILE_ON_AC=default
-    #RADEON_POWER_PROFILE_ON_BAT=default
+    RADEON_POWER_PROFILE_ON_AC = "default";
+    RADEON_POWER_PROFILE_ON_BAT = "low";
 
     # Wi-Fi power saving mode: on=enable, off=disable.
     # Default: off (AC), on (BAT)
 
-    #WIFI_PWR_ON_AC=off
-    #WIFI_PWR_ON_BAT=on
+    WIFI_PWR_ON_AC = "off";
+    WIFI_PWR_ON_BAT = "on";
 
     # Disable Wake-on-LAN: Y/N.
     # Default: Y
@@ -396,7 +396,7 @@
     # (*) keeps BIOS ASPM defaults (recommended)
     # Default: <none>
 
-    #PCIE_ASPM_ON_AC=default
+    PCIE_ASPM_ON_AC = "default";
     PCIE_ASPM_ON_BAT = "powersupersave";
 
     # Runtime Power Management for PCIe bus devices: on=disable, auto=enable.
