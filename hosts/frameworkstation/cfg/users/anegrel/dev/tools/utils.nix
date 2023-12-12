@@ -8,6 +8,9 @@
 
       # Run arbitrary commands when files change
       entr
+
+      # count LOC, comments, etc.
+      cloc
     ];
   };
 }
