@@ -1,6 +1,6 @@
 [user]
     name = Alexandre Negrel
-    email = negrel.dev@protonmail.com
+    email = alexandre@negrel.dev
 [credential]
     helper = store
 
