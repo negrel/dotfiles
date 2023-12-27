@@ -63,6 +63,11 @@ require("packer").startup({
 			config = [[require("plugins.lsp")]]
 		}
 
+		use {
+			"nvimtools/none-ls.nvim",
+			config = [[require("plugins.none-ls")]]
+		}
+
 		-- Rust
 		use {
 			"simrat39/rust-tools.nvim",
