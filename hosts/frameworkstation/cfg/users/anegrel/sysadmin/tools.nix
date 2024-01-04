@@ -35,6 +35,7 @@
       nmap
       file
       cachix
+      sshfs
 
       # Kernel specific
       linuxKernel.packages.linux_zen.cpupower
