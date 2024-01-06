@@ -65,7 +65,6 @@
         alias :qa="exit"
         alias :qa!="exit"
         alias c="clear"
-        alias ssh="TERM=xterm-256color ssh"
         alias cdtmp="cd $(mktemp -d)"
 
         # Process handling
@@ -88,6 +87,10 @@
           done
 
           cd "$git_repo_root/$@"
+        }
+
+        cpr() {
+          rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 "$@"
         }
       '';
 
