@@ -4,17 +4,15 @@
   services = {
     # Wayland
     xserver.enable = true;
+
+    # Gnome keyring
+    gnome.gnome-keyring.enable = true;
   };
   programs.xwayland.enable = true;
-
 
   environment.systemPackages = with pkgs; [
     # Wayland utils
     wl-clipboard
-
-    # Gnome
-    gnome.gnome-settings-daemon
-    gnome.gnome-keyring
 
     # gsettings
     glib.bin
