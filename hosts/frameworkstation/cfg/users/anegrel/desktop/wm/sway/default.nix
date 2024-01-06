@@ -63,6 +63,7 @@ in
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    extraSessionCommands = "source dot-profile";
   };
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
