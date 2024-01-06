@@ -3,18 +3,20 @@
 : "${SAFE_MODE:="false"}"
 
 if [ "$SAFE_MODE" != "false" ]; then
-  set +eu
-  exec &> ~/.dot-profile.log
+	set +eu
+	exec &> ~/.dot-profile.log
 fi
 
 if [ "$(find ~/.config/profile.d/ | wc -l)" = "0" ]; then
-  echo "no profile script to run in \"~/.config/profile.d/\"" >&2
-  return
+	echo "no profile script to run in \"~/.config/profile.d/\"" >&2
+	return
 fi
 
 for f in ~/.config/profile.d/*; do
 	# shellcheck source=/dev/null
-  source "$f"
+	source "$f"
 done
 
-exec "$@"
+if [ "$#" -gt 0 ]; then
+	exec "$@"
+fi
