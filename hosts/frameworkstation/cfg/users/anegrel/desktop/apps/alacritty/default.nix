@@ -6,16 +6,13 @@
       alacritty
     ];
 
-    gen-theme.templates."alacritty.yml" = {
-      text = builtins.readFile ./templates/config.yml;
-      destination = ".config/alacritty/alacritty.yml";
+    gen-theme.templates."alacritty.toml" = {
+      text = builtins.readFile ./templates/config.toml;
+      destination = ".config/alacritty/alacritty.toml";
     };
 
     dot-profile.scripts."00-alacritty".text = ''
       export TERMINAL="alacritty -e"
     '';
-    home.sessionVariables = {
-      TERMINAL = "alacritty -e";
-    };
   };
 }

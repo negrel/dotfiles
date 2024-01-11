@@ -1,0 +1,76 @@
+live_config_reload = true
+
+[window]
+decorations = "Full"
+padding = { x = 2, y = 2 }
+opacity = 0.96
+dynamic_title = true
+resize_increments = true
+dimensions = { columns = 80, lines = 24 }
+
+[scrolling]
+history = 100000
+multiplier = 1
+
+[font]
+size = 10
+glyph_offset = { x = 0, y = 0 }
+offset = { x = 0, y = 0 }
+
+[colors]
+[colors.bright]
+black = "#@@COLOR8@@"
+blue = "#@@COLOR12@@"
+cyan = "#@@COLOR14@@"
+green = "#@@COLOR10@@"
+magenta = "#@@COLOR13@@"
+red = "#@@COLOR9@@"
+white = "#@@COLOR15@@"
+yellow = "#@@COLOR11@@"
+
+[colors.cursor]
+cursor = "#@@FOREGROUND@@"
+text = "#@@BACKGROUND@@"
+
+[colors.normal]
+black = "#@@BACKGROUND@@"
+blue = "#@@COLOR4@@"
+cyan = "#@@COLOR6@@"
+green = "#@@COLOR2@@"
+magenta = "#@@COLOR5@@"
+red = "#@@COLOR1@@"
+white = "#@@COLOR7@@"
+yellow = "#@@COLOR3@@"
+
+[colors.primary]
+background = "#@@BACKGROUND@@"
+dim_foreground = "#@@FOREGROUND@@"
+foreground = "#@@FOREGROUND@@"
+
+[colors.footer_bar]
+background = "#@@COLOR8@@"
+foreground = "#@@COLOR2@@"
+
+[colors.search.matches]
+background = "CellForeground"
+foreground = "CellBackground"
+
+[colors.selection]
+background = "CellForeground"
+text = "CellBackground"
+
+[colors.vi_mode_cursor]
+cursor = "#@@FOREGROUND@@"
+text = "#@@BACKGROUND@@"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[bell]
+animation = "EaseOutExpo"
+duration = 100
+
+[selection]
+save_to_clipboard = false
+
