@@ -63,6 +63,7 @@ in
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    wrapperFeatures.base = true;
     extraSessionCommands = "source dot-profile";
   };
 
