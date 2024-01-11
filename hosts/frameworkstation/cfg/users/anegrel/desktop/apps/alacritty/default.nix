@@ -14,5 +14,8 @@
     dot-profile.scripts."00-alacritty".text = ''
       export TERMINAL="alacritty -e"
     '';
+    home.sessionVariables = {
+      TERMINAL = "alacritty -e";
+    };
   };
 }

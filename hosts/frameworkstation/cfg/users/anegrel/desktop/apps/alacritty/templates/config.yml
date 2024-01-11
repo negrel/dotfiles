@@ -97,8 +97,6 @@ font:
 
   # Point size
   size: 10
-  antialias: true
-  autohint: true
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -113,14 +111,11 @@ font:
     x: 0
     y: 0
 
-# Display the time it takes to redraw each frame.
-render_timer: false
-
-# If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: false
-
 ## colours
 colors:
+  # If `true`, bold text is drawn using the bright color variants.
+  draw_bold_text_with_bright_colors: false
+
   primary:
     background: "#@@BACKGROUND@@"
     foreground: "#@@FOREGROUND@@"
@@ -138,9 +133,6 @@ colors:
     matches:
       foreground: CellBackground
       background: CellForeground
-    footer_bar:
-      background: "#@@COLOR8@@"
-      foreground: "#@@COLOR2@@"
   normal:
     black: "#@@BACKGROUND@@"
     red: "#@@COLOR1@@"
@@ -195,8 +187,6 @@ bell:
 
 # w3mimgdisplay
 
-preview_images: true
-
 # Mouse bindings
 #
 # Available fields:
@@ -212,18 +202,10 @@ preview_images: true
 #
 # All available `mods` and `action` values are documented in the key binding
 # section.
-mouse_bindings:
+mouse.bindings:
   - { mouse: Middle, action: PasteSelection }
 
 mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
-
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: false
 
@@ -234,8 +216,6 @@ selection:
   # the selection clipboard. Otherwise, it will only be copied to the selection
   # clipboard.
   save_to_clipboard: false
-
-window.dynamic_title: true
 
 cursor:
   # Cursor style
@@ -339,7 +319,7 @@ live_config_reload: true
 #   - AppCursor
 #   - ~AppKeypad
 #   - AppKeypad
-key_bindings:
+keyboard.bindings:
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: Paste, action: Paste }
