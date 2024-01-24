@@ -103,6 +103,7 @@ USAGE:
 
 SUBCOMMAND:
   help                          print help menu
+  list                          list workspaces
   focus                         focus a workspace
   focused                       print focused workspace to stdout
   stream                        print a line to stdout every time focused workspace change
@@ -117,9 +118,9 @@ workspace() {
 			print_workspace_help
 			;;
 
-		focused)
+		list)
 			shift
-			swaymsg -t get_workspaces | jq -r '.[] | select(.focused) | .name'
+			swaymsg -t get_workspaces | jq -r '.[].name'
 			;;
 
 		focus)
@@ -127,6 +128,12 @@ workspace() {
 			swaymsg workspace "$1"
 			stream_file="$(get_stream_file_or_null)"
 			echo "workspace $1" >> "$stream_file"
+			;;
+
+
+		focused)
+			shift
+			swaymsg -t get_workspaces | jq -r '.[] | select(.focused) | .name'
 			;;
 
 		stream)
