@@ -3,7 +3,7 @@
 {
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
-      ffmpeg
+      ffmpeg-full
     ];
   };
 }
