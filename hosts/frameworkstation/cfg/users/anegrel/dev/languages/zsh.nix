@@ -44,6 +44,14 @@
             | fzf +m)"
           cd "$dir"
         }
+
+        fcmd() {
+          cmd="$(tr ':' '\n' <<< "$PATH" \
+            | xargs -P $(nproc) -I{} find -L "{}" -type f -executable 2> /dev/null \
+            | xargs -P $(nproc) -I{} basename "{}" \
+            | fzf)"
+          print -z "$cmd"
+        }
       '';
 
       "aliases".text = ''
@@ -75,7 +83,7 @@
 
       "functions".text = ''
         rwhich() {
-          readlink -f $(which $@)
+          readlink -f "$(which $@)"
         }
 
         gcd() {
