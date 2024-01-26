@@ -13,11 +13,13 @@
       enableAutosuggestions = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
-      initExtraBeforeCompInit = "source ~/.config/zsh/rc";
-      initExtra = ''
-        # Remove oh-my-zsh alias
-        unalias gcd
+      initExtraBeforeCompInit = ''
+        ZSH_THEME="pmcgee"
+        plugins=(git colored-man-pages fzf)
+
+        export FZF_DEFAULT_OPTS="--layout reverse"
       '';
+      initExtra = "source ~/.config/zsh/rc";
       history.size = 10000;
 
       oh-my-zsh = {
@@ -26,18 +28,10 @@
     };
 
     zshrc.scripts = {
-      "00-oh-my-zsh".text = ''
-        ZSH_THEME="pmcgee"
-        plugins=(git colored-man-pages)
-      '';
-
       "fzf".text = ''
-        plugins+="fzf"
-        export FZF_DEFAULT_OPTS="--layout reverse"
-
         # cd like function using fzf
         fcd() {
-          dir="$(find \
+          local dir="$(find \
             -L ''${1:-"."} -mindepth 1 \
             \( -path '*/\.*' -o -fstype sysfs -o -fstype devs -o -fstype devtmpfs -o -fstype proc \) \
             -prune -o -type d -print \
@@ -46,7 +40,7 @@
         }
 
         fcmd() {
-          cmd="$(tr ':' '\n' <<< "$PATH" \
+          local cmd="$(tr ':' '\n' <<< "$PATH" \
             | xargs -P $(nproc) -I{} find -L "{}" -type f -executable 2> /dev/null \
             | xargs -P $(nproc) -I{} basename "{}" \
             | fzf)"
@@ -86,6 +80,7 @@
           readlink -f "$(which $@)"
         }
 
+        unalias gcd # alias from oh-my-zsh git plugins
         gcd() {
           local git_repo_root="$PWD"
 
@@ -104,6 +99,29 @@
 
       "autocompletion".text = ''
         autoload -U +X bashcompinit && bashcompinit
+      '';
+
+      "command_not_found_handler".text = ''
+        # Track function executed.
+        _print_z_nix_shell_current_cmd=""
+
+        _print_z_nix_shell_store_cmd() {
+          _print_z_nix_shell_current_cmd=$1
+        }
+
+        _print_z_nix_shell_handle_not_found() {
+          if [ -z "$_print_z_nix_shell_current_cmd" -o "$?" -eq "0" ]; then
+            return 0
+          fi
+
+          command -v "$_print_z_nix_shell_current_cmd"
+          command -v "$_print_z_nix_shell_current_cmd" &> /dev/null ||
+            print -z "$(command-not-found "$_print_z_nix_shell_current_cmd" |& grep nix-shell | head -n 1 | xargs)"
+          _print_z_nix_shell_current_cmd=""
+        }
+
+        preexec_functions+=_print_z_nix_shell_store_cmd
+        precmd_functions+=_print_z_nix_shell_handle_not_found
       '';
     };
   };
