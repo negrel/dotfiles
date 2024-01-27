@@ -14,18 +14,30 @@ nvim_lsp.denols.setup {
 -- KEYMAPS
 local map = vim.keymap.set
 
--- Nodejs
+-- Nodejs / Bun
 nvim_lsp.eslint.setup {
 	capabilities = lsp.capabalities,
 	on_attach = function(client, bufnr)
 		lsp.on_attach(client, bufnr)
-		map({ "n", "i" }, "<A-F>", "<Cmd>EslintFixAll<CR>", { silent = true, buffer = bufnr })
+		map(
+			{ "n", "i" },
+			"<A-F>",
+			"<Cmd>EslintFixAll<CR>",
+			{ silent = true, buffer = bufnr }
+		)
+
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
 			command = "EslintFixAll",
 		})
 	end,
-	root_dir = nvim_lsp.util.root_pattern(".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.mjs"),
+	root_dir = nvim_lsp.util.root_pattern(
+		".eslintrc",
+		".eslintrc.json",
+		".eslintrc.js",
+		".eslintrc.cjs",
+		".eslintrc.mjs"
+	),
 	settings = {}
 }
 
@@ -35,7 +47,7 @@ nvim_lsp.tsserver.setup {
 		client.server_capabilities.documentFormattingProvider = false
 		lsp.on_attach(client, bufnr)
 	end,
-	root_dir = nvim_lsp.util.root_pattern("tsconfig.json", "package.json"),
+	root_dir = nvim_lsp.util.root_pattern("tsconfig.json", "package.json", "bun.lockb"),
 	single_file_support = false,
 	settings = {}
 }
