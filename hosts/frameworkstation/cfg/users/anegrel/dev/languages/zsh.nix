@@ -114,7 +114,6 @@
             return 0
           fi
 
-          command -v "$_print_z_nix_shell_current_cmd"
           command -v "$_print_z_nix_shell_current_cmd" &> /dev/null ||
             print -z "$(command-not-found "$_print_z_nix_shell_current_cmd" |& grep nix-shell | head -n 1 | xargs)"
           _print_z_nix_shell_current_cmd=""
