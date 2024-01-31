@@ -34,6 +34,9 @@ focus_follows_mouse no
 # mouse button for dragging.
 floating_modifier $mod normal
 
+# Inhibit idle when a view is fullscreen and visible.
+exec swaymsg inhibit_idle fullscreen
+
 #
 # Key bindings
 #
