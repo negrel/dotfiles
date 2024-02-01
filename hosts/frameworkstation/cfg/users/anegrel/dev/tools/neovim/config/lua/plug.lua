@@ -23,6 +23,12 @@ require("packer").startup({
 			run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
 		}
 
+		-- Hex colors
+		use {
+			"norcalli/nvim-colorizer.lua",
+			config = [[require("plugins.nvim-colorizer")]]
+		}
+
 		-- Bar
 		use {
 			"nvim-lualine/lualine.nvim",
