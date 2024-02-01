@@ -52,7 +52,8 @@
         alias df="df -h"
         alias free="free -h"
         alias cat="$(command -v bat || command -v cat || echo /bin/cat)"
-        alias ls="$(command -v lsd || command -v ls || echo /bin/ls)"
+        unalias ls # oh-my-zsh
+        alias ls="$(command -v lsd || command -v ls || echo /bin/ls) --color=tty"
         alias l="ls"
         alias la="l -a"
         alias ll="l -l"
@@ -111,6 +112,7 @@
 
         _print_z_nix_shell_handle_not_found() {
           if [ -z "$_print_z_nix_shell_current_cmd" -o "$?" -eq "0" ]; then
+            _print_z_nix_shell_current_cmd=""
             return 0
           fi
 
