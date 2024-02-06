@@ -5,6 +5,8 @@
     fontDir.enable = true;
     packages = with pkgs; [
       nerdfonts
+      corefonts
+      vistafonts
     ];
 
     fontconfig = {
