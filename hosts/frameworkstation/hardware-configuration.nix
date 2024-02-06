@@ -20,7 +20,7 @@
 
   # Use latest zen kernel.
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.kernelParams = [ ];
+  boot.kernelParams = [ "amdgpu.sg_display=0" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ ];
 
   fileSystems."/" =
