@@ -7,6 +7,7 @@
     "clock"
   ],
   "modules-right": [
+    "tray",
     "custom/media-player",
     "idle_inhibitor",
     "network",
@@ -14,7 +15,6 @@
     "pulseaudio#vol",
     "pulseaudio#mic",
     "battery",
-    "tray",
     "custom/power"
   ],
   "custom/media-player": {
