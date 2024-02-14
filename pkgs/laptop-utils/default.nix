@@ -15,7 +15,7 @@ let
 
   battery-notification = pkgs.writeShellApplication {
     name = "battery_notification";
-    runtimeInputs = with pkgs; [ bash coreutils libnotify battery-laptop-util ];
+    runtimeInputs = with pkgs; [ bash coreutils libnotify battery-laptop-util sudo ];
     text = builtins.readFile ./bin/battery_notification;
   };
 in

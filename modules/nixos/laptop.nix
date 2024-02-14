@@ -32,7 +32,7 @@ in
       # Battery notification
       SUBSYSTEM=="power_supply", \
       ATTR{status}=="Discharging", \
-      ATTR{capacity}=="[0-90]", \
+      ATTR{capacity}=="[0-1][0-9]", \
       RUN+="${pkgs.laptop-utils}/bin/battery_notification"
     '';
   };
