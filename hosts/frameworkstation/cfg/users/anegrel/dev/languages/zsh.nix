@@ -51,7 +51,7 @@
       "aliases".text = ''
         alias df="df -h"
         alias free="free -h"
-        alias cat="$(command -v bat || command -v cat || echo /bin/cat)"
+        alias cat="$(command -v cat || echo /bin/cat)"
         unalias ls # oh-my-zsh
         alias ls="$(command -v lsd || command -v ls || echo /bin/ls) --color=tty"
         alias l="ls"
