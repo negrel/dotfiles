@@ -10,6 +10,9 @@ exec mako
 # System bar
 exec waybar
 
+# Kde connect daemon
+exec kdeconnectd
+
 # Allow X11 applications to run
 xwayland force
 

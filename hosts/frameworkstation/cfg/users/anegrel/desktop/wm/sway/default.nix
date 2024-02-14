@@ -51,6 +51,16 @@ let
       ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
     '';
   };
+
+  kdeconnectd = pkgs.writeTextFile {
+    name = "kdeconnectd";
+    destination = "/bin/kdeconnectd";
+    executable = true;
+
+    text = ''
+      ${pkgs.kdeconnect}/libexec/kdeconnectd
+    '';
+  };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -58,6 +68,9 @@ in
     configure-gtk
     dbus-sway-environment
     polkit-gnome-authentication-agent
+
+    # Kde connect
+    kdeconnectd
   ];
 
   programs.sway = {
@@ -119,8 +132,12 @@ in
   };
 
   # Enable polkit daemon
-  # Gnome authentication agent is started in s
+  # Gnome authentication agent is started in sway
   security.polkit.enable = true;
+
+  # Kde connect
+  programs.kdeconnect.enable = true;
+  programs.kdeconnect.package = pkgs.kdeconnect;
 
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [

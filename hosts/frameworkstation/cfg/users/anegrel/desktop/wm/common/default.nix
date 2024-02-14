@@ -48,7 +48,7 @@
         export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
       '';
 
-    dot-profile.scripts."gsettings".text = ''
+    dot-profile.scripts."00-gsettings".text = ''
       config="''${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
       if [ ! -f "$config" ]; then exit 1; fi
 
