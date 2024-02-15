@@ -20,7 +20,10 @@
 @define-color color15 #@@COLOR15@@;
 
 window {
-  background: @background;
+  background-image: url('@@WALLPAPER@@');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   color: @foreground;
 }
 
