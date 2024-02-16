@@ -58,7 +58,7 @@ let
     executable = true;
 
     text = ''
-      ${pkgs.kdeconnect}/libexec/kdeconnectd
+      exec ${pkgs.kdeconnect}/libexec/kdeconnectd
     '';
   };
 in
