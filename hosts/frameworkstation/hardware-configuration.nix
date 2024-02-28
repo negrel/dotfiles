@@ -23,32 +23,35 @@
   boot.kernelParams = [ "amdgpu.sg_display=0" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "subvol=root" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "subvol=root" ];
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "subvol=nix" "noatime" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "subvol=nix" "noatime" ];
+  };
 
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "subvol=home" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "subvol=home" ];
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/28F5-1F06";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/28F5-1F06";
+    fsType = "vfat";
+  };
+
+  fileSystems."/snapshots" = {
+    device = "/dev/disk/by-uuid/a9965b88-3d59-4a6a-9cd9-ca0f974c843a";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "subvol=snapshots" "noatime" ];
+  };
+
 
   swapDevices = [ ];
 
