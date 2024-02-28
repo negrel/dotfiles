@@ -23,7 +23,13 @@
         export EDITOR=nano
 
         nvim() {
-          ${pkgs.neovim}/bin/nvim --server $NVIM --remote-tab "$(realpath "$1")"
+          ${pkgs.neovim}/bin/nvim --server $NVIM --remote-tab "$(realpath "''${1:-.}")"
+        }
+      else
+        nvim() {
+          local dir="$(realpath "''${1:-$PWD}")"
+          title "nvim $(basename "$dir")"
+          ${pkgs.neovim}/bin/nvim "$dir"
         }
       fi
 
