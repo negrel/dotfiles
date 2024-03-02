@@ -2,7 +2,7 @@
 
 {
   home-manager.users.anegrel = { ... }: {
-    home.packages = with pkgs; [ eww-wayland ];
+    home.packages = with pkgs; [ eww ];
 
     home.file.".config/eww".source = ./config;
     gen-theme.templates."colors.scss".source = ./templates/colors.scss;
