@@ -18,6 +18,7 @@
       bat
       gnumake
       htop
+      amdgpu_top
       ncdu
       neofetch
       nix-index
