@@ -45,6 +45,7 @@ while test $# -gt 0; do
 			shift
 			opts="-g ${1:-""} $opts"
 			focused_screen=false
+			shift
 			;;
 
 		-a|--all)
@@ -80,8 +81,6 @@ fi
 if [ "$focused_screen" = "true" ]; then
 	opts="-o $(wmctl monitor focused) $opts"
 fi
-
-
 
 if sh -c "grim $opts $dst"; then
 	notify-send -i "$dst" "$name" "Screenshot captured successfully"
