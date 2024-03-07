@@ -1,4 +1,5 @@
 { pkgs, lib, ... }:
+
 {
   users.users.anegrel = {
     shell = pkgs.zsh;

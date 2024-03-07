@@ -17,6 +17,12 @@
     # Nix User Repository (similar to Arch Linux AUR)
     nur.url = "github:nix-community/NUR";
 
+    # Nix index
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # External packages
     scratch = {
       url = "github:negrel/scratch";
@@ -30,7 +36,17 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, flake-utils, home-manager, nur, devenv, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nixos-hardware
+    , flake-utils
+    , home-manager
+    , nur
+    , devenv
+    , nix-index-database
+    , ...
+    }@inputs:
     let
       # Make system config helper function
       mkConfig = system: hostname:

@@ -1,7 +1,17 @@
-{ pkgs, ... }:
+{ nix-index-database, pkgs, ... }:
 
 {
+
   home-manager.users.anegrel = { ... }: {
+    # Import nix-index-database module for command not found handler.
+    imports = [
+      nix-index-database.hmModules.nix-index
+    ];
+    # Enable nixpkgs index.
+    programs.nix-index.enable = true;
+    # Comma allow running commands without installing them.
+    programs.nix-index-database.comma.enable = true;
+
     home.packages = with pkgs; [
       cli-utils.lsjson
 
@@ -103,26 +113,11 @@
       '';
 
       "command_not_found_handler".text = ''
-        # Track function executed.
-        _print_z_nix_shell_current_cmd=""
-
-        _print_z_nix_shell_store_cmd() {
-          _print_z_nix_shell_current_cmd=$1
+        command_not_found_handler() {
+          printf "%s is not installed, calling comma..." "$1"
+          # Just forward to comma.
+          , $@
         }
-
-        _print_z_nix_shell_handle_not_found() {
-          if [ -z "$_print_z_nix_shell_current_cmd" -o "$?" -eq "0" ]; then
-            _print_z_nix_shell_current_cmd=""
-            return 0
-          fi
-
-          command -v "$_print_z_nix_shell_current_cmd" &> /dev/null ||
-            print -z "$(command-not-found "$_print_z_nix_shell_current_cmd" |& grep nix-shell | head -n 1 | xargs)"
-          _print_z_nix_shell_current_cmd=""
-        }
-
-        preexec_functions+=_print_z_nix_shell_store_cmd
-        precmd_functions+=_print_z_nix_shell_handle_not_found
       '';
     };
   };

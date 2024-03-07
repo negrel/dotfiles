@@ -21,7 +21,6 @@
       amdgpu_top
       ncdu
       neofetch
-      nix-index
       poppler_utils # PDF CLI
       unrar
       zip
