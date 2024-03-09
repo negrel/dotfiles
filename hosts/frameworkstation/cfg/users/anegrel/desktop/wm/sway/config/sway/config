@@ -118,17 +118,11 @@ bindsym $mod+Shift+l move right 15px
 #
 # Layout stuff:
 #
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
 bindsym $mod+b layout splith
 bindsym $mod+v layout splitv
 bindsym $mod+c layout tabbed
-
-# Switch the current container between different layout styles
-bindsym $mod+s layout stacking
-bindsym $mod+y layout tabbed
-#bindsym $mod+e layout toggle split
+bindsym $mod+x layout stacking
+bindsym $mod+n layout toggle split
 
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
@@ -158,6 +152,10 @@ bindsym $mod+egrave workspace number 7
 bindsym $mod+underscore workspace number 8
 bindsym $mod+ccedilla workspace number 9
 bindsym $mod+agrave workspace number 10
+
+# Scratch pad
+bindsym $mod+s move container to scratchpad
+bindsym $mod+Shift+s scratchpad show
 
 # Move focused container to workspace
 bindsym $mod+Shift+a move container to workspace prev
