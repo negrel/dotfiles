@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cmdname=sharecv
+
+print_help() {
+	cat <<EOF
+$cmdname - Share & receive files via WEBDAV and HTTP.
+USAGE:
+  $cmdname [OPTIONS...] SHARED_DIR
+
+OPTIONS
+	--debug                                 enable debug logs
+	-h, --help                              print this menu
+	-p, --port                              local port to listen on (default: 5000)
+	-u, --allow-upload                      allow uploading of files
+EOF
+}
+
+dufs_options=("--allow-archive" "--allow-search")
+port=5000
+
+while test $# -gt 0; do
+	case "$1" in
+		--debug)
+			set -x
+			shift
+			;;
+
+		-h|--help)
+			print_help
+			exit 0
+			;;
+
+		-p|--port)
+			shift
+			port="$1"
+			shift
+			;;
+
+		-u|--allow-upload)
+			shift
+			dufs_options+=("--allow-upload")
+			;;
+
+		*)
+			if [ "${1:0:1}" = "-" ]; then
+				echo "error: unknown option \"$1\""
+				print_help
+				exit 1
+			fi
+			break
+			;;
+	esac
+done
+
+dufs "${dufs_options[@]}" --port "$port" "$@" &
+dufs_pid=$!
+
+password=$(curl --silent https://api.ipify.org)
+printf 'your password is: %s\n' "$password"
+
+lt --subdomain anegrel --port "$port"
+
+kill $dufs_pid
