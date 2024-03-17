@@ -14,6 +14,7 @@
       ipv6 = true;
       experimental = true;
       ip6tables = true;
+      fixed-cidr-v6 = "2001:db8:1::/4";
     };
   };
 
