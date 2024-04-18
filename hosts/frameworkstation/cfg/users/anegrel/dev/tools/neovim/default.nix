@@ -4,7 +4,7 @@
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
       # LSP that mason fails to install.
-      rnix-lsp
+      nil nixpkgs-fmt # Nix LSP and formatter
       sumneko-lua-language-server
 
       # terminal image viewer for telescope preview

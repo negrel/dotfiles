@@ -1,8 +1,14 @@
 local lsp = require("plugins.lsp")
 
-require("lspconfig").rnix.setup {
+require("lspconfig").nil_ls.setup {
 	capabilities = lsp.capabalities,
 	on_attach = lsp.on_attach,
 
-	settings = {}
+	settings = {
+		['nil'] = {
+			formatting = {
+				command = { "nixpkgs-fmt" },
+			},
+		},
+	}
 }

@@ -29,11 +29,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    devenv = {
-      url = "github:cachix/devenv/latest";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -43,7 +38,6 @@
     , flake-utils
     , home-manager
     , nur
-    , devenv
     , nix-index-database
     , ...
     }@inputs:
@@ -55,7 +49,6 @@
             // self.packages."${system}"
             // {
             scratch = inputs.scratch.packages."${system}".default;
-            devenv = devenv.packages."${system}".devenv;
           };
           lib = self.lib."${system}";
         in

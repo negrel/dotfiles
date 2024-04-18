@@ -10,7 +10,7 @@ in
   options.system.laptop = {
     isLaptop = mkEnableOption { };
     devPath = mkOption {
-      default = "/sys/class/backlight/amdgpu_bl0";
+      default = "/sys/class/backlight/amdgpu_bl1";
     };
   };
 
