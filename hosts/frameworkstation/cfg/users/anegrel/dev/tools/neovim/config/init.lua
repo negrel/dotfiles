@@ -7,6 +7,7 @@ require("vars") -- Variables
 require("opts") -- Options
 require("keys") -- Keymaps
 require("plug") -- Plugins
+require("cmds") -- User commands
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	callback = function()
