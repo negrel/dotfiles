@@ -1,5 +1,12 @@
 { lib, ... }:
 rec {
+  # Built-in functions re exported.
+  # https://nixos.org/manual/nix/stable/language/builtins.html
+  abort = builtins.abort;
+  throw = builtins.throw;
+  trace = builtins.trace;
+  typeOf = builtins.typeOf;
+
   # Same as attrValues but returns keys instead of values of an attribute set
   attrNames = (attrs: lib.mapAttrsToList (name: value: name) attrs);
 
@@ -59,12 +66,13 @@ rec {
     (dir:
       # This function can probably be optimised using one fold instead
       # of two filterAttrsRecursive.
-      let result = lib.filterAttrsRecursive
-        (key: value:
-          if builtins.isAttrs value
-          then true
-          else lib.hasSuffix ".nix" key)
-        (listRegularFiles dir);
+      let
+        result = lib.filterAttrsRecursive
+          (key: value:
+            if builtins.isAttrs value
+            then true
+            else lib.hasSuffix ".nix" key)
+          (listRegularFiles dir);
       in
       lib.filterAttrsRecursive
         (key: value:
@@ -105,26 +113,27 @@ rec {
   callPackagesRecursively =
     (dir: { pkgs, ... }@inputs:
       # Recursive function that callPackage recursively
-      let recurse = callInputs: dir: files:
-        lib.mapAttrs
-          (name: value:
-            if
-              builtins.isAttrs
-                value
-            then
-              let
-                recursiveValue = lib.recurseIntoAttrs (recurse callInputs (dir + "/${name}") value);
-              in
-              # default.nix are merged into parent attribute set
-              if lib.hasAttrByPath [ "default" ] value
-              then recursiveValue // (pkgs.callPackage (dir + "/${name}/default.nix") callInputs)
-              else recursiveValue
-            else
-              pkgs.callPackage
-                (dir + "/${name}.nix")
-                callInputs
-          )
-          files;
+      let
+        recurse = callInputs: dir: files:
+          lib.mapAttrs
+            (name: value:
+              if
+                builtins.isAttrs
+                  value
+              then
+                let
+                  recursiveValue = lib.recurseIntoAttrs (recurse callInputs (dir + "/${name}") value);
+                in
+                # default.nix are merged into parent attribute set
+                if lib.hasAttrByPath [ "default" ] value
+                then recursiveValue // (pkgs.callPackage (dir + "/${name}/default.nix") callInputs)
+                else recursiveValue
+              else
+                pkgs.callPackage
+                  (dir + "/${name}.nix")
+                  callInputs
+            )
+            files;
       in
       lib.fixedPoints.fix (self:
         let
