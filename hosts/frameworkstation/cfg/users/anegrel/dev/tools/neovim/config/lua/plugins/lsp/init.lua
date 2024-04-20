@@ -9,18 +9,19 @@ require("mason-lspconfig").setup {
 		-- "rust_analyzer",
 		-- "denols",
 
-		"texlab",
+		"bashls",
+		"cssls",
 		"eslint",
+		"html",
+		"jsonls",
+		"ocamllsp",
+		"pyright",
+		"serve_d",
+		"sqlls",
+		"texlab",
 		"tsserver",
 		"yamlls",
-		"bashls",
-		"jsonls",
-		"serve_d",
-		"html",
 		"zk", -- Markdown
-		"pyright",
-		"sqlls",
-		"cssls"
 	},
 	automatic_installation = false
 }
