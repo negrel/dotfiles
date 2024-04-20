@@ -26,7 +26,7 @@ end
 
 M.get_buf = buf.of_win
 
-M.get_content_height = function(winnr)
+M.content_height = function(winnr)
 	if winnr == nil then
 		return buf.line_count()
 	else
@@ -52,7 +52,7 @@ end
 M.shift_viewport = function(winnr, position)
 	local cmd = ({ top = "zt", center = "zz", bottom = "ze" })[position]
 	local bufnr = M.get_buf(winnr)
-	local curpos = M.cursor.get_pos(winnr)
+	local curpos = M.cursor.pos(winnr)
 
 	api.nvim_buf_call(bufnr, function()
 		api.nvim_command("normal!" .. tostring(curpos) .. cmd)

@@ -73,3 +73,99 @@ map({ "n", "v", "c", "i" }, "<C-s>", "<Cmd>w<CR>", opts)    -- write shortcut
 map("n", "ds", vim.diagnostic.open_float, opts) -- open diagnostic window
 map("n", "dn", vim.diagnostic.goto_next, opts)  -- goto next diagnostic
 map("n", "dp", vim.diagnostic.goto_prev, opts)  -- goto prev diagnostic
+
+-- TREE SITTER
+local treesitter = vim.treesitter
+local api = vim.api
+local cursor = require("lib.win.cursor")
+local yield_iter = require("lib.yield_iter")
+
+local poscmp = function(pos1, pos2)
+	local line1, col1 = table.unpack(pos1)
+	local line2, col2 = table.unpack(pos2)
+
+	if line1 < line2 then
+		return -1
+	elseif line1 > line2 then
+		return 1
+	else
+		if col1 < col2 then
+			return -1
+		elseif col1 > col2 then
+			return 1
+		else
+			return 0
+		end
+	end
+end
+
+local node_depth_first
+node_depth_first = function(node, fn)
+	if not node then return end
+
+	for child in node:iter_children() do
+		node_depth_first(child, fn)
+	end
+
+	fn(node)
+end
+
+map("n", "n", function() -- goto next treesitter ast node.
+	local pos = { cursor.pos() }
+	pos[1] = pos[1] - 1    -- Convert to zero based cursor pos.
+
+	local node = treesitter.get_node()
+	if not node then return end
+
+	local root = node:tree():root()
+
+	local node_iter = yield_iter.new(function(yield)
+		node_depth_first(root, yield)
+	end)
+
+	for n in node_iter do
+		---@diagnostic disable-next-line: undefined-field
+		if poscmp({ n:start() }, pos) > 0 then
+			---@diagnostic disable-next-line: undefined-field
+			local line, col = n:start()
+			api.nvim_win_set_cursor(0, { line + 1, col })
+			break
+		end
+	end
+end, opts)
+
+local node_reverse_depth_first
+node_reverse_depth_first = function(node, fn)
+	if not node then return end
+
+	for i = node:child_count(), 0, -1 do
+		local child = node:child(i)
+		node_reverse_depth_first(child, fn)
+	end
+
+	fn(node)
+end
+
+map("n", "N", function() -- goto previous treesitter ast node.
+	local pos = { cursor.pos() }
+	pos[1] = pos[1] - 1    -- Convert to zero based cursor pos.
+
+	local node = treesitter.get_node()
+	if not node then return end
+
+	local root = node:tree():root()
+
+	local node_iter = yield_iter.new(function(yield)
+		node_reverse_depth_first(root, yield)
+	end)
+
+	for n in node_iter do
+		---@diagnostic disable-next-line: undefined-field
+		if poscmp({ n:start() }, pos) < 0 then
+			---@diagnostic disable-next-line: undefined-field
+			local line, col = n:start()
+			api.nvim_win_set_cursor(0, { line + 1, col })
+			break
+		end
+	end
+end, opts)

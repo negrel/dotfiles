@@ -45,10 +45,11 @@ end
 local map = vim.keymap.set
 local opts = { silent = true }
 
+map("n", "<Leader>b", telescope("buffers"), opts)
 map("n", "<Leader>ff", telescope("find_files"), opts)
 map("n", "<Leader>gg", telescope("live_grep"), opts)
 map("n", "<Leader>hc", telescope("command_history"), opts)
-map("n", "<Leader>hs", telescope("search_history"), opts)
 map("n", "<Leader>hh", telescope("help_tags"), opts)
 map("n", "<Leader>hk", telescope("keymaps"), opts)
-map("n", "<Leader>b", telescope("buffers"), opts)
+map("n", "<Leader>j", telescope("jumplist"), opts)
+map("n", "<Leader>hs", telescope("search_history"), opts)
