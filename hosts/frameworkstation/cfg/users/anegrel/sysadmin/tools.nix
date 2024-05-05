@@ -18,7 +18,6 @@
       bat
       gnumake
       htop
-      amdgpu_top
       ncdu
       neofetch
       poppler_utils # PDF CLI
@@ -36,6 +35,10 @@
       file
       cachix
       sshfs
+      clinfo
+
+      # AMD
+      amdgpu_top
 
       # Kernel specific
       linuxKernel.packages.linux_zen.cpupower
