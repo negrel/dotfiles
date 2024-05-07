@@ -9,7 +9,7 @@
       run-with-quotas
       ovh
 
-      # maintained by NixOS
+      # nixpkgs
       jq
       unzip
       eza
@@ -36,10 +36,9 @@
       cachix
       sshfs
       clinfo
-
+      moreutils
       # AMD
       amdgpu_top
-
       # Kernel specific
       linuxKernel.packages.linux_zen.cpupower
     ];
