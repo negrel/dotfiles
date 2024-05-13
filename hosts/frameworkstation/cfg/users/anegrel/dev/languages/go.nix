@@ -4,7 +4,7 @@
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
       go
-      godoc
+      gotools
       # Required by pprof
       graphviz
     ];
