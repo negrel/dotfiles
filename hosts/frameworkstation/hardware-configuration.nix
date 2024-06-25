@@ -76,10 +76,8 @@
   services.blueman.enable = true;
 
   # AMD (https://wiki.nixos.org/wiki/AMD_GPU)
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
     ];
