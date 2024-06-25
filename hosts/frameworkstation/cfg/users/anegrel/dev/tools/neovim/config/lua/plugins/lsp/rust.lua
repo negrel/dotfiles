@@ -1,5 +1,5 @@
 local lsp = require("plugins.lsp")
-require("rust-tools").setup({
+vim.g.rustaceanvim = {
 	server = {
 		capabilities = lsp.capabilities,
 		on_attach = lsp.on_attach,
@@ -11,4 +11,4 @@ require("rust-tools").setup({
 			}
 		}
 	},
-})
+}

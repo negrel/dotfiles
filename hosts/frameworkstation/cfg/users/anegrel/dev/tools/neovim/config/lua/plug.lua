@@ -76,7 +76,7 @@ require("packer").startup({
 
 		-- Rust
 		use {
-			"simrat39/rust-tools.nvim",
+			"mrcjkb/rustaceanvim",
 			config = [[require("plugins.lsp.rust")]],
 			ft = { "rust" }
 		}
