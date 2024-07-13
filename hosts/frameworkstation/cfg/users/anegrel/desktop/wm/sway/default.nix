@@ -64,7 +64,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    # https://nixos.wiki/wiki/Sway#Using_NixOS
+    # https://wiki.nixos.org/wiki/Sway#Using_NixOS
     configure-gtk
     dbus-sway-environment
     polkit-gnome-authentication-agent
