@@ -106,6 +106,12 @@
         cpr() {
           rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 "$@"
         }
+
+        tldr() {
+          for cmd in "$@"; do
+            curl "https://cheat.sh/''${cmd}"
+          done
+        }
       '';
 
       "autocompletion".text = ''
