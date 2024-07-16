@@ -4,5 +4,12 @@ require("lspconfig").gopls.setup {
 	capabilities = lsp.capabalities,
 	on_attach = lsp.on_attach,
 
-	settings = {}
+	settings = {
+		gopls = {
+			usePlaceholders = true,
+			codelenses = {
+				gc_details = true
+			},
+		}
+	}
 }

@@ -48,20 +48,42 @@ M.on_attach = function(client, bufnr)
 	map("n", "hs", vim.lsp.buf.signature_help, opts)
 	map("n", "rn", vim.lsp.buf.rename, opts)
 	map("n", "ca", vim.lsp.buf.code_action, opts)
+	map("n", "cr", vim.lsp.codelens.run, opts)
 
-	local format = function()
+	local is_formatting_provider = not not client.server_capabilities.documentFormattingProvider
+	local is_codelens_provider = not not client.server_capabilities.codeLensProvider
+
+	local refresh_codelens = is_codelens_provider and function()
+		vim.lsp.codelens.refresh({ bufnr = bufnr })
+	end or function() end
+
+	local format = is_formatting_provider and function()
 		vim.lsp.buf.format {
+			bufnr = bufnr,
 			timeout_ms = 3000,
 		}
+	end or function() end
+
+	if is_formatting_provider then
+		map({ "n", "i" }, "<A-F>", format, opts)
 	end
 
-	if (client.server_capabilities.documentFormattingProvider == true) then
-		map({ "n", "i" }, "<A-F>", format, opts)
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = format
-		})
-	end
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		buffer = bufnr,
+		callback = function()
+			format()
+			refresh_codelens()
+		end
+	})
+
+	-- Refresh codelens when entering buffer.
+	vim.api.nvim_create_autocmd("BufEnter", {
+		buffer = bufnr,
+		callback = refresh_codelens
+	})
+
+	-- Refresh codelens on attach.
+	refresh_codelens()
 end
 
 -- override open window function
