@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   writeBinFile = { name, source, destination }:
@@ -23,7 +23,13 @@ let
 
   gen-theme-all-themes = pkgs.symlinkJoin {
     name = "gen-theme-all-themes";
-    paths = [ gen-theme-theme-moon gen-theme-theme-space gen-theme-theme-wallhaven ];
+    paths = [
+      gen-theme-theme-moon
+      gen-theme-theme-space
+      gen-theme-theme-wallhaven
+      gen-theme-theme-gruvbox
+      gen-theme-theme-gruvbox-dark
+    ];
   };
 
   gen-theme-theme-moon = pkgs.symlinkJoin {
@@ -75,6 +81,28 @@ let
     name = "gen-theme-colorschemes-wallhaven";
     text = builtins.readFile ./colorschemes/wallhaven;
     destination = "/etc/gen-theme/colorschemes/wallhaven";
+  };
+
+  gen-theme-theme-gruvbox = pkgs.symlinkJoin {
+    name = "gen-theme-theme-gruvbox";
+    paths = [ gen-theme-colorschemes-gruvbox gen-theme-wallpapers-moon ];
+  };
+
+  gen-theme-colorschemes-gruvbox = pkgs.writeTextFile {
+    name = "gen-theme-colorschemes-gruvbox";
+    text = builtins.readFile ./colorschemes/gruvbox;
+    destination = "/etc/gen-theme/colorschemes/gruvbox";
+  };
+
+  gen-theme-theme-gruvbox-dark = pkgs.symlinkJoin {
+    name = "gen-theme-theme-gruvbox";
+    paths = [ gen-theme-colorschemes-gruvbox-dark gen-theme-wallpapers-moon ];
+  };
+
+  gen-theme-colorschemes-gruvbox-dark = pkgs.writeTextFile {
+    name = "gen-theme-colorschemes-gruvbox";
+    text = builtins.readFile ./colorschemes/gruvbox-dark;
+    destination = "/etc/gen-theme/colorschemes/gruvbox-dark";
   };
 in
 pkgs.symlinkJoin rec {

@@ -21,7 +21,7 @@ in
     enable = mkEnableOption { };
     theme = mkOption {
       type = types.str;
-      default = "moon";
+      default = "gruvbox-dark";
     };
 
     outdir = mkOption {
