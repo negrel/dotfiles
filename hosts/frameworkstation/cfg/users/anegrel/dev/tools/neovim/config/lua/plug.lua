@@ -111,6 +111,16 @@ require("packer").startup({
 			config = [[require("plugins.mini")]]
 		}
 
+		-- Gruvbox theme
+		use {
+			"sainnhe/gruvbox-material",
+			lazy = false,
+			priority = 1000,
+			config = function()
+				vim.cmd.colorscheme('gruvbox-material')
+			end
+		}
+
 		-- Bootstrap packer
 		if packer_bootstrap then
 			require("packer").sync()
