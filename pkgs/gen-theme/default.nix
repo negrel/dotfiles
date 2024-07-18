@@ -83,9 +83,10 @@ let
     destination = "/etc/gen-theme/colorschemes/wallhaven";
   };
 
+
   gen-theme-theme-gruvbox = pkgs.symlinkJoin {
     name = "gen-theme-theme-gruvbox";
-    paths = [ gen-theme-colorschemes-gruvbox gen-theme-wallpapers-moon ];
+    paths = [ gen-theme-colorschemes-gruvbox gen-theme-wallpapers-prisme-gruvbox ];
   };
 
   gen-theme-colorschemes-gruvbox = pkgs.writeTextFile {
@@ -96,13 +97,19 @@ let
 
   gen-theme-theme-gruvbox-dark = pkgs.symlinkJoin {
     name = "gen-theme-theme-gruvbox";
-    paths = [ gen-theme-colorschemes-gruvbox-dark gen-theme-wallpapers-moon ];
+    paths = [ gen-theme-colorschemes-gruvbox-dark gen-theme-wallpapers-prisme-gruvbox ];
   };
 
   gen-theme-colorschemes-gruvbox-dark = pkgs.writeTextFile {
     name = "gen-theme-colorschemes-gruvbox";
     text = builtins.readFile ./colorschemes/gruvbox-dark;
     destination = "/etc/gen-theme/colorschemes/gruvbox-dark";
+  };
+
+  gen-theme-wallpapers-prisme-gruvbox = writeBinFile {
+    name = "gen-theme-wallpapers-prisme-gruvbox";
+    source = ./wallpapers/prisme_gruvbox.jpg;
+    destination = "/etc/gen-theme/wallpapers/prisme_gruvbox.jpg";
   };
 in
 pkgs.symlinkJoin rec {

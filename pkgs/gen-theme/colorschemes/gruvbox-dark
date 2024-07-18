@@ -1,4 +1,4 @@
-export wallpaper=~/.config/gen-theme/wallpapers/moon.jpg
+export wallpaper=~/.config/gen-theme/wallpapers/prisme_gruvbox.jpg
 export foreground="ebdbb2"
 export background="1d2021"
 export color0="282828"
