@@ -20,20 +20,21 @@
 @define-color color15 #@@COLOR15@@;
 
 window {
-  background-image: url('@@WALLPAPER@@');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: @foreground;
+	/* background-image: url('@@WALLPAPER@@'); */
+	/* background-size: cover; */
+	/* background-repeat: no-repeat; */
+	/* background-position: center; */
+	background-color: @background;
+	color: @foreground;
 }
 
 #input-field {
-  background: @foreground;
-  color: @background;
-  border: none;
-  outline: none;
+	background: @foreground;
+	color: @background;
+	border: none;
+	outline: none;
 }
 
 #unlock-button {
-  opacity: 0;
+	opacity: 0;
 }
