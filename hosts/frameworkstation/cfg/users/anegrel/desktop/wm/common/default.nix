@@ -19,7 +19,7 @@
     gsettings-desktop-schemas
 
     # Theming
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     adwaita-qt
     adwaita-qt6
   ];
