@@ -41,6 +41,8 @@
       amdgpu_top
       # Kernel specific
       linuxKernel.packages.linux_zen.cpupower
+      # TUI file manager
+      fff
     ];
   };
 }
