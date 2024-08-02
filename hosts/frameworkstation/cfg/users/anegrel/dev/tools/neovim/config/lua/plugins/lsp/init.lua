@@ -3,7 +3,6 @@ require("mason-lspconfig").setup {
 	ensure_installed = {
 		-- LSP installed using nix
 		-- "lua_ls",
-		-- "nil",
 		-- "clangd",
 		-- Installed through nix flake with toolchain so macro can be expanded
 		-- "rust_analyzer",

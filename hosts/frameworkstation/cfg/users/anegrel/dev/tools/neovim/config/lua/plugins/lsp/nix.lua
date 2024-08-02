@@ -1,6 +1,6 @@
 local lsp = require("plugins.lsp")
 
-require("lspconfig").nil_ls.setup {
+require("lspconfig").nixd.setup {
 	capabilities = lsp.capabalities,
 	on_attach = lsp.on_attach,
 
