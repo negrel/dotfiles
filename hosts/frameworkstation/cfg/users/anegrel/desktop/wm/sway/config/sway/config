@@ -84,8 +84,8 @@ bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
 
 # Menu
-bindsym $mod+d exec rofi -show drun -run-command="swaymsg exec"
-bindsym $mod+Shift+d exec rofi -show run -run-command="swaymsg exec"
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Shift+d exec rofi -show run
 bindsym $mod+Tab exec rofi -show window
 
 #
