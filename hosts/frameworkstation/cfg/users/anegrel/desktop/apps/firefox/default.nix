@@ -15,6 +15,7 @@
         search.default = "DuckDuckGo";
         search.force = true;
         settings = {
+          "dom.private-attribution.submission.enabled" = false;
           "browser.search.region" = "FR";
         };
 
