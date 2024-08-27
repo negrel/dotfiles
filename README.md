@@ -43,7 +43,7 @@ Reboot and that's it, your system is live.
 
 Please give a :star: if this project helped you!
 
-[![buy me a coffee](.github/images/bmc-button.png)](https://www.buymeacoffee.com/negrel)
+[![buy me a coffee](https://github.com/negrel/.github/raw/master/.github/images/bmc-button.png?raw=true)](https://www.buymeacoffee.com/negrel)
 
 ## :scroll: License
 
