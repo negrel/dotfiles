@@ -29,35 +29,31 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    allelua = {
+      url = "github:negrel/allelua";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , nixos-hardware
-    , flake-utils
-    , home-manager
-    , nur
-    , nix-index-database
-    , ...
-    }@inputs:
+  outputs = { self, nixpkgs, flake-utils, nur, scratch, allelua, ... }@inputs:
     let
       # Make system config helper function
       mkConfig = system: hostname:
         let
-          pkgs = self.pkgs."${system}"
-            // self.packages."${system}"
-            // {
-            scratch = inputs.scratch.packages."${system}".default;
+          pkgs = self.pkgs."${system}" // self.packages."${system}" // {
+            scratch = scratch.packages.${system}.default;
+            allelua = allelua.packages.${system}.default;
           };
           lib = self.lib."${system}";
-        in
-        # nixosSystem is a nixpkgs function that build a configuration.nix
-        nixpkgs.lib.nixosSystem {
+          # nixosSystem is a nixpkgs function that build a configuration.nix
+        in nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             # Hostname
-            { networking.hostName = hostname; }
+            {
+              networking.hostName = hostname;
+            }
             # General configuration
             ./hosts/.common/configuration.nix
             # Host specific config
@@ -72,33 +68,32 @@
           frameworkstation = mkConfig "x86_64-linux" "frameworkstation";
         };
       };
-      outputsWithSystem =
-        flake-utils.lib.eachDefaultSystem
-          (system:
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                config = { allowUnfree = true; };
-                overlays = [
-                  nur.overlay
+      outputsWithSystem = flake-utils.lib.eachDefaultSystem (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config = { allowUnfree = true; };
+            overlays = [
+              nur.overlay
 
-                  # Add flake-utils.lib to pkgs.lib.flake-utils
-                  (self: super: {
-                    lib = super.lib // { flake-utils = flake-utils.lib; };
-                  })
+              # Add flake-utils.lib to pkgs.lib.flake-utils
+              (self: super: {
+                lib = super.lib // { flake-utils = flake-utils.lib; };
+              })
 
-                  # Add ./lib to pkgs.lib.my
-                  (self: super: {
-                    lib = super.lib // { my = import ./lib { inherit (super) lib; }; };
-                  })
-                ];
-              };
-            in
-            {
-              pkgs = pkgs;
-              lib = pkgs.lib;
-              packages = pkgs.lib.my.callPackagesRecursively ./pkgs { inherit pkgs; };
-            });
-    in
-    outputsWithSystem // outputsWithoutSystem;
+              # Add ./lib to pkgs.lib.my
+              (self: super: {
+                lib = super.lib // {
+                  my = import ./lib { inherit (super) lib; };
+                };
+              })
+            ];
+          };
+        in {
+          pkgs = pkgs;
+          lib = pkgs.lib;
+          packages =
+            pkgs.lib.my.callPackagesRecursively ./pkgs { inherit pkgs; };
+        });
+    in outputsWithSystem // outputsWithoutSystem;
 }
