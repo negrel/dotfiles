@@ -41,7 +41,7 @@ nvim_lsp.eslint.setup {
 	settings = {}
 }
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.ts_ls.setup {
 	capabilities = lsp.capabalities,
 	on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false

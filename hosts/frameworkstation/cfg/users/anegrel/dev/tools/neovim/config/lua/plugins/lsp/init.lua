@@ -11,7 +11,6 @@ require("mason-lspconfig").setup {
 		"bashls",
 		"cssls",
 		"eslint",
-		"harper-ls",
 		"html",
 		"jsonls",
 		"ocamllsp",
@@ -19,7 +18,7 @@ require("mason-lspconfig").setup {
 		"serve_d",
 		"sqlls",
 		"texlab",
-		"tsserver",
+		"ts_ls",
 		"yamlls",
 		"zk", -- Markdown
 	},
