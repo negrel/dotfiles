@@ -11,6 +11,7 @@ require("mason-lspconfig").setup {
 		"bashls",
 		"cssls",
 		"eslint",
+		"harper-ls",
 		"html",
 		"jsonls",
 		"ocamllsp",
