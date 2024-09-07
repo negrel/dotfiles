@@ -114,7 +114,7 @@
         command_not_found_handler() {
           printf "%s is not installed, calling comma..." "$1"
           # Just forward to comma.
-          , $@
+          comma $@
         }
       '';
     };
