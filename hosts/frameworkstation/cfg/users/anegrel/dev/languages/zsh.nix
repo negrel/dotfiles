@@ -4,9 +4,7 @@
 
   home-manager.users.anegrel = { ... }: {
     # Import nix-index-database module for command not found handler.
-    imports = [
-      nix-index-database.hmModules.nix-index
-    ];
+    imports = [ nix-index-database.hmModules.nix-index ];
     # Enable nixpkgs index.
     programs.nix-index.enable = true;
     # Comma allow running commands without installing them.
@@ -32,9 +30,7 @@
       initExtra = "source ~/.config/zsh/rc";
       history.size = 10000;
 
-      oh-my-zsh = {
-        enable = true;
-      };
+      oh-my-zsh = { enable = true; };
     };
 
     zshrc.scripts = {
@@ -101,10 +97,6 @@
           done
 
           cd "$git_repo_root/$@"
-        }
-
-        cpr() {
-          rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 "$@"
         }
 
         tldr() {
