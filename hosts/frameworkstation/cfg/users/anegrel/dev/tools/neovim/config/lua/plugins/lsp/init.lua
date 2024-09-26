@@ -83,6 +83,12 @@ M.on_attach = function(client, bufnr)
 
 	-- Refresh codelens on attach.
 	refresh_codelens()
+
+	-- Disable LSP client logs.
+	vim.lsp.log.set_level("ERROR")
+	-- Set log level for window/logMessage message from LSP server.
+	vim.lsp.set_log_level("INFO")
+	vim.lsp.log.set_format_func(vim.inspect)
 end
 
 -- override open window function

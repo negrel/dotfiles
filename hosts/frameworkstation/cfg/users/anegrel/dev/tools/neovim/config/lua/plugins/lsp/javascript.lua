@@ -1,12 +1,12 @@
 local lsp = require("plugins.lsp")
 
-local nvim_lsp = require("lspconfig")
+local lspconfig = require("lspconfig")
 
 -- Deno
-nvim_lsp.denols.setup {
+lspconfig.denols.setup {
 	capabilities = lsp.capabalities,
 	on_attach = lsp.on_attach,
-	root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 	single_file_support = false,
 	settings = {}
 }
@@ -15,7 +15,7 @@ nvim_lsp.denols.setup {
 local map = vim.keymap.set
 
 -- Nodejs / Bun
-nvim_lsp.eslint.setup {
+lspconfig.eslint.setup {
 	capabilities = lsp.capabalities,
 	on_attach = function(client, bufnr)
 		lsp.on_attach(client, bufnr)
@@ -31,7 +31,7 @@ nvim_lsp.eslint.setup {
 			command = "EslintFixAll",
 		})
 	end,
-	root_dir = nvim_lsp.util.root_pattern(
+	root_dir = lspconfig.util.root_pattern(
 		".eslintrc",
 		".eslintrc.json",
 		".eslintrc.js",
@@ -41,13 +41,13 @@ nvim_lsp.eslint.setup {
 	settings = {}
 }
 
-nvim_lsp.ts_ls.setup {
+lspconfig.ts_ls.setup {
 	capabilities = lsp.capabalities,
 	on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 		lsp.on_attach(client, bufnr)
 	end,
-	root_dir = nvim_lsp.util.root_pattern("tsconfig.json", "package.json", "bun.lockb"),
+	root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "bun.lockb"),
 	single_file_support = false,
 	settings = {}
 }
