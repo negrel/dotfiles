@@ -13,6 +13,7 @@
       cargo-bloat
       cargo-llvm-lines
       cargo-flamegraph
+      samply
       clippy
       mold
     ];
