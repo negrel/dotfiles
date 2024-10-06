@@ -12,6 +12,7 @@
       cargo-vet
       cargo-bloat
       cargo-llvm-lines
+      cargo-flamegraph
       clippy
       mold
     ];
@@ -23,7 +24,7 @@
     home.file.".cargo/config.toml".text = ''
       [target.x86_64-unknown-linux-gnu]
       linker = "clang"
-      rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+      rustflags = ["-Clink-arg=-fuse-ld=mold", "-Clink-arg=-Wl,--no-rosegment"]
     '';
 
   };
