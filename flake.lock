@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725362011,
-        "narHash": "sha256-cy9SWNXF70UzXV4TGN37H5EaokAM2x1Nyd2F4HuTlE4=",
+        "lastModified": 1728568597,
+        "narHash": "sha256-U8SptDNs7NzkUoXng8LqkpiWs9zfUu6PHuPcw4m3eNA=",
         "owner": "negrel",
         "repo": "allelua",
-        "rev": "0e88f4ea2b2ca1c3abbaf663d460dced81266116",
+        "rev": "a6dc0f0a00cf4294a9a0a9941fd25580fc6fc036",
         "type": "github"
       },
       "original": {
