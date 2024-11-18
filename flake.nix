@@ -41,10 +41,11 @@
       # Make system config helper function
       mkConfig = system: hostname:
         let
-          pkgs = self.pkgs."${system}" // self.packages."${system}" // {
-            scratch = scratch.packages.${system}.default;
-            allelua = allelua.packages.${system}.default;
-          };
+          pkgs = (lib.recursiveUpdate self.pkgs."${system}"
+            self.packages."${system}") // {
+              scratch = scratch.packages.${system}.default;
+              allelua = allelua.packages.${system}.default;
+            };
           lib = self.lib."${system}";
           # nixosSystem is a nixpkgs function that build a configuration.nix
         in nixpkgs.lib.nixosSystem {
@@ -76,7 +77,7 @@
             overlays = [
               nur.overlay
 
-              # Add flake-utils.lib to pkgs.lib.flake-utils
+              # Add flake-utils.lib as pkgs.lib.flake-utils
               (self: super: {
                 lib = super.lib // { flake-utils = flake-utils.lib; };
               })
