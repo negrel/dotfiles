@@ -2,16 +2,13 @@
 
 {
   home-manager.users.anegrel = { ... }: {
-    home.packages = with pkgs; [
-      waybar
-    ];
+    home.packages = with pkgs; [ waybar ];
 
-    home.file.".config/waybar/config".source = ./config/config;
-    home.file.".config/waybar/style.css".source = ./config/style.css;
+    home.file.".config/waybar/config".source = ./config/config.json;
 
     gen-theme.templates."waybar.css" = {
-      source = ./templates/waybar.css;
-      destination = ".config/waybar/colors.css";
+      source = ./templates/style.css;
+      destination = ".config/waybar/style.css";
     };
   };
 }
