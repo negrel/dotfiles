@@ -1,8 +1,8 @@
-{ nix-index-database, pkgs, ... }:
+{ nix-index-database, ... }:
 
 {
 
-  home-manager.users.anegrel = { ... }: {
+  home-manager.users.anegrel = { pkgs, ... }: {
     # Import nix-index-database module for command not found handler.
     imports = [ nix-index-database.hmModules.nix-index ];
     # Enable nixpkgs index.
@@ -10,11 +10,7 @@
     # Comma allow running commands without installing them.
     programs.nix-index-database.comma.enable = true;
 
-    home.packages = with pkgs; [
-      cli-utils.lsjson
-
-      fzf
-    ];
+    home.packages = with pkgs; [ cli-utils.lsjson fzf ];
 
     programs.zsh = {
       enable = true;
@@ -28,32 +24,12 @@
         export FZF_DEFAULT_OPTS="--layout reverse"
       '';
       initExtra = "source ~/.config/zsh/rc";
-      history.size = 10000;
+      history.size = 100000;
 
       oh-my-zsh = { enable = true; };
     };
 
     zshrc.scripts = {
-      "fzf".text = ''
-        # cd like function using fzf
-        fcd() {
-          local dir="$(find \
-            -L ''${1:-"."} -mindepth 1 \
-            \( -path '*/\.*' -o -fstype sysfs -o -fstype devs -o -fstype devtmpfs -o -fstype proc \) \
-            -prune -o -type d -print \
-            | fzf +m)"
-          cd "$dir"
-        }
-
-        fcmd() {
-          local cmd="$(tr ':' '\n' <<< "$PATH" \
-            | xargs -P $(nproc) -I{} find -L "{}" -type f -executable 2> /dev/null \
-            | xargs -P $(nproc) -I{} basename "{}" \
-            | fzf)"
-          print -z "$cmd"
-        }
-      '';
-
       "aliases".text = ''
         alias df="df -h"
         alias free="free -h"
