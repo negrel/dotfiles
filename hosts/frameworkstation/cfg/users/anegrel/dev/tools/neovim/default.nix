@@ -4,11 +4,15 @@
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
       # LSP that mason fails to install.
-      nil nixpkgs-fmt # Nix LSP and formatter
+      nil
+      nixpkgs-fmt # Nix LSP and formatter
       sumneko-lua-language-server
 
       # terminal image viewer for telescope preview
       catimg
+
+      # Required to build telescope-fzf extension.
+      cmake
     ];
 
     programs.neovim = {

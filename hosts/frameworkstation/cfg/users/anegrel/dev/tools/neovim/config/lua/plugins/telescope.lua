@@ -1,5 +1,7 @@
 local actions = require("telescope.actions")
-require("telescope").setup {
+local telescope = require("telescope")
+
+telescope.setup {
 	defaults = {
 		mappings = {
 			i = {
@@ -7,19 +9,22 @@ require("telescope").setup {
 				["<A-j>"] = actions.move_selection_next,
 				["<A-k>"] = actions.move_selection_previous,
 				["<A-f>"] = actions.preview_scrolling_down,
-				["<A-d>"] = actions.preview_scrolling_up
+				["<A-d>"] = actions.preview_scrolling_up,
 			},
 		},
 	},
 	pickers = {
 		find_files = {
-			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" }
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
 		},
+		extensions = { fzf = {} },
 		grep_string = {
-			hidden = true
-		}
+			hidden = true,
+		},
 	},
 }
+
+telescope.load_extension("fzf")
 
 local builtin = require("telescope.builtin")
 
