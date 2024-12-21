@@ -3,11 +3,7 @@
 {
   fonts = {
     fontDir.enable = true;
-    packages = with pkgs; [
-      nerdfonts
-      corefonts
-      vistafonts
-    ];
+    packages = with pkgs; [ nerd-fonts.jetbrains-mono corefonts vistafonts ];
 
     fontconfig = {
       enable = true;

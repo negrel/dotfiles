@@ -29,16 +29,14 @@ let
     name = "configure-gtk";
     destination = "/bin/configure-gtk";
     executable = true;
-    text =
-      let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in
-      ''
-        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme 'Adwaita'
-      '';
+    text = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      gnome_schema=org.gnome.desktop.interface
+      gsettings set $gnome_schema gtk-theme 'Adwaita'
+    '';
   };
 
   polkit-gnome-authentication-agent = pkgs.writeTextFile {
@@ -58,11 +56,10 @@ let
     executable = true;
 
     text = ''
-      exec ${pkgs.kdeconnect}/libexec/kdeconnectd
+      exec ${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd
     '';
   };
-in
-{
+in {
   environment.systemPackages = with pkgs; [
     # https://wiki.nixos.org/wiki/Sway#Using_NixOS
     configure-gtk
@@ -96,26 +93,24 @@ in
 
   # Login manager
   services.greetd.enable = true;
-  services.greetd.settings =
-    let
-      swayConfig = pkgs.writeText "greetd-sway-config" ''
-        include ${./config/sway/minimal}
+  services.greetd.settings = let
+    swayConfig = pkgs.writeText "greetd-sway-config" ''
+      include ${./config/sway/minimal}
 
-        # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
-        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
-        bindsym Mod4+shift+e exec swaynag \
-          -t warning \
-          -m 'What do you want to do?' \
-          -b 'Poweroff' 'systemctl poweroff' \
-          -b 'Reboot' 'systemctl reboot'
-      '';
-    in
-    {
-      default_session = {
-        user = "greeter";
-        command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
-      };
+      # `-l` activates layer-shell mode. Notice that `swaymsg exit` will run after gtkgreet.
+      exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
+      bindsym Mod4+shift+e exec swaynag \
+        -t warning \
+        -m 'What do you want to do?' \
+        -b 'Poweroff' 'systemctl poweroff' \
+        -b 'Reboot' 'systemctl reboot'
+    '';
+  in {
+    default_session = {
+      user = "greeter";
+      command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
     };
+  };
   environment.etc."greetd/environments".text = ''
     sway
     bash
@@ -137,7 +132,7 @@ in
 
   # Kde connect
   programs.kdeconnect.enable = true;
-  programs.kdeconnect.package = pkgs.kdeconnect;
+  programs.kdeconnect.package = kdeconnectd;
 
   home-manager.users.anegrel = { ... }: {
     home.packages = with pkgs; [
