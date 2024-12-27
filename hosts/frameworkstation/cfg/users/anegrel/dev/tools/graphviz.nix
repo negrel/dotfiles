@@ -2,6 +2,6 @@
 
 {
   home-manager.users.anegrel = { ... }: {
-    home.packages = with pkgs; [ harper ];
+    home.packages = with pkgs; [ graphviz ];
   };
 }
