@@ -34,9 +34,15 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wooz = {
+      url = "github:negrel/wooz";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, nur, scratch, allelua, ... }@inputs:
+  outputs =
+    { self, nixpkgs, flake-utils, nur, scratch, allelua, wooz, ... }@inputs:
     let
       # Make system config helper function
       mkConfig = system: hostname:
@@ -45,6 +51,7 @@
             self.packages."${system}") // {
               scratch = scratch.packages.${system}.default;
               allelua = allelua.packages.${system}.default;
+              wooz = wooz.packages.${system}.default;
             };
           lib = self.lib."${system}";
           # nixosSystem is a nixpkgs function that build a configuration.nix

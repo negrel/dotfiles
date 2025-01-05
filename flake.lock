@@ -202,7 +202,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
-        "scratch": "scratch"
+        "scratch": "scratch",
+        "wooz": "wooz"
       }
     },
     "rust-analyzer-src": {
@@ -278,6 +279,29 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "wooz": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736096341,
+        "narHash": "sha256-i94VlDsuRJWV/jLmbcxFzZD9DQsa1Tr198vOPKZKuRA=",
+        "owner": "negrel",
+        "repo": "wooz",
+        "rev": "e995ee02520d172ebbfc321c05059e5f8723378e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "negrel",
+        "repo": "wooz",
         "type": "github"
       }
     }
