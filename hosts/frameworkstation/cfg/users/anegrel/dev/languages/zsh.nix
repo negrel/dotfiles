@@ -24,7 +24,7 @@
         export FZF_DEFAULT_OPTS="--layout reverse"
       '';
       initExtra = "source ~/.config/zsh/rc";
-      history.size = 100000;
+      history.size = 1000000000;
 
       oh-my-zsh = { enable = true; };
     };
