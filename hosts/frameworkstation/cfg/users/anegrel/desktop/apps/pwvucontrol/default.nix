@@ -2,8 +2,6 @@
 
 {
   home-manager.users.anegrel = { ... }: {
-    home.packages = with pkgs; [
-      pavucontrol
-    ];
+    home.packages = with pkgs; [ pwvucontrol ];
   };
 }
