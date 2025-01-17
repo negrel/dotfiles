@@ -42,7 +42,13 @@ require("packer").startup {
 		-- Bar
 		use {
 			"nvim-lualine/lualine.nvim",
-			config = [[require("lualine").setup{}]],
+			config = [[require("lualine").setup{
+				sections = {
+					lualine_c = {
+						{ 'filename', path = 1 }
+					}
+				}
+			}]],
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		}
 
