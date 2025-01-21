@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # External packages
     scratch = {
       url = "github:negrel/scratch";
@@ -47,6 +52,7 @@
       nixpkgs,
       flake-utils,
       nur,
+      ghostty,
       scratch,
       allelua,
       wooz,
@@ -78,6 +84,7 @@
             {
               nixpkgs.overlays = [
                 nur.overlays.default
+                ghostty.overlays.default
                 (myoverlay system)
               ];
             }
