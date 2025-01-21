@@ -17,7 +17,7 @@ input type:touchpad {
 }
 
 # Fractional scaling
-output eDP-1 scale 1.6
+output eDP-1 scale 1.59
 # Right to external screen
 output eDP-1 pos 1920 0
 # External screen at 0, 0

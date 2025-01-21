@@ -199,6 +199,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+
 #
 # Styling :
 #
@@ -210,6 +211,13 @@ font monospace 10
 
 smart_borders on
 smart_gaps on
+
+default_border normal 1
+default_floating_border normal 1
+
+for_window [all] inhibit_idle fullscreen
+
+for_window [floating] border normal 1
 
 # Theme
 include ~/.cache/theme/sway

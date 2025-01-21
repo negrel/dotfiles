@@ -7,4 +7,7 @@ shell-integration-features = no-cursor
 gtk-adwaita = false
 window-decoration = false
 
+window-width = 80
+window-height = 24
+
 theme = theme
