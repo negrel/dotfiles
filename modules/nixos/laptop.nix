@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -16,7 +21,7 @@ in
 
   config = mkIf cfg.isLaptop {
     environment.systemPackages = with pkgs; [
-      laptop-utils
+      my.laptop-utils
       lm_sensors
       powertop
     ];
@@ -33,7 +38,7 @@ in
       SUBSYSTEM=="power_supply", \
       ATTR{status}=="Discharging", \
       ATTR{capacity}=="[0-9]", \
-      RUN+="${pkgs.laptop-utils}/bin/battery_notification"
+      RUN+="${pkgs.my.laptop-utils}/bin/battery_notification"
     '';
   };
 }

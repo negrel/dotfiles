@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -17,13 +22,11 @@ in
 
   config = mkIf cfg.enable {
     home = {
-      packages = with pkgs; [ dot-profile ];
-      file = lib.mapAttrs'
-        (name: value: {
-          name = ".config/profile.d/" + name;
-          inherit value;
-        })
-        cfg.scripts;
+      packages = with pkgs; [ my.dot-profile ];
+      file = lib.mapAttrs' (name: value: {
+        name = ".config/profile.d/" + name;
+        inherit value;
+      }) cfg.scripts;
     };
   };
 }

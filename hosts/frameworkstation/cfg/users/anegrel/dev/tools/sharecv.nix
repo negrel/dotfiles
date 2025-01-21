@@ -1,19 +1,21 @@
 { pkgs, ... }:
 
 {
-  home-manager.users.anegrel = { ... }: {
-    home.packages = with pkgs; [
-      dufs
-      nodePackages.localtunnel
+  home-manager.users.anegrel =
+    { ... }:
+    {
+      home.packages = with pkgs; [
+        dufs
+        nodePackages.localtunnel
 
-      # under pkgs/
-      sharecv
-    ];
+        # under pkgs/
+        my.sharecv
+      ];
 
-    zshrc.scripts = {
-      "dufs".text = ''
-        alias webdavd=dufs
-      '';
+      zshrc.scripts = {
+        "dufs".text = ''
+          alias webdavd=dufs
+        '';
+      };
     };
-  };
 }

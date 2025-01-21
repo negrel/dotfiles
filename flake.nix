@@ -42,22 +42,46 @@
   };
 
   outputs =
-    { self, nixpkgs, flake-utils, nur, scratch, allelua, wooz, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      nur,
+      scratch,
+      allelua,
+      wooz,
+      ...
+    }@inputs:
     let
+      # Overlay for my lib (./lib) my packages (./pkgs) and other inputs.
+      lib = nixpkgs.lib // {
+        my = import ./lib { lib = nixpkgs.lib; };
+      };
+      myoverlay = (
+        system: final: prev: {
+          scratch = scratch.packages.${system}.default;
+          allelua = allelua.packages.${system}.default;
+          wooz = wooz.packages.${system}.default;
+          my = self.outputs.packages."${system}";
+          lib = lib;
+        }
+      );
+
       # Make system config helper function
-      mkConfig = system: hostname:
-        let
-          pkgs = (lib.recursiveUpdate self.pkgs."${system}"
-            self.packages."${system}") // {
-              scratch = scratch.packages.${system}.default;
-              allelua = allelua.packages.${system}.default;
-              wooz = wooz.packages.${system}.default;
-            };
-          lib = self.lib."${system}";
-          # nixosSystem is a nixpkgs function that build a configuration.nix
-        in nixpkgs.lib.nixosSystem {
+      mkConfig =
+        system: hostname:
+        # nixosSystem is a nixpkgs function that build a configuration.nix
+        nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            # Nixpkgs overlays
+            {
+              nixpkgs.overlays = [
+                nur.overlays.default
+                (myoverlay system)
+              ];
+            }
+
             # Hostname
             {
               networking.hostName = hostname;
@@ -67,41 +91,36 @@
             # Host specific config
             (./. + "/hosts/${hostname}/configuration.nix")
           ];
-          # Extra args to pass to modules
-          specialArgs = inputs // { inherit pkgs lib; };
-        };
 
+          specialArgs = inputs // {
+            inherit lib;
+          };
+        };
       outputsWithoutSystem = {
         nixosConfigurations = {
           frameworkstation = mkConfig "x86_64-linux" "frameworkstation";
         };
       };
-      outputsWithSystem = flake-utils.lib.eachDefaultSystem (system:
+      outputsWithSystem = flake-utils.lib.eachDefaultSystem (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
-            config = { allowUnfree = true; };
+            config = {
+              allowUnfree = true;
+            };
             overlays = [
-              nur.overlay
-
-              # Add flake-utils.lib as pkgs.lib.flake-utils
-              (self: super: {
-                lib = super.lib // { flake-utils = flake-utils.lib; };
-              })
-
-              # Add ./lib to pkgs.lib.my
-              (self: super: {
-                lib = super.lib // {
-                  my = import ./lib { inherit (super) lib; };
-                };
-              })
+              nur.overlays.default
+              (myoverlay system)
             ];
           };
-        in {
+        in
+        {
           pkgs = pkgs;
-          lib = pkgs.lib;
-          packages =
-            pkgs.lib.my.callPackagesRecursively ./pkgs { inherit pkgs; };
-        });
-    in outputsWithSystem // outputsWithoutSystem;
+          lib = lib;
+          packages = lib.my.callPackagesRecursively ./pkgs { inherit pkgs; };
+        }
+      );
+    in
+    outputsWithSystem // outputsWithoutSystem;
 }
