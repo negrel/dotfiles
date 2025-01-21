@@ -2,7 +2,7 @@ include ~/.config/sway/minimal
 
 set $mod mod4
 
-set $term alacritty
+set $term ghostty
 
 # Notifications daemons
 exec mako

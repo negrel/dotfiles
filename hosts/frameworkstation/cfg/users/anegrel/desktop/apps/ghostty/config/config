@@ -1,0 +1,10 @@
+font-size = 9
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+gtk-adwaita = false
+window-decoration = false
+
+theme = theme
