@@ -24,7 +24,7 @@
     };
 
     ghostty = {
-      url = "github:ghostty-org/ghostty";
+      url = "github:negrel/ghostty";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

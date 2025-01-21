@@ -4,6 +4,8 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
+mouse-scroll-multiplier = 0.125
+
 gtk-adwaita = false
 window-decoration = false
 
