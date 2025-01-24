@@ -4,12 +4,15 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
-mouse-scroll-multiplier = 0.125
+mouse-scroll-multiplier = 0.5
 
 gtk-adwaita = false
 window-decoration = false
+resize-overlay = never
+confirm-close-surface = false
 
-window-padding-balance = true
+window-padding-balance = false
+window-padding-color = extend
 window-width = 80
 window-height = 24
 
