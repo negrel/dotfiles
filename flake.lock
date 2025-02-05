@@ -160,6 +160,29 @@
         "type": "github"
       }
     },
+    "localtunnel": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738776291,
+        "narHash": "sha256-hAB0Jo/6Yfee+zqAeXsJ2nZVHaUvQJQf2Zcy1SGFIRk=",
+        "owner": "negrel",
+        "repo": "localtunnel",
+        "rev": "3fc02f43320ed13d586ee8e72623083c14812ee4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "negrel",
+        "repo": "localtunnel",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -286,6 +309,7 @@
         "flake-utils": "flake-utils",
         "ghostty": "ghostty",
         "home-manager": "home-manager",
+        "localtunnel": "localtunnel",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

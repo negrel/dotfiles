@@ -5,9 +5,6 @@
     { ... }:
     {
       home.packages = with pkgs; [
-        dufs
-        nodePackages.localtunnel
-
         # under pkgs/
         my.sharecv
       ];

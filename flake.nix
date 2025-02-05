@@ -44,6 +44,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    localtunnel = {
+      url = "github:negrel/localtunnel";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -56,6 +61,7 @@
       scratch,
       allelua,
       wooz,
+      localtunnel,
       ...
     }@inputs:
     let
@@ -68,6 +74,7 @@
           scratch = scratch.packages.${system}.default;
           allelua = allelua.packages.${system}.default;
           wooz = wooz.packages.${system}.default;
+          localtunnel = localtunnel.packages.${system}.default;
           my = self.outputs.packages."${system}";
           lib = lib;
         }
