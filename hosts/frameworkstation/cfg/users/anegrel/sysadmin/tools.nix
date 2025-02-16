@@ -71,6 +71,8 @@
         gocryptfs
         # rsync for cloud storage.
         rclone
+        # SSH alternative for unstable connection
+        mosh
       ];
     };
 }
