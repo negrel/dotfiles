@@ -34,11 +34,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    allelua = {
-      url = "github:negrel/allelua";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     wooz = {
       url = "github:negrel/wooz";
       inputs.flake-utils.follows = "flake-utils";
@@ -59,7 +54,6 @@
       nur,
       ghostty,
       scratch,
-      allelua,
       wooz,
       localtunnel,
       ...
@@ -72,7 +66,6 @@
       myoverlay = (
         system: final: prev: {
           scratch = scratch.packages.${system}.default;
-          allelua = allelua.packages.${system}.default;
           wooz = wooz.packages.${system}.default;
           localtunnel = localtunnel.packages.${system}.default;
           my = self.outputs.packages."${system}";
