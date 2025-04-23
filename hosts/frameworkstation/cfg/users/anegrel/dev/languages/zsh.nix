@@ -7,9 +7,8 @@
     {
       # Import nix-index-database module for command not found handler.
       imports = [ nix-index-database.hmModules.nix-index ];
-      # Enable nixpkgs index.
-      programs.nix-index.enable = true;
-      # Comma allow running commands without installing them.
+
+      programs.nix-index.enableZshIntegration = false;
       programs.nix-index-database.comma.enable = true;
 
       home.packages = with pkgs; [

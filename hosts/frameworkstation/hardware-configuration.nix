@@ -91,7 +91,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   # Disable pulseaudio so there is no conflict with pipewire
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Enable fstrimming
   services.fstrim.enable = true;
