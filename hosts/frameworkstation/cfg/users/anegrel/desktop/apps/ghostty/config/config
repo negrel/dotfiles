@@ -6,7 +6,6 @@ shell-integration-features = no-cursor
 
 mouse-scroll-multiplier = 0.5
 
-gtk-adwaita = false
 window-decoration = false
 resize-overlay = never
 confirm-close-surface = false
