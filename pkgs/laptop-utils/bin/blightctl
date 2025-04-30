@@ -74,11 +74,11 @@ case "${1:=}" in
 		;;
 
 	inc)
-		light -A "$2"
+		light -A "${2:-1}"
 		;;
 
 	dec)
-		light -U "$2"
+		light -U "${2:-1}"
 		;;
 
 	stream)
