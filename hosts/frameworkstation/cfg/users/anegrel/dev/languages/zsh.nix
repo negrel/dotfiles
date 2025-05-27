@@ -21,17 +21,22 @@
         autosuggestion.enable = true;
         enableCompletion = true;
         syntaxHighlighting.enable = true;
-        initExtraBeforeCompInit = ''
-          ZSH_THEME="pmcgee"
-          plugins=(git colored-man-pages fzf)
-
+        initContent = ''
           export FZF_DEFAULT_OPTS="--layout reverse"
+
+          source ~/.config/zsh/rc
         '';
-        initExtra = "source ~/.config/zsh/rc";
-        history.size = 1000000000;
+        history = {
+          size = 1000000000;
+          append = true;
+        };
 
         oh-my-zsh = {
           enable = true;
+          theme = "pmcgee";
+          extraConfig = ''
+            plugins=(git colored-man-pages fzf)
+          '';
         };
       };
 

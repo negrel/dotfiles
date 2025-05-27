@@ -5,7 +5,7 @@
     { ... }:
     {
       home.packages = with pkgs; [
-        signal-desktop-source
+        signal-desktop
       ];
     };
 }

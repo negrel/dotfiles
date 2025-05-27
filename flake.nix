@@ -25,7 +25,6 @@
 
     ghostty = {
       url = "github:negrel/ghostty";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # External packages
