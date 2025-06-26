@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+printf "Choose credentials (format: username:password): "
+read -r credential
+
+ttyd \
+	--port 7681 \
+  --cwd "$HOME" \
+  --writable \
+  --credential "$credential" \
+  "$SHELL" &
+ttyd_pid=$?
+
+ssh -R "$HOSTNAME:80:localhost:7681" "$SISH_HOSTNAME" &
+ssh_pid=$?
+
+kill_all() {
+	kill "$ssh_pid" "$ttyd_pid"
+}
+
+trap kill_all SIGINT
+
+wait
