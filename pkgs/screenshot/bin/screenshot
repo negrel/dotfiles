@@ -20,7 +20,8 @@ OPTIONS
 EOF
 }
 
-opts=""
+opts=()
+output=""
 focused_screen=true
 
 while test $# -gt 0; do
@@ -37,15 +38,14 @@ while test $# -gt 0; do
 
 		-s|--select-region)
 			shift
-			opts="-g \"$(slurp)\" $opts"
+			opts+=("-g" "$(slurp)")
 			focused_screen=false
 			;;
 
 		-r|--region)
-			shift
-			opts="-g ${1:-""} $opts"
+			shift 2
+			opts+=("-g" "$2")
 			focused_screen=false
-			shift
 			;;
 
 		-a|--all)
@@ -55,7 +55,12 @@ while test $# -gt 0; do
 
 		-c|--cursor)
 			shift
-			opts="-c $opts"
+			opts+=("-c")
+			;;
+
+		-o|--output)
+			output="$2"
+			shift 2
 			;;
 
 		*)
@@ -69,22 +74,25 @@ while test $# -gt 0; do
 	esac
 done
 
-name=$(date +%Y%m%d_%Hh%Mm%Ss_screenshot.png)
-
-dst="${1:-""}"
-if [ -d "$dst" ]; then
-	dst="$(realpath "$dst/$name")"
-else
-	dst="$PWD/$name"
-fi
-
 if [ "$focused_screen" = "true" ]; then
-	opts="-o $(wmctl monitor focused) $opts"
+	opts+=("-o" "$(wmctl monitor focused)")
 fi
 
-if sh -c "grim $opts $dst"; then
-	notify-send -i "$dst" "$name" "Screenshot captured successfully"
+# Take screenshot.
+if [ -z "$output" ]; then
+	grim "${opts[@]}" >(wl-copy)
 else
-	notify-send "$name" "Screenshot failed"
+	grim "${opts[@]}" "$output"
+fi
+
+# shellcheck disable=SC2181
+if [ "$?" = "0" ]; then
+	if [ -z "$output" ]; then
+		notify-send -i <(wl-paste) "screenshot" "Screenshot captured successfully"
+	else
+		notify-send -i "$output" "screenshot" "Screenshot captured successfully"
+	fi
+else
+	notify-send "screenshot" "Screenshot failed"
 fi
 
