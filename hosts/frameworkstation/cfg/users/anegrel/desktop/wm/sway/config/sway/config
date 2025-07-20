@@ -124,6 +124,9 @@ bindsym $mod+c layout tabbed
 bindsym $mod+x layout stacking
 bindsym $mod+n layout toggle split
 
+# Default to tabbed layout.
+workspace_layout tabbed
+
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
 
