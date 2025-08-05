@@ -4,7 +4,7 @@
   home-manager.users.anegrel =
     { ... }:
     {
-      home.packages = with pkgs; [ ghostty ];
+      home.packages = with pkgs; [ my.ghostty-intel ];
 
       home.file.".config/ghostty/config".source = ./config/config;
 

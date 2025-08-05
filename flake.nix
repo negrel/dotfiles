@@ -23,11 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ghostty = {
-      url = "github:negrel/ghostty";
-    };
+    # A wrapper tool for nix OpenGL application.
+    nixgl.url = "github:nix-community/nixGL";
 
     # External packages
+    ghostty.url = "github:negrel/ghostty";
     scratch = {
       url = "github:negrel/scratch";
       inputs.flake-utils.follows = "flake-utils";
@@ -51,6 +51,7 @@
       nixpkgs,
       flake-utils,
       nur,
+      nixgl,
       ghostty,
       scratch,
       wooz,
@@ -68,6 +69,7 @@
           wooz = wooz.packages.${system}.default;
           localtunnel = localtunnel.packages.${system}.default;
           my = self.outputs.packages."${system}";
+          nixGLIntel = nixgl.outputs.packages."${system}".nixGLIntel;
           lib = lib;
         }
       );
@@ -83,7 +85,7 @@
             {
               nixpkgs.overlays = [
                 nur.overlays.default
-                ghostty.overlays.default
+                nixgl.overlay
                 (myoverlay system)
               ];
             }

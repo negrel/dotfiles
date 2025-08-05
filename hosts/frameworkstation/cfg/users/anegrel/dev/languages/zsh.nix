@@ -6,7 +6,7 @@
     { pkgs, ... }:
     {
       # Import nix-index-database module for command not found handler.
-      imports = [ nix-index-database.hmModules.nix-index ];
+      imports = [ nix-index-database.homeModules.nix-index ];
 
       programs.nix-index.enableZshIntegration = false;
       programs.nix-index-database.comma.enable = true;
