@@ -64,7 +64,10 @@
         # AMD
         amdgpu_top
         # Kernel specific
-        linuxKernel.packages.linux_zen.cpupower
+        linuxPackages_zen.cpupower
+        linuxPackages_zen.perf
+        flamegraph
+
         # TUI file manager
         fff
         # Encrypted FUSE.
