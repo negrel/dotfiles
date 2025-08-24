@@ -17,4 +17,23 @@
         export TERMINAL="ghostty"
       '';
     };
+
+  systemd.user.services.ghostty = {
+    enable = true;
+    description = "ghostty";
+    after = [
+      "graphical-session.target"
+      "dbus.socket"
+    ];
+    requires = [ "dbus.socket" ];
+    wantedBy = [ "graphical-session.target" ];
+
+    serviceConfig = {
+      Type = "notify-reload";
+      ReloadSignal = "SIGUSR2";
+      BusName = "com.mitchellh.ghostty";
+      ExecStart = "${pkgs.my.ghostty-intel}/bin/ghostty --launched-from=systemd";
+      Restart = "always";
+    };
+  };
 }

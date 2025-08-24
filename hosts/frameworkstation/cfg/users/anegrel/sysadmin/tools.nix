@@ -66,8 +66,8 @@
         # Kernel specific
         linuxPackages_zen.cpupower
         linuxPackages_zen.perf
+        # Visualization for profiled code.
         flamegraph
-
         # TUI file manager
         fff
         # Encrypted FUSE.

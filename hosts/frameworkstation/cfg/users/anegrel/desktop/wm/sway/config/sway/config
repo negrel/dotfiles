@@ -2,8 +2,6 @@ include ~/.config/sway/minimal
 
 set $mod mod4
 
-set $term ghostty
-
 # Notifications daemons
 exec mako
 
@@ -44,8 +42,8 @@ exec swaymsg inhibit_idle fullscreen
 # Key bindings
 #
 
-bindsym $mod+t exec $term
-bindsym $mod+Shift+t exec $term
+bindsym $mod+t exec ghostty +new-window
+bindsym $mod+Shift+t exec ghostty
 
 # Kill focused window
 bindsym $mod+q kill

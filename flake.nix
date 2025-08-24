@@ -65,6 +65,7 @@
       };
       myoverlay = (
         system: final: prev: {
+          ghostty = ghostty.packages.${system}.default;
           scratch = scratch.packages.${system}.default;
           wooz = wooz.packages.${system}.default;
           localtunnel = localtunnel.packages.${system}.default;
