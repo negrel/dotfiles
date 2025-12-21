@@ -14,7 +14,7 @@ history = 100000
 multiplier = 3
 
 [font]
-size = 9
+size = 9.5
 glyph_offset = { x = 0, y = 0 }
 offset = { x = 0, y = 0 }
 
@@ -74,4 +74,3 @@ duration = 100
 
 [selection]
 save_to_clipboard = false
-

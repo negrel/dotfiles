@@ -42,9 +42,7 @@ exec swaymsg inhibit_idle fullscreen
 # Key bindings
 #
 
-exec ghostty --launched-from=systemd
-bindsym $mod+t exec ghostty +new-window
-bindsym $mod+Shift+t exec ghostty
+bindsym $mod+t exec alacritty
 
 # Kill focused window
 bindsym $mod+q kill

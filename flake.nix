@@ -27,7 +27,6 @@
     nixgl.url = "github:nix-community/nixGL";
 
     # External packages
-    ghostty.url = "github:negrel/ghostty";
     scratch = {
       url = "github:negrel/scratch";
       inputs.flake-utils.follows = "flake-utils";
@@ -52,7 +51,6 @@
       flake-utils,
       nur,
       nixgl,
-      ghostty,
       scratch,
       wooz,
       localtunnel,
@@ -65,7 +63,6 @@
       };
       myoverlay = (
         system: final: prev: {
-          ghostty = ghostty.packages.${system}.default;
           scratch = scratch.packages.${system}.default;
           wooz = wooz.packages.${system}.default;
           localtunnel = localtunnel.packages.${system}.default;
