@@ -1,7 +1,11 @@
 { pkgs, lib, ... }:
 
 {
-  users = { users.anegrel = { extraGroups = [ "docker" ]; }; };
+  users = {
+    users.anegrel = {
+      extraGroups = [ "docker" ];
+    };
+  };
 
   virtualisation.docker = {
     enable = true;
@@ -11,12 +15,20 @@
       experimental = true;
       ip6tables = true;
       fixed-cidr-v6 = "2001:db8:1::/4";
+      features = {
+        containerd-snapshotter = true;
+      };
     };
   };
 
-  home-manager.users.anegrel = { ... }: {
-    home.file.".docker/config.json".text =
-      lib.my.readSecret "negrel.docker.config.json";
-    home.packages = with pkgs; [ dive buildah docker-compose ];
-  };
+  home-manager.users.anegrel =
+    { ... }:
+    {
+      home.file.".docker/config.json".text = lib.my.readSecret "negrel.docker.config.json";
+      home.packages = with pkgs; [
+        dive
+        buildah
+        docker-compose
+      ];
+    };
 }
