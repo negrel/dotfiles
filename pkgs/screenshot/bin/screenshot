@@ -88,7 +88,7 @@ fi
 # shellcheck disable=SC2181
 if [ "$?" = "0" ]; then
 	if [ -z "$output" ]; then
-		notify-send -i <(wl-paste) "screenshot" "Screenshot captured successfully"
+		notify-send -i <(wl-paste) "screenshot" "Screenshot captured successfully (in your clipboard)"
 	else
 		notify-send -i "$output" "screenshot" "Screenshot captured successfully"
 	fi
