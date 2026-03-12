@@ -29,7 +29,7 @@
         # ncurses du
         ncdu
         # PDF CLI
-        poppler_utils
+        poppler-utils
         # Archive
         unrar
         zip
