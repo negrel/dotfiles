@@ -28,8 +28,6 @@
         htop
         # ncurses du
         ncdu
-        # system info fetcher
-        neofetch
         # PDF CLI
         poppler_utils
         # Archive
