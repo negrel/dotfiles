@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     gnupg
-    pinentry
+    pinentry-gnome3
   ];
   programs.gnupg.agent.enable = true;
 }

@@ -70,15 +70,15 @@ case "${1:=}" in
 		;;
 
 	set)
-		light -S "$2"
+		brightnessctl set "$2%"
 		;;
 
 	inc)
-		light -A "${2:-1}"
+		brightnessctl set "+${2:-1}%"
 		;;
 
 	dec)
-		light -U "${2:-1}"
+		brightnessctl set "-${2:-1}%"
 		;;
 
 	stream)
