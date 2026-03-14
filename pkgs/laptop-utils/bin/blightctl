@@ -52,11 +52,8 @@ while [ "$#" -gt "0" ]; do
 done
 
 brightness_get() {
-	light -G | cut -d '.' -f 1
+	brightnessctl | grep 'Current' | cut -d '(' -f 2 | cut -d ')' -f 1 | head -n1
 }
-
-# Set minimum value
-light -N 1
 
 case "${1:=}" in
 	help)
@@ -78,7 +75,7 @@ case "${1:=}" in
 		;;
 
 	dec)
-		brightnessctl set "-${2:-1}%"
+		brightnessctl set "${2:-1}%-"
 		;;
 
 	stream)
