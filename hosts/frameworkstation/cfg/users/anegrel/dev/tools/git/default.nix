@@ -13,5 +13,9 @@
       ];
 
       home.file.".gitconfig".source = ./config;
+
+      zshrc.scripts."00-git".text = ''
+        export GIT_EDITOR=nano
+      '';
     };
 }
