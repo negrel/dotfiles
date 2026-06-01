@@ -2,7 +2,7 @@
 
 {
   home-manager.users.anegrel =
-    { ... }:
+    { config, ... }:
     {
       home.packages = with pkgs; [
         # Required for SpeechSynthesis API
@@ -12,6 +12,7 @@
 
       programs.firefox = {
         enable = true;
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
         profiles.anegrel = {
           isDefault = true;
           search.default = "ddg";
