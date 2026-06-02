@@ -38,5 +38,5 @@
 
   # DNSSEC validation is attempted, but if the server does not support DNSSEC
   # properly, DNSSEC mode is automatically disabled.
-  services.resolved.dnssec = "allow-downgrade";
+  services.resolved.settings.Resolve.DNSSEC = "allow-downgrade";
 }
