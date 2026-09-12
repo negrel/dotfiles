@@ -1,9 +1,0 @@
-[user]
-    name = Alexandre Negrel
-    email = alexandre@negrel.dev
-[credential]
-    helper = store
-
-[core]
-    autocrlf = input
-

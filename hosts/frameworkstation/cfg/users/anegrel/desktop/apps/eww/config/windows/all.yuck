@@ -1,3 +1,0 @@
-(include "./windows/bar.yuck")
-(include "./windows/volume-overlay.yuck")
-(include "./windows/backlight-overlay.yuck")
