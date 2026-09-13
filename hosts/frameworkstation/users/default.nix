@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./anegrel/default.nix
+  ];
+}
