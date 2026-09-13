@@ -8,6 +8,7 @@
     ./layout.nix
     ./locale.nix
     ./network.nix
+    ./nix.nix
     ./sound.nix
     ./time.nix
     ./users/default.nix

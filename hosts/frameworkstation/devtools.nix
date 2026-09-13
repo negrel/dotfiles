@@ -4,8 +4,6 @@
   environment.systemPackages = with pkgs; [
     git
     tig
-
-    vim
-    vscodium
+    neovim
   ];
 }

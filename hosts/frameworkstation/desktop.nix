@@ -26,7 +26,11 @@
   ];
 
   fonts = {
-    packages = with pkgs; [ adwaita-fonts jetbrains-mono noto-fonts ];
+    packages = with pkgs; [
+      adwaita-fonts
+      jetbrains-mono
+      noto-fonts
+    ];
     enableDefaultPackages = true;
     fontDir.enable = true;
     fontconfig = {
